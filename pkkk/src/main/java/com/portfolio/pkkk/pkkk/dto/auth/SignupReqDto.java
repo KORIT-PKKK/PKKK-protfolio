@@ -1,5 +1,6 @@
 package com.portfolio.pkkk.pkkk.dto.auth;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
@@ -8,6 +9,7 @@ import lombok.Data;
 @Data
 public class SignupReqDto { 
 	//각각 벨리데이션을 달아줌. 규칙만 정해둔 상태. 실제러 검사하는건 @Valid  //validation
+	@Email
 	@NotBlank (message = "아이디를 입력하세요.")
 	private String username;
 	

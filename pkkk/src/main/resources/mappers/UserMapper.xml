@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.portfolio.pkkk.pkkk.repository.UserRepository">
+	
+	<resultMap type="com.portfolio.pkkk.pkkk.entity.User" id="userMap">
+		<id property="userId" column="user_id"/>
+		<result property="username" column="username"/>
+		<result property="password" column="password"/>
+		<result property="name" column="name"/>
+	</resultMap>
 
+	<select id="findUserByUsername" resultMap="userMap">
+		select
+			um.user_id,
+			um.username,
+			um.password,
+			um.name
+		from
+			user_mst um
+			left outer join user_mst um on(um.user_id = )	
+		where	
+			um.username = #{username}
+	</select>
+	
+	<insert id="saveUser" 
+		parameterType= "com.portfolio.pkkk.pkkk.entity.User"
+		useGeneratedKeys="true"
+		keyProperty="userId">
+			insert into user_tb
+			value (0, #{username}, #{password}, #{name})
+	</insert>
 
 </mapper>

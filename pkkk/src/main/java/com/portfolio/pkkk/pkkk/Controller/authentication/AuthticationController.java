@@ -12,10 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.portfolio.pkkk.pkkk.aop.anonotation.ValidAspect;
 import com.portfolio.pkkk.pkkk.dto.auth.SignupReqDto;
+import com.portfolio.pkkk.pkkk.service.AuthenticationService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthticationController {
+	
+	private final AuthenticationService authenticationService;
 	
 	@PostMapping("/login")
 	public ResponseEntity<?> login() {
@@ -26,8 +32,8 @@ public class AuthticationController {
 	@ValidAspect
 	@PostMapping("/signup")
 	public ResponseEntity<?> signup(@Valid @RequestBody SignupReqDto signupReqDto, BindingResult bindingResult) {
-		System.out.println("signup실행");
 		System.out.println(signupReqDto);
+		authenticationService.checkDuplicatedUsername(signupReqDto.getUsername());
 		return ResponseEntity.ok(null);
 	}
 }
