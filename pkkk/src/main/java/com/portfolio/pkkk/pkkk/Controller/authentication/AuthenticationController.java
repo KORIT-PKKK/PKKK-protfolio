@@ -19,6 +19,8 @@ public class AuthenticationController {
 	@ValidAspect
 	@PostMapping("/signup")
 	public ResponseEntity<?> signup(@Valid @RequestBody SignUpReqDto signUpReqDto, BindingResult bindingResult) {
+		System.out.println(signUpReqDto);
+		System.out.println(bindingResult);
 		return ResponseEntity.ok().body(null);
 	}
 }
