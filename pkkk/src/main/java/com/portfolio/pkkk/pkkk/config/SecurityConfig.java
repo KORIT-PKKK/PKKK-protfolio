@@ -18,15 +18,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable();
+	protected void configure(HttpSecurity http) throws Exception { 
+		http.csrf().disable(); 
 		http.httpBasic().disable();
 		http.formLogin().disable();
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		http.authorizeHttpRequests()
-			.antMatchers("/auth/**")
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); 
+		http.authorizeRequests()
+			.antMatchers("/auth/**") 
 			.permitAll()
 			.anyRequest()
-			.authenticated();
+			.authenticated(); 
 	}
 }

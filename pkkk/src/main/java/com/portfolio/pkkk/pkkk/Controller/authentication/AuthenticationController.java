@@ -4,30 +4,21 @@ import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.portfolio.pkkk.pkkk.aop.anonotation.ValidAspect;
-import com.portfolio.pkkk.pkkk.dto.auth.SignupReqDto;
+import com.portfolio.pkkk.pkkk.dto.auth.SignUpReqDto;
 
 @RestController
 @RequestMapping("/auth")
-public class AuthticationController {
-	
-	@PostMapping("/login")
-	public ResponseEntity<?> login() {
-		return ResponseEntity.ok(null);
-	}
+public class AuthenticationController {
 
-	@CrossOrigin
 	@ValidAspect
 	@PostMapping("/signup")
-	public ResponseEntity<?> signup(@Valid @RequestBody SignupReqDto signupReqDto, BindingResult bindingResult) {
-		System.out.println("signup실행");
-		System.out.println(signupReqDto);
-		return ResponseEntity.ok(null);
+	public ResponseEntity<?> signup(@Valid @RequestBody SignUpReqDto signUpReqDto, BindingResult bindingResult) {
+		return ResponseEntity.ok().body(null);
 	}
 }
