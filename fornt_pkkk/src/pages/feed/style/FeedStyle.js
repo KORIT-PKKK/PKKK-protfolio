@@ -7,7 +7,7 @@ export const feed = css`
     flex-direction: column;
     padding: 26px 20px 28px;
     width: 720px;
-    height: auto;
+    height: 100%;
     margin: 10px auto;
     background-color: white;
     border: 1px solid #dbdbdb;
@@ -17,50 +17,72 @@ export const header = css`
     display: flex;
     align-items: center;
     width: 680px;
-    height: auto;
+    height: 42px;
 `;
 
 export const profile = css`
-    text-align: left;
-    border: 1px solid #dbdbdb;
+    border: 1px solid white;
     display: flex;
-    width: 597px;
+    width: 100%;
     height: 62px;
-    margin: 10px;
+    margin: -10px;
     padding: 10px;
     background-color: white;
 `;
 
+export const profilePictureBox = css`
+    width: 42px;
+    height: 42px;
+    margin: 0px 8px 0px 0px;
+`;
+
 export const profilePicture = css` 
     text-align: left;
-    border: 1px solid #dbdbdb;
+    border: 2px solid #dbdbdb;
     border-radius: 50%;
+    width: 38px;
+    height: 38px;
+`;
+
+export const profileID = css`
+    text-align: left;
+    font-size: 16px;
+    font-weight: 600;
 `;
 
 export const profileInfo = css`
     text-align: left;
+    font-size: 12px;
+    color: #8F8F8F;
 `;
 
 export const follow = css`
+    padding: 5px;
     justify-content: center;
-    width: 70px;
-    height: 30px;
 `;
 
 export const followButton = css`
+    width: 70px;
+    height: 30px;
+    font-weight: 600;
+    font-size: 13px;
     border: #F3F9FE;
+    border-radius: 5px;
     background-color: #F3F9FE;
+    color: #2D8DEE;
 `;
 
 export const block = css`
     justify-content: center;
-    width: 26px;
-    height: 30px;
 `;
 
 export const blockButton = css`
-    border: 1px solid #dbdbdb;
+    border: 1px solid white;
     background-color: white;
+    color: #8F8F8F;
+    font-size: 16px;
+    width: 26px;
+    height: 30px;
 `;
 
 export const main = css`
@@ -68,9 +90,19 @@ export const main = css`
     height: 439px;
 `;
 
+export const pictureButton = css`
+    width: 680px;
+    height: 360px;
+    margin: 7px 0px 0px 0px;
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+    background-color: white;
+`;
+
 export const picture = css`
     width: 680px;
     height: 360px;
+    margin: 7px 0px 0px 0px;
     border: 1px solid #dbdbdb;
     border-radius: 5px;
 `;
@@ -102,7 +134,23 @@ export const place = css`
     height: 20px;
 `;
 
+export const placeDetail = css` 
+    display: flex;
+    margin: 0px 0px 7px 0px;
+`;
+
 export const favorites = css`
-    width: 26px;
+    display: flex;
+    text-align: right;
+    width: 39px;
     height: 39px;
+`;
+
+export const favoritesButton = css`
+    background-color: white;
+    border: 1px solid white;
+`;
+
+export const favoritesDetail = css`
+    font-size: 11px;
 `;
