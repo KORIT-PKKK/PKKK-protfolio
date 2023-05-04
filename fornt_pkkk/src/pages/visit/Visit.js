@@ -15,7 +15,7 @@ const Visit = () => {
                             <div css={S.placeInfo}>
                                 <div css={S.placeName}>삼촌집</div>
                                 <div css={S.date}>05.03</div>
-                                <div> ⋅ </div>
+                                <div css={S.wordSeparation}> ⋅ </div>
                                 <div css={S.visitCount}>4번방문</div>
                             </div>
                             <div>
@@ -25,7 +25,7 @@ const Visit = () => {
                         </div>
                         <div css={S.reviewMain}>
                             <div css={S.presidentName}>김사장</div>
-                            <div> ⋅ </div>
+                            <div css={S.wordSeparation}> ⋅ </div>
                             <div css={S.price}>20000</div>
                         </div>
                         <div css={S.reviewFooter}>
@@ -34,6 +34,7 @@ const Visit = () => {
                     </div>
                 </div>
             </div>
+            
         </>
     );
 };

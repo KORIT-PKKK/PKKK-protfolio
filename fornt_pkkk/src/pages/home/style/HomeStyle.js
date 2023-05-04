@@ -183,3 +183,56 @@ export const menu = css`
     padding: 14px 5px;
     cursor: pointer;
 `;
+
+export const footerBox = css`
+    height: 160px;
+    padding: 42px 0px 36px;
+`;
+
+export const logoutBox = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+`;
+
+export const logoutButton = css`
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    font-size: 14px;
+`;
+
+export const serviceBox = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    margin-top: 12px;
+`;
+
+export const serviceButton = css`
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    font-size: 12px;
+`;
+
+export const componyBox = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    margin-top: 10px;
+`;
+
+export const componyButton = css`
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    font-size: 12px;
+`;
+
+export const wordSeparation = css`
+    margin: 0px 9px;
+`;

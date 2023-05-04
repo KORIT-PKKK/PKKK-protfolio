@@ -49,6 +49,10 @@ export const date = css`
     text-align: center;
 `;
 
+export const wordSeparation = css`
+    margin: 0px 5px;
+`;
+
 export const visitCount = css`
     font-size: 15px;
     text-align: center;
