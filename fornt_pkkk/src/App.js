@@ -7,6 +7,7 @@ import Visit from './pages/visit/Visit';
 import Feed from './pages/feed/Feed';
 import Review from './pages/review/Review';
 import Save from './pages/save/Save';
+import Book from './pages/book/Book';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path='/feed' element={<Feed />}></Route>
         <Route path='/review' element={<Review />}></Route>
         <Route path='/save' element={<Save />}></Route>
+        <Route path='/book' element={<Book />}></Route>
       </Routes>
     </>
   );
