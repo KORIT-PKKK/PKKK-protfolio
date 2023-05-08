@@ -13,34 +13,35 @@ import org.springframework.validation.BindingResult;
 
 import com.portfolio.pkkk.pkkk.exception.CustomException;
 
-
 @Aspect
 @Component
 public class ValidationAop {
-	
+
 	@Pointcut("@annotation(com.portfolio.pkkk.pkkk.aop.anonotation.ValidAspect)")
 	private void pointCut() {}
-	
+
 	@Around("pointCut()")
 	public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
+
 		Object[] args = joinPoint.getArgs();
 		BindingResult bindingResult = null;
 		
 		for(Object arg : args) {
 			if(arg.getClass() == BeanPropertyBindingResult.class) {
-				bindingResult = (BindingResult) arg;
+				bindingResult = (BeanPropertyBindingResult) arg;
 			}
 		}
 		
 		if(bindingResult.hasErrors()) {
 			Map<String, String> errorMap = new HashMap<>();
+			
 			bindingResult.getFieldErrors().forEach(error -> {
 				errorMap.put(error.getField(), error.getDefaultMessage());
 			});
+			
 			throw new CustomException("Validation Failed", errorMap);
 		}
 		
 		return joinPoint.proceed();
 	}
-	
 }

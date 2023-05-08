@@ -23,11 +23,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		http.httpBasic().disable();
 		http.formLogin().disable();
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		http.authorizeHttpRequests()
-			.antMatchers("/auth/**")
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); 
+		http.authorizeRequests()
+			.antMatchers("/auth/**") 
 			.permitAll()
 			.anyRequest()
-			.authenticated();
+			.authenticated(); 
 	}
 }

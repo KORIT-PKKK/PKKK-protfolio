@@ -13,10 +13,12 @@ public class ErrorMap {
 	public static ErrorMap builder() {
 		return new ErrorMap();
 	}
+	
 	public ErrorMap put(String key, String value) {
 		errorMap.put(key, value);
 		return this;
 	}
+	
 	public Map<String, String> build() {
 		return errorMap;
 	}
