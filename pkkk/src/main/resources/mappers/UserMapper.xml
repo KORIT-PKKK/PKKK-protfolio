@@ -1,9 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.portfolio.pkkk.pkkk.repository.UserRepository">
-	<insert id="saveUser" parameterMap="com.portfolio.pkkk.pkkk.entity.User">
-		insert into user_mst
-		value (0, #{user_Id})
+	
+	<resultMap type="com.portfolio.pkkk.pkkk.entity.User" id="userMap">
+		<id property="userId" column="user_id"/>
+		<result property="username" column="username"/>	
+		<result property="password" column="password"/>
+		<association property="userDetail" resultMap="userDetailMap"/>
+		<collection property="authorities" javaType="list" resultMap="authorityMap"/>	
+	</resultMap>
+	
+	<resultMap type="com.portfolio.pkkk.pkkk.entity.Authority" id="authorityMap">
+		<id property="authorityId" column="authority_id"/>
+		<result property="userId" column="user_id"/>
+		<result property="roleId" column="role_id"/>
+		<association property="role" resultMap="roleMap"/>
+	</resultMap>
+	
+	<resultMap type="com.portfolio.pkkk.pkkk.entity.UserDetail" id="userDetailMap">
+		<id property="userDtlId" column="user_dtl_id"/>
+		<result property="userId" column="user_id"/>
+		<result property="name" column="name"/>
+		<result property="introduce" column="introduce"/>
+		<result property="imageUrl" column="image_url"/>
+		<result property="joinDate" column="join_date"/>
+	</resultMap>
+	
+	<resultMap type="com.portfolio.pkkk.pkkk.entity.Role" id="roleMap">
+		<id property="roleId" column="role_id"/>
+		<result property="roleName" column="role_name"/>
+	</resultMap>
+	
+	<select id="findUserByUsername" resultMap="userMap">
+		select
+			um.user_id,
+			um.username,
+			um.password,
+			
+			am.authority_id,
+			am.user_id,
+			am.role_id,
+			
+			rm.role_id,
+			rm.role_name
+		from
+			user_mst um
+		    left outer join authority_mst am on(am.user_id = um.user_id)
+		    left outer join role_mst rm on(rm.role_id = am.role_id)
+		where
+			um.username = #{userName} 
+	</select>
+	
+	<insert id="saveUser" useGeneratedKeys="true" keyProperty="userId">
+	    insert into user_mst(user_id, username, password) values (0, #{username}, #{password})
 	</insert>
+	<insert id="saveUserDetail">
+	    insert into user_dtl(user_id, name) values (#{userId}, #{userDetail.name})
+	</insert>
+	
+	<insert id="saveAuthority" parameterType="com.portfolio.pkkk.pkkk.entity.Authority">
+		insert into authority_mst
+		values (0, #{userId}, #{roleId})
+	</insert>
+	
 
 </mapper>
