@@ -55,7 +55,7 @@
 	    insert into user_mst(user_id, username, password) values (0, #{username}, #{password})
 	</insert>
 	<insert id="saveUserDetail">
-	    insert into user_dtl(user_id, name) values (#{userId}, #{userDetail.name})
+	    insert into user_dtl(user_id, name) values (0, #{userDetail.name})
 	</insert>
 	
 	<insert id="saveAuthority" parameterType="com.portfolio.pkkk.pkkk.entity.Authority">

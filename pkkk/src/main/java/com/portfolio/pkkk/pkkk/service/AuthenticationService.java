@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.portfolio.pkkk.pkkk.dto.auth.SignupReqDto;
 import com.portfolio.pkkk.pkkk.entity.Authority;
 import com.portfolio.pkkk.pkkk.entity.User;
+import com.portfolio.pkkk.pkkk.entity.UserDetail;
 import com.portfolio.pkkk.pkkk.exception.CustomException;
 import com.portfolio.pkkk.pkkk.exception.ErrorMap;
 import com.portfolio.pkkk.pkkk.repository.UserRepository;
@@ -31,8 +32,10 @@ public class AuthenticationService implements UserDetailsService {
 	}
 	// 자동으로 인덱스1번 권한 주는 메소드
 	public void signup(SignupReqDto signupReqDto) {
+		UserDetail userDetail = null;
 		User userEntity = signupReqDto.toEntity();
 		userRepository.saveUser(userEntity);
+		userRepository.saveUserDetail(userDetail);
 		userRepository.saveAuthority(Authority.builder()
 				.userId(userEntity.getUserId())
 				.roleId(1)
