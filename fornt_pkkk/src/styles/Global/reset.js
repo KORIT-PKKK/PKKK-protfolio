@@ -42,14 +42,6 @@ export const Reset = css`
     }
 
     #root{
-        position: relative;
-        margin: 10px auto;
-        border: 3px solid #dbdbdb;
-        border-radius: 10px;
-        padding: 10px;
-        width: 750px;
-        height: 900px;
-        overflow: hidden;
     }
 
     ol, ul {
