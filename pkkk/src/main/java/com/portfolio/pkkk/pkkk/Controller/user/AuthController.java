@@ -1,4 +1,4 @@
-package com.portfolio.pkkk.pkkk.Controller.user;
+package com.portfolio.pkkk.pkkk.controller.user;
 
 public class AuthController {
 
