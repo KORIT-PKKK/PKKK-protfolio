@@ -1,4 +1,4 @@
-package com.portfolio.pkkk.pkkk.Controller.authentication;
+package com.portfolio.pkkk.pkkk.controller.authentication;
 
 import javax.validation.Valid;
 

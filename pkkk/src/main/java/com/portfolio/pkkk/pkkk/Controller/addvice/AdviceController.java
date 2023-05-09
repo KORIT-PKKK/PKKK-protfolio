@@ -1,4 +1,4 @@
-package com.portfolio.pkkk.pkkk.Controller.addvice;
+package com.portfolio.pkkk.pkkk.controller.addvice;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

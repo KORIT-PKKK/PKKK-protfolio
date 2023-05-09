@@ -1,4 +1,4 @@
-package com.portfolio.pkkk.pkkk.Controller.store;
+package com.portfolio.pkkk.pkkk.controller.store;
 
 public class StoreController {
 
