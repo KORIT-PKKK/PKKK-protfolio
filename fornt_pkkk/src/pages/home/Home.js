@@ -4,8 +4,20 @@ import React from 'react';
 import { HiHome } from 'react-icons/hi';
 import { BiMenu } from 'react-icons/bi';
 import { GrShare } from 'react-icons/gr';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import Feed from '../feed/Feed';
+import Visit from '../visit/Visit';
+import Review from '../review/Review';
+import Book from '../book/Book';
+import Save from '../save/Save';
 
 const Home = () => {
+    const navigate = useNavigate();
+
+    const menuClickHandle = (path) => {
+        navigate(`/${path}`);
+    }
+
     return (
         <>
             <header>
@@ -42,14 +54,24 @@ const Home = () => {
                 </main>
                 <footer css={S.footer}>
                         <div css={S.menuBar}>
-                            <span css={S.menu}>피드</span>
-                            <span css={S.menu}>방문</span>
-                            <span css={S.menu}>리뷰</span>
-                            <span css={S.menu}>예약∙주문</span>
-                            <span css={S.menu}>저장</span>
+                            <span css={S.menu} onClick={() => menuClickHandle('')}>피드</span>
+                            <span css={S.menu} onClick={() => menuClickHandle('visit')}>방문</span>
+                            <span css={S.menu} onClick={() => menuClickHandle('review')}>리뷰</span>
+                            <span css={S.menu} onClick={() => menuClickHandle('reservation')}>예약∙주문</span>
+                            <span css={S.menu} onClick={() => menuClickHandle('save')}>저장</span>
                         </div>
                 </footer>
             </header>
+
+            <main>
+            <Routes>
+                <Route path="/" element={<Feed/>}></Route>
+                <Route path="/visit" element={<Visit/>}></Route>
+                <Route path="/review" element={<Review/>}></Route>
+                <Route path="/book" element={<Book/>}></Route>
+                <Route path="/save" element={<Save/>}></Route>
+            </Routes>
+            </main>
 
             <div css={S.footerBox}>       
                 <div css={S.logoutBox}>
