@@ -24,23 +24,23 @@ const Home = () => {
             <header>
                 <header css={S.header}>
                         <div>
-                            <button css={S.logo}><HiHome /></button>
-                            <button css={S.pageName}>PKKK플레이스</button>
+                            <button css={S.logo} onClick={() => menuClickHandle('')}><HiHome /></button>
+                            <button css={S.pageName} onClick={() => menuClickHandle('')}>PKKK플레이스</button>
                         </div>
                         <div>
-                            <button css={S.menuButton}><BiMenu/></button>
+                            <button css={S.menuButton} onClick={() => menuClickHandle('myPage')}><BiMenu/></button>
                         </div>
                 </header>
                 <main css={S.main}>
                         <div css={S.userInfoBox}>
                             <div css={S.userInfo}>
                                 <div css={S.userInfoLeft}>
-                                    <div css={S.profileBox}></div>
+                                    <div css={S.profileBox} onClick={() => menuClickHandle('profile')}></div>
                                 </div>
                                 <div>
-                                    <div css={S.usernameBox}> <div css={S.username}>병수</div> <button css={S.shareButton}><GrShare /></button></div>
+                                    <div css={S.usernameBox} onClick={() => menuClickHandle('profile')}> <div css={S.username}>병수</div> <button css={S.shareButton}><GrShare /></button></div>
                                     <div css={S.Buttons}>
-                                        <button css={S.reviewButton}>리뷰 <em css={S.count}>0</em></button>
+                                        <button css={S.reviewButton} onClick={() => menuClickHandle('review')}>리뷰 <em css={S.count}>0</em></button>
                                         <button css={S.pictureButton}>사진 <em css={S.count}>0</em></button>
                                         <button css={S.followingButton}>팔로잉 <em css={S.count}>0</em></button>
                                         <button css={S.followerButton}>팔로워 <em css={S.count}>1M</em></button>
@@ -53,7 +53,7 @@ const Home = () => {
                             </div>
                         </div>
                 </main>
-                <footer css={S.footer}>
+                <footer>
                         <div css={S.menuBar}>
                             <span css={S.menu} onClick={() => menuClickHandle('')}>피드</span>
                             <span css={S.menu} onClick={() => menuClickHandle('visit')}>방문</span>
@@ -79,7 +79,7 @@ const Home = () => {
                 <div css={S.logoutBox}>
                     <button css={S.logoutButton}>로그아웃</button>
                     <div css={S.wordSeparation}>|</div>
-                    <button css={S.logoutButton}>전체서비스</button>
+                    <button css={S.logoutButton} onClick={() => menuClickHandle('myPage')}>전체서비스</button>
                 </div>
                 <div css={S.serviceBox}>
                     <button css={S.serviceButton}>이용정책</button>
@@ -91,7 +91,7 @@ const Home = () => {
                     <button css={S.serviceButton}>공지사항</button>
                 </div>
                 <div css={S.componyBox}>
-                    <button css={S.componyButton}>©pkkk Corp.</button>
+                    <button css={S.componyButton} onClick={() => menuClickHandle('login')}>©pkkk Corp.</button>
                 </div>
             </div>
         </>

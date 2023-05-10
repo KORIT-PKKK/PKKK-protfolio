@@ -1,8 +1,16 @@
 /** @jsxImportSource @emotion/react */
+import { useNavigate } from 'react-router-dom';
 import * as S from './style/RegisterStyle';
 import React from 'react';
 
-const register = () => {
+const Register = () => {
+
+    const navigate = useNavigate();
+
+    const menuClickHandle = (path) => {
+        navigate(`/${path}`);
+    }
+
     return (
         <>
             <header css={S.header}>
@@ -22,8 +30,11 @@ const register = () => {
             <div css={S.joinButtonBox}>
                 <button css={S.joinButton}>가입하기</button>
             </div>
+            <div css={S.footer}>
+                <div css={S.componyIcon} onClick={() => menuClickHandle('')}>PKKK플레이스</div>
+            </div>
         </>
     );
 };
 
-export default register;
+export default Register;

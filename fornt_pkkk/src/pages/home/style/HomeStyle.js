@@ -166,10 +166,6 @@ export const mission = css`
     font-weight: 600;
 `;
 
-export const footer = css`
-    
-`;
-
 export const menuBar = css`
     display: flex;
     justify-content: space-between;
@@ -214,7 +210,6 @@ export const serviceBox = css`
 export const serviceButton = css`
     border: none;
     background-color: white;
-    cursor: pointer;
     font-size: 12px;
 `;
 

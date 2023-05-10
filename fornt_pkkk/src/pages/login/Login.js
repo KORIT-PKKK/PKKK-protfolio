@@ -4,13 +4,20 @@ import React from 'react';
 import { BiLeftArrowAlt } from 'react-icons/bi';
 import { AiOutlineLock } from 'react-icons/ai';
 import { BiUser } from 'react-icons/bi';
+import { useNavigate } from 'react-router-dom';
 
-const login = () => {
+const Login = () => {
+    const navigate = useNavigate();
+
+    const menuClickHandle = (path) => {
+        navigate(`/${path}`);
+    }
+
     return (
         <>
             <header>
                 <div css={S.headerBox}>
-                    <button css={S.backButton}><BiLeftArrowAlt/></button>
+                    <button css={S.backButton} onClick={() => menuClickHandle('')}><BiLeftArrowAlt/></button>
                 </div>
             </header>
             <div css={S.logoBox}>
@@ -34,7 +41,7 @@ const login = () => {
                 <div css={S.wordSeparation}>|</div>
                 <button css={S.registerButton}>비밀번호 찾기</button>
                 <div css={S.wordSeparation}>|</div>
-                <button css={S.registerButton}>회원가입</button>
+                <button css={S.registerButton} onClick={() => menuClickHandle('register')}>회원가입</button>
             </div>
             <footer css={S.footer}>
                 <button css={S.componyButton}>PKKK</button>
@@ -45,4 +52,4 @@ const login = () => {
     );
 };
 
-export default login;
+export default Login;

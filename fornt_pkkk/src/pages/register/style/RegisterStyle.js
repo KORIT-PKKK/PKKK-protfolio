@@ -38,9 +38,36 @@ export const errorMessage = css`
 `;
 
 export const joinButtonBox = css`
-    
+    width: 460px;
+    height: 53px;
+    margin: 40px auto 0px;
 `;
 
 export const joinButton = css`
-    
+    width: 100%;
+    height: 100%;
+    background-color: green;
+    border: 1px solid green;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+`;
+
+export const footer = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 768px;
+    height: 60px;
+    margin: 20px auto 0px;
+    padding: 30px 0px 15px;
+`;
+
+export const componyIcon = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90px;
+    font-size: 12px;
+    cursor: pointer;
 `;
