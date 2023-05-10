@@ -12,6 +12,8 @@ import MyPage from './pages/myPage/MyPage';
 import Profile from './pages/profile/Profile';
 import Login from './pages/login/Login'
 import Register from './pages/register/Register'
+import Maps from './pages/Maps/Maps';
+import Place from './pages/place/Place';
 
 
 
@@ -26,6 +28,8 @@ function App() {
         <Route path='/profile' element={<Profile />}></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/register' element={<Register />}></Route>
+        <Route path="/maps" element={<Maps/>}></Route>
+        <Route path="/place" element={<Place/>}></Route>
       </Routes>
     </>
   );

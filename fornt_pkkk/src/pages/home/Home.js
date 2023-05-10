@@ -10,7 +10,6 @@ import Visit from '../visit/Visit';
 import Review from '../review/Review';
 import Book from '../book/Book';
 import Save from '../save/Save';
-import Maps from '../Maps/Maps';
 
 const Home = () => {
     const navigate = useNavigate();
@@ -71,7 +70,6 @@ const Home = () => {
                 <Route path="/review" element={<Review/>}></Route>
                 <Route path="/book" element={<Book/>}></Route>
                 <Route path="/save" element={<Save/>}></Route>
-                <Route path="/maps" element={<Maps/>}></Route>
             </Routes>
             </main>
 
