@@ -2,12 +2,19 @@
 import * as S from './style/ProfileStyle';
 import React from 'react';
 import { BiLeftArrow } from 'react-icons/bi';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
+    const navigate = useNavigate();
+
+    const menuClickHandle = (path) => {
+        navigate(`/${path}`);
+    }
+
     return (
         <>
             <header css={S.header}>
-                <button css={S.backButton}><BiLeftArrow/></button>
+                <button css={S.backButton} onClick={() => menuClickHandle('')}><BiLeftArrow/></button>
                 <h1 css={S.headerTitle}>프로필 설정</h1>
             </header>
             <div css={S.infoModifyBox}>

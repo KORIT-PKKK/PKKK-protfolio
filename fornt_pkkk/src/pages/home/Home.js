@@ -41,8 +41,8 @@ const Home = () => {
                                     <div css={S.Buttons}>
                                         <button css={S.reviewButton} onClick={() => menuClickHandle('review')}>리뷰 <em css={S.count}>0</em></button>
                                         <button css={S.pictureButton}>사진 <em css={S.count}>0</em></button>
-                                        <button css={S.followingButton}>팔로잉 <em css={S.count}>0</em></button>
-                                        <button css={S.followerButton}>팔로워 <em css={S.count}>1M</em></button>
+                                        <button css={S.followingButton} onClick={() => menuClickHandle('followHome')}>팔로잉 <em css={S.count}>0</em></button>
+                                        <button css={S.followerButton} onClick={() => menuClickHandle('followHome')}>팔로워 <em css={S.count}>1M</em></button>
                                     </div>
                                 </div>
                             </div>

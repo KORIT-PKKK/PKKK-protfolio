@@ -14,6 +14,7 @@ import Login from './pages/login/Login'
 import Register from './pages/register/Register'
 import Maps from './pages/Maps/Maps';
 import Place from './pages/place/Place';
+import FollowHome from './pages/follow/followHome/FollowHome';
 
 
 
@@ -30,6 +31,7 @@ function App() {
         <Route path='/register' element={<Register />}></Route>
         <Route path="/maps" element={<Maps/>}></Route>
         <Route path="/place" element={<Place/>}></Route>
+        <Route path="/followHome" element={<FollowHome/>}></Route>
       </Routes>
     </>
   );
