@@ -11,7 +11,7 @@ const Place = () => {
             const { latitude, longitude } = position.coords;
             const radius = 1000; // 반경 1km
             const types = 'restaurant|cafe|bar'; // 가져올 장소 타입
-            const apiKey = 'AIzaSyC2ofC8-Q_0eam9Xvi8e6iVr3viFYJGlVc'; // 구S글 Places API 키
+            const apiKey = 'apiKey'; // 구S글 Places API 키
             
             const apiUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=${radius}&types=${types}&key=${apiKey}`;
   
