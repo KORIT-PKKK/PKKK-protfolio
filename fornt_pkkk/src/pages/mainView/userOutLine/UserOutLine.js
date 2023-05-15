@@ -3,7 +3,7 @@ import React from 'react';
 import * as S from './style/UserOutLineStyle';
 import { GrShare } from 'react-icons/gr';
 
-const UserOutLine = () => {
+const UserOutLine = ({ children }) => {
     return (
         <>
             <div css={S.userInfoBox}>
@@ -21,9 +21,7 @@ const UserOutLine = () => {
                         </div>
                     </div>
                 </div>
-                <div css={S.writingBox}>
-                    <button css={S.writingButton}>글쓰기</button>
-                </div>
+                
             </div>
         </>
     );

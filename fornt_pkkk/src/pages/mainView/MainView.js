@@ -6,11 +6,13 @@ import { BiMenu } from 'react-icons/bi';
 import MenuBar from './menuBar/MenuBar';
 import UserOutLine from './userOutLine/UserOutLine';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import Feed from '../posts/feed/Feed';
-import Review from '../posts/review/Review'
-import Visit from '../posts/visit/Visit'
-import PlaceFav from '../posts/favorites/placeFav/PlaceFav'
-import PostFav from '../posts/favorites/postFav/PostFav'
+import Button from './button/Button';
+import Feed from './posts/feed/Feed';
+import Review from './posts/review/Review';
+import Visit from './posts/visit/Visit';
+import PlaceFav from './posts/favorites/placeFav/PlaceFav';
+import PostFav from './posts/favorites/postFav/PostFav';
+
 
 const MainView = () => {
     const navigate = useNavigate();
@@ -33,18 +35,20 @@ const MainView = () => {
                 </div>
                 <div css={S.userOutLine}>
                     <UserOutLine/>
+                    <Button children={"글쓰기"}/>
                 </div>
                 <div>
                     <MenuBar onClick={menuClickHandle}/>
                 </div>
             </header>
-            <main>
+            <main css={S.main}>
                 <Routes>
-                    <Route path='/feed' element={<Feed/>}/>
-                    <Route path='/review' element={<Review/>}/>
-                    <Route path='/visit' element={<Visit/>}/>
-                    <Route path='/placeFav' element={<PlaceFav/>}/>
-                    <Route path='/postFav' element={<PostFav/>}/>
+                    <Route path="/" element={<Feed />} />
+                    <Route path="/feed" element={<Feed />} />
+                    <Route path="/review" element={<Review />} />
+                    <Route path="/visit" element={<Visit />} />
+                    <Route path="/placeFav" element={<PlaceFav />} />
+                    <Route path="/postFav" element={<PostFav />} />
                 </Routes>
             </main>
             <footer css={S.footerBox}>       

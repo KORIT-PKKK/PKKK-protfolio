@@ -39,8 +39,13 @@ export const userOutLine = css`
     padding: 20px 0px 11px;
 `;
 
+export const main = css`
+    display: block;
+    margin-bottom: 20px;
+`;
+
+
 export const footerBox = css`
-    height: 160px;
     padding: 42px 0px 36px;
 `;
 
@@ -56,20 +61,6 @@ export const logoutButton = css`
     background-color: white;
     cursor: pointer;
     font-size: 14px;
-`;
-
-export const serviceBox = css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 20px;
-    margin-top: 12px;
-`;
-
-export const serviceButton = css`
-    border: none;
-    background-color: white;
-    font-size: 12px;
 `;
 
 export const componyBox = css`
