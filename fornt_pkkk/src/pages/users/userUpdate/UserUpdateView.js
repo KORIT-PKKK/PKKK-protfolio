@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import * as S from './style/UserUpdateStyle';
+import * as S from './style/UserUpdateViewStyle';
 import React from 'react';
 import { BiLeftArrow } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 
-const UserUpdate = () => {
+const UserUpdateView = () => {
     const navigate = useNavigate();
 
     const menuClickHandle = (path) => {
@@ -36,4 +36,4 @@ const UserUpdate = () => {
     );
 };
 
-export default UserUpdate;
+export default UserUpdateView;

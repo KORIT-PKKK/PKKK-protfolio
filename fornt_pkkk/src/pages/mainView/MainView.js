@@ -18,7 +18,7 @@ const MainView = () => {
     const navigate = useNavigate();
 
     const menuClickHandle = (path) => {
-        navigate(`/${path}`);
+        navigate(path);
     }
 
     return (
@@ -26,15 +26,15 @@ const MainView = () => {
             <header>
                 <div css={S.logoBox}>
                     <div>
-                        <button css={S.logo}><HiHome /></button>
-                        <button css={S.pageName}>PKKK플레이스</button>
+                        <button css={S.logo} onClick={() => menuClickHandle('')}><HiHome /></button>
+                        <button css={S.pageName} onClick={() => menuClickHandle('')}>PKKK플레이스</button>
                     </div>
                     <div>
                         <button css={S.menuButton}><BiMenu/></button>
                     </div>
                 </div>
                 <div css={S.userOutLine}>
-                    <UserOutLine/>
+                    <UserOutLine onClick={menuClickHandle}/>
                     <Button children={"글쓰기"}/>
                 </div>
                 <div>
@@ -43,22 +43,22 @@ const MainView = () => {
             </header>
             <main css={S.main}>
                 <Routes>
-                    <Route path="/" element={<Feed />} />
-                    <Route path="/feed" element={<Feed />} />
-                    <Route path="/review" element={<Review />} />
-                    <Route path="/visit" element={<Visit />} />
-                    <Route path="/placeFav" element={<PlaceFav />} />
-                    <Route path="/postFav" element={<PostFav />} />
+                    <Route path="/" element={<Feed/>} />
+                    <Route path="/feed" element={<Feed/>} />
+                    <Route path="/review" element={<Review/>} />
+                    <Route path="/visit" element={<Visit/>} />
+                    <Route path="/placeFav" element={<PlaceFav/>} />
+                    <Route path="/postFav" element={<PostFav/>} />
                 </Routes>
             </main>
             <footer css={S.footerBox}>       
                 <div css={S.logoutBox}>
-                    <button css={S.logoutButton}>로그아웃</button>
+                    <button css={S.logoutButton} onClick={() => menuClickHandle('login')}>로그아웃</button>
                     <div css={S.wordSeparation}>|</div>
-                    <button css={S.logoutButton} >전체서비스</button>
+                    <button css={S.logoutButton} onClick={() => menuClickHandle('userSetting')}>전체서비스</button>
                 </div>
                 <div css={S.componyBox}>
-                    <button css={S.componyButton}>©pkkk Corp.</button>
+                    <button css={S.componyButton} onClick={() => menuClickHandle('')}>©pkkk Corp.</button>
                 </div>
             </footer>
         </>

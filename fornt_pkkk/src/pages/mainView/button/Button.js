@@ -5,8 +5,8 @@ import * as S from './style/ButtonStyle';
 const Button = ({ children }) => {
     return (
         <>
-            <div css={S.writingBox}>
-                    <button css={S.writingButton}>{children}</button>
+            <div css={S.buttonBox}>
+                    <button css={S.button}>{children}</button>
             </div>
         </>
     );

@@ -60,6 +60,7 @@ export const backButton = css`
     font-size: 40px;
     margin-right: -40px;
     margin-top: -20px;
+    cursor: pointer;
 `;
 
 export const profilemodifyButtonBox = css`
@@ -75,6 +76,7 @@ export const profilemodifyButton = css`
     border-radius: 10px;
     background-color: #f4f7f8;
     font-size: 16px;
+    cursor: pointer;
 `;
 
 export const profilemodifyButtonIcon = css`
@@ -116,11 +118,6 @@ export const followSettingIcon = css`
     font-size: 20px;
 `;
 
-export const stateChange = css`
-    font-size: 12px;
-    font-weight: 600;
-`;
-
 export const addFollowState = css`
     font-size: 14px;
     color: green;
@@ -131,7 +128,7 @@ export const alarmSettingIcon = css`
     font-size: 22px;
 `;
 
-export const settingContainer = css`
+export const Buttoncontainer = css`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -139,25 +136,12 @@ export const settingContainer = css`
     background-color: white;
 `;
 
-export const settingBox = css`
+export const buttonBox = css`
     width: 720px; 
     padding: 15px 0px;
 `;
 
-export const noticeButton = css`
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-    height: 46px; 
-    padding: 0px 20px;
-    background-color: white;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-`;
-
-export const logoutButton = css`
+export const button = css`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -175,75 +159,15 @@ export const logoutUsername = css`
     color: green;
 `;
 
-export const smartBotContainer = css`
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-`;
-
-export const smartBotBox = css`
-    width: 720px;
-    padding: 24px 18px 20px;
-    cursor: pointer;
-`;
-
-export const smartBot = css`
-    display: flex;
-    align-items: center;
-    height: 20px;
-    font-size: 16px;
-`;
-
-export const smartBotIcon = css`
-    margin-left: 5px;
-    font-size: 18px;
-`;
-
-export const smartBotMessage = css`
-    display: flex;
-    align-items: center;
-    height: 20px;
-    margin-top: 4px;
-    font-size: 14px;
-`;
-
 export const footer = css`
     width: 720px;
     margin: 0px auto;
     padding: 24px 20px;
 `;
 
-export const centerBox = css`
-    display: flex;
-    align-items: center;
-    height: 21px;
-    font-size: 13px;
-`;
-
-export const centerButton = css`
-    cursor: pointer;
-`;
-
-export const separationBar = css`
-    margin: 0px 5px 3px;
-`;
-
-export const policyBox = css`
-    display: flex;
-    align-items: center;
-    height: 21px;
-    margin-top: 4px;
-    font-size: 13px;
-`;
-
-export const policyButton = css`
-    cursor: pointer;
-`;
-
 export const componyBox = css`
     display: flex;
+    justify-content: center;
     align-items: center;
     height: 21px;
     margin-top: 15px;

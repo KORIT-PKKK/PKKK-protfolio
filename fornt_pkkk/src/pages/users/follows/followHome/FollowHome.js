@@ -22,8 +22,8 @@ const FollowHome = () => {
             <div css={S.followContainer}>
                 <div css={S.followBox}>
                     <div css={S.followButtonBox}>
-                        <button css={S.followingButton} onClick={() => menuClickHandle('following')}>팔로잉0</button>
-                        <button css={S.followerButton} onClick={() => menuClickHandle('follower')}>팔로워0</button>
+                        <button css={S.followingButton}>팔로잉0</button>
+                        <button css={S.followerButton}>팔로워0</button>
                     </div>
                 </div>
             </div>

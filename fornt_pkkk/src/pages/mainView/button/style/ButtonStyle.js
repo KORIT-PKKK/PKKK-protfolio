@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-export const writingBox = css`
+export const buttonBox = css`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,7 +10,7 @@ export const writingBox = css`
     margin-top: 18px;
 `;
 
-export const writingButton = css`
+export const button = css`
     border: 2px solid #dbdbdb;
     border-radius: 10px;
     width: 100%;
