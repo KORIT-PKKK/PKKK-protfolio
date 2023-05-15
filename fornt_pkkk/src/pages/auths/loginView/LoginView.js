@@ -1,16 +1,38 @@
 /** @jsxImportSource @emotion/react */
 import * as S from './style/LoginViewStyle';
-import React from 'react';
+import React, { useState } from 'react';
 import { BiLeftArrowAlt } from 'react-icons/bi';
 import { AiOutlineLock } from 'react-icons/ai';
 import { BiUser } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const LoginView = () => {
+    const [ loginUser, setLoginUser ] = useState({id: "", password: ""});
     const navigate = useNavigate();
 
     const menuClickHandle = (path) => {
         navigate(`/${path}`);
+    }
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setLoginUser({...loginUser, [name] : value});
+    }
+
+    const loginHandleSubmit = async () => {
+        const option = {
+            headers : {
+                "Content-Type" : "application/json"
+            }
+        }
+
+        try {
+            const respAccess = await axios.post("http://localhost:8080/api/auth/signin", option);
+            const respRefresh = await axios.post("http://localhost:8080/api/auth/refresh", option);
+        } catch {
+
+        }
     }
 
     return (
@@ -25,15 +47,15 @@ const LoginView = () => {
             </div> 
             <div css={S.loginInputContainer}>
                 <div css={S.nickNameinputBox}>
-                    <input type="text" css={S.nickNameInput} placeholder='아이디'/>
+                    <input type="text" css={S.nickNameInput} placeholder='아이디' onChange={handleChange} name="id"/>
                     <BiUser css={S.inputIcon}/>
                 </div>
                 <div css={S.passwordinputBox}>
-                    <input type="password" css={S.passwordInput} placeholder='비밀번호'/>
+                    <input type="password" css={S.passwordInput} placeholder='비밀번호' onChange={handleChange} name="password"/>
                     <AiOutlineLock css={S.inputIcon}/>
                 </div>    
                 <div css={S.loginButtonBox}>
-                    <button css={S.loginButton}>로그인</button>
+                    <button css={S.loginButton} onClick={loginHandleSubmit}>로그인</button>
                 </div>
             </div>
             <div css={S.registerBox}>

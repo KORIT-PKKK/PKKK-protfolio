@@ -25,7 +25,7 @@ const MainView = () => {
     return (
         <>
             <header>
-                <Logo/>
+                <Logo onClick={menuClickHandle}/>
                 <div css={S.userOutLine}>
                     <UserOutLine onClick={menuClickHandle}/>
                     <Button children={"글쓰기"}/>
