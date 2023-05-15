@@ -21,7 +21,6 @@ function App() {
         <Route path='/userUpdate' element={<UserUpdateView />}/>
         <Route path='/follow/*' element={<FollowHome />}/>
         <Route path='/postWriting' element={<PostWriting />}/>
-        <Route path='/place' element={<Google />}/>
       </Routes>
     </>
   );
