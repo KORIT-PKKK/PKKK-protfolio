@@ -9,6 +9,7 @@ import FollowHome from './pages/users/follows/followHome/FollowHome';
 import UserUpdateView from './pages/users/userUpdate/UserUpdateView';
 import UserSettingView from './pages/users/userSetting/UserSettingView';
 import RegisterView from './pages/auths/registerView/RegisterView';
+import GooglePlace from './pages/google/googlePlace/GooglePlace';
 function App() {
   return (
     <>
@@ -21,6 +22,7 @@ function App() {
         <Route path='/userUpdate' element={<UserUpdateView />}/>
         <Route path='/follow/*' element={<FollowHome />}/>
         <Route path='/postWriting' element={<PostWriting />}/>
+        <Route path='/place' element={<GooglePlace />}/>
       </Routes>
     </>
   );
