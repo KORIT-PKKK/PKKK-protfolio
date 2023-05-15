@@ -12,6 +12,7 @@ import Review from './posts/review/Review';
 import Visit from './posts/visit/Visit';
 import PlaceFav from './posts/favorites/placeFav/PlaceFav';
 import PostFav from './posts/favorites/postFav/PostFav';
+import Logo from './Logo/Logo';
 
 
 const MainView = () => {
@@ -24,15 +25,7 @@ const MainView = () => {
     return (
         <>
             <header>
-                <div css={S.logoBox}>
-                    <div>
-                        <button css={S.logo} onClick={() => menuClickHandle('')}><HiHome /></button>
-                        <button css={S.pageName} onClick={() => menuClickHandle('')}>PKKK플레이스</button>
-                    </div>
-                    <div>
-                        <button css={S.menuButton}><BiMenu/></button>
-                    </div>
-                </div>
+                <Logo/>
                 <div css={S.userOutLine}>
                     <UserOutLine onClick={menuClickHandle}/>
                     <Button children={"글쓰기"}/>
