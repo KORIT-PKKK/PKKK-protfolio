@@ -6,6 +6,7 @@ import UserOutLine from './pages/users/userOutLine/UserOutLine';
 import MainView from './pages/mainView/MainView';
 import LoginView from './pages/auths/loginView/LoginView'
 import Place from './pages/google/googlePlace/GooglePlace';
+import PostWriting from './pages/postView/postwriting/PostWriting';
 
 
 
@@ -19,6 +20,7 @@ function App() {
         <Route path='/userOutLine' element={<UserOutLine/>}/>
         <Route path='/' element={<MainView/>}/>
         <Route path='/place' element={<Place/>}/>
+        <Route path='/postWriting' element={<PostWriting />}/>
       </Routes>
     </>
   );

@@ -24,15 +24,6 @@ const MainView = () => {
     return (
         <>
             <header>
-                <div css={S.logoBox}>
-                    <div>
-                        <button css={S.logo}><HiHome /></button>
-                        <button css={S.pageName}>PKKK플레이스</button>
-                    </div>
-                    <div>
-                        <button css={S.menuButton}><BiMenu/></button>
-                    </div>
-                </div>
                 <div css={S.userOutLine}>
                     <UserOutLine/>
                     <Button children={"글쓰기"}/>
