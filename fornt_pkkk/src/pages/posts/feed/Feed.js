@@ -4,8 +4,6 @@ import * as S from './style/FeedStyle';
 import { AiOutlineStar } from 'react-icons/ai';
 import { SlArrowRight } from 'react-icons/sl';
 
-
-
 const Feed = () => {
     return (
         <div css={S.feed}>

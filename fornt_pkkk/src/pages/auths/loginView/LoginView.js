@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import * as S from './style/LoginStyle';
+import * as S from './style/LoginViewStyle';
 import React from 'react';
 import { BiLeftArrowAlt } from 'react-icons/bi';
 import { AiOutlineLock } from 'react-icons/ai';
 import { BiUser } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const LoginView = () => {
     const navigate = useNavigate();
 
     const menuClickHandle = (path) => {
@@ -52,4 +52,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default LoginView;

@@ -4,29 +4,19 @@ import React from 'react';
 import { HiHome } from 'react-icons/hi';
 import { BiMenu } from 'react-icons/bi';
 import { GrShare } from 'react-icons/gr';
-import { Route, Routes, useNavigate } from 'react-router-dom';
-import Feed from '../../posts/feed/Feed';
-import Visit from '../../posts/visit/Visit';
-import Review from '../../posts/review/Review';
 
 const UserOutLine = () => {
-    const navigate = useNavigate();
-
-
-    const menuClickHandle = (path) => {
-        navigate(`/${path}`);
-    }
 
     return (
         <>
-            <header>
+            <div>
                 <header css={S.header}>
                         <div>
-                            <button css={S.logo} onClick={() => menuClickHandle('')}><HiHome /></button>
-                            <button css={S.pageName} onClick={() => menuClickHandle('')}>PKKK플레이스</button>
+                            <button css={S.logo}><HiHome /></button>
+                            <button css={S.pageName}>PKKK플레이스</button>
                         </div>
                         <div>
-                            <button css={S.menuButton} onClick={() => menuClickHandle('myPage')}><BiMenu/></button>
+                            <button css={S.menuButton}><BiMenu/></button>
                         </div>
                 </header>
                 <main css={S.main}>
@@ -47,7 +37,6 @@ const UserOutLine = () => {
                             </div>
                             <div css={S.writingBox}>
                                 <button css={S.writingButton}>글쓰기</button>
-                                <button css={S.mission}>미션</button>
                             </div>
                         </div>
                 </main>
@@ -59,16 +48,7 @@ const UserOutLine = () => {
                             <span css={S.menu}>저장</span>
                         </div>
                 </footer>
-            </header>
-
-            <main>
-            <Routes>
-                <Route path="/" element={<Feed/>}></Route>
-                <Route path="/visit" element={<Visit/>}></Route>
-                <Route path="/review" element={<Review/>}></Route>
-            </Routes>
-            </main>
-
+            </div>
             <div css={S.footerBox}>       
                 <div css={S.logoutBox}>
                     <button css={S.logoutButton}>로그아웃</button>
@@ -85,7 +65,7 @@ const UserOutLine = () => {
                     <button css={S.serviceButton}>공지사항</button>
                 </div>
                 <div css={S.componyBox}>
-                    <button css={S.componyButton} onClick={() => menuClickHandle('login')}>©pkkk Corp.</button>
+                    <button css={S.componyButton}>©pkkk Corp.</button>
                 </div>
             </div>
         </>

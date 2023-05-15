@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { useNavigate } from 'react-router-dom';
-import * as S from './style/RegisterStyle';
+import * as S from './style/RegisterViewStyle';
 import React from 'react';
 
-const Register = () => {
+const RegisterView = () => {
 
     const navigate = useNavigate();
 
@@ -37,4 +37,4 @@ const Register = () => {
     );
 };
 
-export default Register;
+export default RegisterView;
