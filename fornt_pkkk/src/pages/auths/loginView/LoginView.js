@@ -6,9 +6,11 @@ import { AiOutlineLock } from 'react-icons/ai';
 import { BiUser } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import jwtDecode from 'jwt-decode';
 
 const LoginView = () => {
-    const [ loginUser, setLoginUser ] = useState({id: "", password: ""});
+    const [ loginUser, setLoginUser ] = useState({username: "", password: ""});
     const navigate = useNavigate();
 
     const menuClickHandle = (path) => {
@@ -27,12 +29,7 @@ const LoginView = () => {
             }
         }
 
-        try {
-            const respAccess = await axios.post("http://localhost:8080/api/auth/signin", option);
-            const respRefresh = await axios.post("http://localhost:8080/api/auth/refresh", option);
-        } catch {
-
-        }
+        
     }
 
     return (
@@ -47,7 +44,7 @@ const LoginView = () => {
             </div> 
             <div css={S.loginInputContainer}>
                 <div css={S.nickNameinputBox}>
-                    <input type="text" css={S.nickNameInput} placeholder='아이디' onChange={handleChange} name="id"/>
+                    <input type="text" css={S.nickNameInput} placeholder='아이디' onChange={handleChange} name="username"/>
                     <BiUser css={S.inputIcon}/>
                 </div>
                 <div css={S.passwordinputBox}>
