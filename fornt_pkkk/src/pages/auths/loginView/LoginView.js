@@ -7,10 +7,13 @@ import { BiUser } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import jwtDecode from 'jwt-decode';
+import { useRecoilState } from 'recoil';
+import { loginUserState } from '../../../atom/login/LoginAtom';
+import { authenticationState } from '../../../atom/auth/AuthAtom';
 
 const LoginView = () => {
     const [ loginUser, setLoginUser ] = useState({username: "", password: ""});
+    const [ successLoginUser, setsuccessLoginUser] = useRecoilState(loginUserState);
     const navigate = useNavigate();
 
     const menuClickHandle = (path) => {
@@ -28,7 +31,17 @@ const LoginView = () => {
                 "Content-Type" : "application/json"
             }
         }
+        try{
+            const response = await axios.post("http://localhost:8080/api/auth/signin", JSON.stringify(loginUser), option);
+            const accessToken = response.data.grantType + " " + response.data.accessToken;
+            const refreshToken = response.data.refreshToken;
 
+            Cookies.set('refreshToken', refreshToken, { expires: 14 });
+            Cookies.set('accessToken', accessToken, { expires: 1 / 24 });
+            setsuccessLoginUser(successLoginUser, ...loginUser);
+        } catch {
+            
+        }
         
     }
 
@@ -40,7 +53,7 @@ const LoginView = () => {
                 </div>
             </header>
             <div css={S.logoBox}>
-                <h1 css={S.logo}>PKKK 플레이스</h1>
+                <h1 css={S.logo}>PKKK 플레이스</h1>        
             </div> 
             <div css={S.loginInputContainer}>
                 <div css={S.nickNameinputBox}>
