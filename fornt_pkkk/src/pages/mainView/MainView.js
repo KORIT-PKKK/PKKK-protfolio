@@ -13,6 +13,7 @@ import Visit from './posts/visit/Visit';
 import PlaceFav from './posts/favorites/placeFav/PlaceFav';
 import PostFav from './posts/favorites/postFav/PostFav';
 import Logo from './Logo/Logo';
+import SignInRoute from '../../components/auth/SignInRoute';
 
 
 const MainView = () => {
@@ -36,12 +37,12 @@ const MainView = () => {
             </header>
             <main css={S.main}>
                 <Routes>
-                    <Route path="/" element={<Feed/>} />
-                    <Route path="/feed" element={<Feed/>} />
-                    <Route path="/review" element={<Review/>} />
-                    <Route path="/visit" element={<Visit/>} />
-                    <Route path="/placeFav" element={<PlaceFav/>} />
-                    <Route path="/postFav" element={<PostFav/>} />
+                    <Route path="/" element={<SignInRoute path={'/'}element={<Feed/>} />}/>
+                    <Route path="/feed" element={<SignInRoute path={'/feed'}element={<Feed/>} />}/>
+                    <Route path="/review" element={<SignInRoute path={'/review'}element={<Review/>} />}/>
+                    <Route path="/visit" element={<SignInRoute path={'/visit'}element={<Visit/>} />}/>
+                    <Route path="/placeFav" element={<SignInRoute path={'/placeFav'}element={<PlaceFav/>} />}/>
+                    <Route path="/postFav" element={<SignInRoute path={'/postFav'}element={<PostFav/>} />}/>
                 </Routes>
             </main>
             <footer css={S.footerBox}>       
