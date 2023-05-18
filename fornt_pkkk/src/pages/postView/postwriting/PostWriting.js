@@ -4,6 +4,7 @@ import Logo from '../../mainView/Logo/Logo';
 import * as S from './style/PostWritingStyle';
 import { FaStar } from 'react-icons/fa';
 import { MdSaveAlt } from 'react-icons/md';
+import StarRating from '../starRating/StarRating';
 
 //게시글 작성
 const PostWriting = () => {
@@ -22,7 +23,7 @@ const PostWriting = () => {
                 <div css={S.postContainer}>
                     <header>
                         <div css={S.post}>
-                            <span>게시글 작성</span>
+                            <h1>게시글 작성</h1>
                         </div>
                         <div css={S.footer}>
                             <div css={S.place}>
@@ -39,16 +40,18 @@ const PostWriting = () => {
                     <main>
                         <div css={S.mainContainer}>
                             <div css={S.mainStarCheck}>별점을 체크해주세요!</div>
-                            <div css={S.starScore}>
-                                <FaStar size={60} />
-                                <FaStar size={60} />
-                                <FaStar size={60} />
-                                <FaStar size={60} />
-                                <FaStar size={60} />
+                            <div>
+                                <StarRating />
                             </div>
-                            <button css={S.pictureButton}>사진첨부</button>
+                            <div css={S.starScore}>
+                                {/* <FaStar size={60} />
+                                <FaStar size={60} />
+                                <FaStar size={60} />
+                                <FaStar size={60} />
+                                <FaStar size={60} /> */}
+                            </div>
+                            <button css={S.pictureButton}>클라우드랑 연결해서 사진 첨부</button>
                         </div>
-                        {/* <div css={S.mainPicture}>사진 공간</div> */}
                         <div>
 
                             <div css={S.mainTextInputContainer}>

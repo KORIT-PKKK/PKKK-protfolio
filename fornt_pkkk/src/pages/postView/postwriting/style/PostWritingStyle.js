@@ -28,6 +28,7 @@ export const footer = css`
     width: 678px;
     height: 66px;
     padding: 13px 16px 12px 15px;
+    margin-bottom: 10px;
 `;
 
 export const place = css`
@@ -80,17 +81,19 @@ export const starScore = css`
 `;
 
 export const pictureButton = css`
-    display: flex;
-    border: 1px solid #dbdbdb;
-    background-color: white;
-    font-size: 25px;
-    &:hover {
-    background-color: #fafafa;
-  }
-  
-  &:active {
+  padding: 10px 10px;
+  background-color: white;
+  border: 1px solid #dbdbdb;
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:hover {
     background-color: #dbdbdb;
   }
+  &:active {
+    background-color: #fafafa;
+  }
+
 `;
 
 export const mainPicture = css`
