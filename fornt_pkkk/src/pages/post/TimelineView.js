@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import * as S from './styles/VisitStyle';
+import * as S from './styles/TimelineViewStyle';
 import React from 'react';
 import { AiOutlineStar } from 'react-icons/ai';
 import { BsTrash } from 'react-icons/bs';
 
-const Visit = () => {
+const TimelineView = () => {
     return (
         <>
             <div css={S.container}>
@@ -39,4 +39,4 @@ const Visit = () => {
     );
 };
 
-export default Visit;
+export default TimelineView;

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import * as S from './styles/FollowHomeStyle';
+import * as S from './styles/FollowViewStyle';
 import React from 'react';
 import { BiLeftArrow } from 'react-icons/bi';
 import { Route, Routes, useNavigate } from 'react-router-dom';
@@ -7,7 +7,7 @@ import Following from './model/Following';
 import Follower from './model/Follower';
 
 
-const FollowHome = () => {
+const FollowView = () => {
     const navigate = useNavigate();
 
     const menuClickHandle = (path) => {
@@ -39,4 +39,4 @@ const FollowHome = () => {
     );
 };
 
-export default FollowHome;
+export default FollowView;

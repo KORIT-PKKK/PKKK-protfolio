@@ -5,11 +5,11 @@ import { Route, Routes } from 'react-router-dom';
 import MainView from './pages/MainView';
 import UserSettingView from './pages/user/UserSettingView';
 import UserUpdateView from './pages/user/UserUpdateView';
-import FollowHome from './pages/user/FollowHome';
-import PostWriting from './pages/post/PostWriting';
 import GooglePlace from './pages/google/GooglePlace';
 import LoginView from './pages/auths/LoginView';
 import RegisterView from './pages/auths/RegisterView';
+import FollowView from './pages/user/FollowView';
+import PostAddView from './pages/post/PostAddView';
 
 function App() {
   return (
@@ -21,8 +21,8 @@ function App() {
         <Route path='/*' element={<MainView />} />
         <Route path='/userSetting' element={<UserSettingView />} />
         <Route path='/userUpdate' element={<UserUpdateView />} />
-        <Route path='/follow/*' element={<FollowHome />} />
-        <Route path='/postWriting' element={<PostWriting />} />
+        <Route path='/follow/*' element={<FollowView />} />
+        <Route path='/postWriting' element={<PostAddView />} />
         <Route path='/place' element={<GooglePlace />} />
       </Routes>
     </>

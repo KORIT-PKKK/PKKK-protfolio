@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import * as S from './styles/UserOutLineStyle';
+import * as S from './styles/UserOutLineUIStyle';
 import { GrShare } from 'react-icons/gr';
 
-const UserOutLine = ({ onClick }) => {
+const UserOutLineUI = ({ onClick }) => {
     return (
         <>
             <div css={S.userInfoBox}>
@@ -27,4 +27,4 @@ const UserOutLine = ({ onClick }) => {
     );
 };
 
-export default UserOutLine;
+export default UserOutLineUI;

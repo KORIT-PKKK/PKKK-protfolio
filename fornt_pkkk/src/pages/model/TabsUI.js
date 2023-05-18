@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import * as S from './styles/MenuBarStyle';
+import * as S from './styles/TabsUIStyle';
 
 const TabsUI = ({ onClick }) => {
 
