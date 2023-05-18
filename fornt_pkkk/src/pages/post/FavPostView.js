@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import * as S from './styles/PostFavStyle';
+import * as S from './styles/FavPostViewStyle';
 
-const PostFavUI = () => {
+const FavPostView = () => {
     return (
         <>
 
@@ -10,4 +10,4 @@ const PostFavUI = () => {
     );
 };
 
-export default PostFavUI;
+export default FavPostView;

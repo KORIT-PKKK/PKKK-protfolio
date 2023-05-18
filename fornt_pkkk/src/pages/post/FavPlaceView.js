@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import * as S from './styles/PlaceFavStyle';
+import * as S from './styles/FavPlaceViewStyle';
 
-const PlaceFav = () => {
+const FavPlaceView = () => {
     return (
         <>
 
@@ -10,4 +10,4 @@ const PlaceFav = () => {
     );
 };
 
-export default PlaceFav;
+export default FavPlaceView;

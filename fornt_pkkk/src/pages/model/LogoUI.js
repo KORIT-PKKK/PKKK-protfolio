@@ -2,9 +2,9 @@
 import React from 'react';
 import { BiMenu } from 'react-icons/bi';
 import { HiHome } from 'react-icons/hi';
-import * as S from './styles/LogoStyle';
+import * as S from './styles/LogoUIStyle';
 
-const Logo = ({ onClick }) => {
+const LogoUI = ({ onClick }) => {
     return (
         <>
             <div css={S.logoBox}>
@@ -20,4 +20,4 @@ const Logo = ({ onClick }) => {
     );
 };
 
-export default Logo;
+export default LogoUI;

@@ -4,15 +4,16 @@ import * as S from './styles/MainViewStyle';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { authenticationState } from '../store/atoms/auth/AuthAtom';
-import Logo from './model/Logo';
-import UserOutLine from './model/UserOutLine';
-import Button from './model/Button';
+import LogoUI from './model/LogoUI';
+import UserOutLineUI from './model/UserOutLineUI';
+import ButtonUI from './model/ButtonUI';
 import TabsUI from './model/TabsUI';
-import Feed from './model/Feed';
-import Review from './model/Review';
-import Visit from './model/Visit';
-import PlaceFav from './model/PlaceFav';
-import PostFavUI from './model/PostFavUI';
+import PostView from './post/PostView';
+import HistoryView from './post/HistoryView';
+import TimelineView from './post/TimelineView';
+import FavPostView from './post/FavPostView';
+import FavPlaceView from './post/FavPlaceView';
+
 
 const MainView = () => {
     const navigate = useNavigate();
@@ -36,24 +37,23 @@ const MainView = () => {
     return (
         <>
             <header>
-                <Logo onClick={menuClickHandle} />
+                <LogoUI onClick={menuClickHandle} />
                 <div css={S.userOutLine}>
-                    <UserOutLine onClick={menuClickHandle} />
-                    <Button children={"글쓰기"} />
+                    <UserOutLineUI onClick={menuClickHandle} />
+                    <ButtonUI children={"글쓰기"} />
                 </div>
                 <div>
                     <TabsUI onClick={menuClickHandle} />
                 </div>
             </header>
             <main css={S.main}>
-
                 <Routes>
-                    <Route path="/" element={<Feed />} />
-                    <Route path="/feed" element={<Feed />} />
-                    <Route path="/review" element={<Review />} />
-                    <Route path="/visit" element={<Visit />} />
-                    <Route path="/placeFav" element={<PlaceFav />} />
-                    <Route path="/postFav" element={<PostFavUI />} />
+                    <Route path="/" element={<PostView />} />
+                    <Route path="/feed" element={<PostView />} />
+                    <Route path="/review" element={<HistoryView />} />
+                    <Route path="/visit" element={<TimelineView />} />
+                    <Route path="/placeFav" element={<FavPlaceView />} />
+                    <Route path="/postFav" element={<FavPostView />} />
                 </Routes>
             </main>
             <footer css={S.footerBox}>

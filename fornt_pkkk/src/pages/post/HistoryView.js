@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import * as S from './styles/ReviewStyle';
+import * as S from './styles/HistoryViewStyle';
 import React from 'react';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { SiWindows11 } from 'react-icons/si';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 
-const Review = () => {
+const HistoryView = () => {
     return (
         <>
             <div css={S.container}>
@@ -48,4 +48,4 @@ const Review = () => {
     );
 };
 
-export default Review;
+export default HistoryView;

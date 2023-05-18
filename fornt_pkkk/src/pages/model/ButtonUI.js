@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import * as S from './styles/ButtonStyle';
+import * as S from './styles/ButtonUIStyle';
 
-const Button = ({ children }) => {
+const ButtonUI = ({ children }) => {
     return (
         <>
             <div css={S.buttonBox}>
@@ -12,4 +12,4 @@ const Button = ({ children }) => {
     );
 };
 
-export default Button;
+export default ButtonUI;
