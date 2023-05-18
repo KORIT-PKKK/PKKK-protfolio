@@ -3,8 +3,26 @@ import React from 'react';
 import * as S from './styles/PostViewStyle';
 import { AiOutlineStar } from 'react-icons/ai';
 import { SlArrowRight } from 'react-icons/sl';
+import { useQuery } from 'react-query';
+import { async } from 'q';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const PostView = () => {
+
+    const searchPostList = useQuery(["searchPostList"], async () => {
+        const response = await axios.get("http://192.168.2.18:8080/api/post/list")
+        return response;
+    }, {
+        onSuccess: (response) => {
+            console.log(response);
+        }
+    });
+
+    if (searchPostList.isLoading) {
+        return <div>불러오는 중...</div>
+    }
+
     return (
         <div css={S.feed}>
             <header css={S.header}>

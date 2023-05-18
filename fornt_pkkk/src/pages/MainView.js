@@ -12,21 +12,26 @@ import HistoryView from './post/HistoryView';
 import TimelineView from './post/TimelineView';
 import FavPostView from './post/FavPostView';
 import FavPlaceView from './post/FavPlaceView';
+import { useQuery } from 'react-query';
+import Cookies from 'js-cookie';
 
 
 const MainView = () => {
     const navigate = useNavigate();
-    const { authState } = useRecoilValue(authenticationState);
     const authRequiredPath = ["/userSetting", "/userUpdate", "/postWriting"];
     const authPath = "/auth";
 
+
     const menuClickHandle = (path) => {
-        if (!authState && authRequiredPath.some(authPath => path.startsWith(authPath))) {
-            console.log(`current state : ${authState} `);
+        const rtk = Cookies.get("refreshToken");
+        console.log(rtk)
+        if (rtk === undefined && authRequiredPath.some(authPath => path.startsWith(authPath))) {
+            console.log(`current state : ${rtk}`);
             navigate("/auth/login");
+            return;
         }
 
-        if (authState && path.startsWith(authPath)) {
+        if (rtk !== undefined && path.startsWith(authPath)) {
             navigate("/");
         }
 
