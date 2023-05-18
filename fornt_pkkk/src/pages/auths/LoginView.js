@@ -50,7 +50,7 @@ const LoginView = () => {
         <>
             <header>
                 <div css={S.headerBox}>
-                    <button css={S.backButton} onClick={() => menuClickHandle('')}><BiLeftArrowAlt /></button>
+                    <button css={S.backButton} onClick={() => menuClickHandle('/')}><BiLeftArrowAlt /></button>
                 </div>
             </header>
             <div css={S.logoBox}>

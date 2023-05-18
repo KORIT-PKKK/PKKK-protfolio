@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import * as S from './styles/FollowerStyle';
+import * as S from './styles/FollowerUIStyle';
 import React from 'react';
 
-const Follower = () => {
+const FollowerUI = () => {
     return (
         <div>
             <div></div>
@@ -10,4 +10,4 @@ const Follower = () => {
     );
 };
 
-export default Follower;
+export default FollowerUI;

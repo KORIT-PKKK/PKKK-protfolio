@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import React, { useDeferredValue } from 'react';
 import * as S from './styles/MainViewStyle';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';

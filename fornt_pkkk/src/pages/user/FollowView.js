@@ -3,8 +3,8 @@ import * as S from './styles/FollowViewStyle';
 import React from 'react';
 import { BiLeftArrow } from 'react-icons/bi';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import Following from './model/Following';
-import Follower from './model/Follower';
+import FollowingUI from './model/FollowingUI';
+import FollowerUI from './model/FollowerUI';
 
 
 const FollowView = () => {
@@ -31,8 +31,8 @@ const FollowView = () => {
 
             <div>
                 <Routes>
-                    <Route path="/following" element={<Following />}></Route>
-                    <Route path="/follower" element={<Follower />}></Route>
+                    <Route path="/following" element={<FollowingUI />}></Route>
+                    <Route path="/follower" element={<FollowerUI />}></Route>
                 </Routes>
             </div>
         </>
