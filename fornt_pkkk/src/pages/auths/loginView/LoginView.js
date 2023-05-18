@@ -10,7 +10,6 @@ import Cookies from 'js-cookie';
 import { useRecoilState } from 'recoil';
 import { loginUserState } from '../../../store/atoms/login/LoginAtom';
 
-
 const LoginView = () => {
     const [ loginUser, setLoginUser ] = useState({username: "", password: ""});
     const [ successLoginUser, setsuccessLoginUser] = useRecoilState(loginUserState);
