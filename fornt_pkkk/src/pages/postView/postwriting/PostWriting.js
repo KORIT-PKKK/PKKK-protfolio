@@ -13,6 +13,10 @@ const PostWriting = () => {
 
     const formData = new FormData();
 
+    imgFiles.forEach(imgFiles => {
+        formData.append("imgFiles", imgFiles.file);
+    })
+
     return (
         <>
             <div>
