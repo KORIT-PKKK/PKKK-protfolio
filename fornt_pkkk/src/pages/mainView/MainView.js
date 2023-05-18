@@ -47,9 +47,9 @@ const MainView = () => {
             </main>
             <footer css={S.footerBox}>       
                 <div css={S.logoutBox}>
-                    <button css={S.logoutButton} onClick={() => menuClickHandle('login')}>로그아웃</button>
+                    <button css={S.logoutButton} onClick={() => menuClickHandle('/auth/login')}>로그아웃</button>
                     <div css={S.wordSeparation}>|</div>
-                    <button css={S.logoutButton} onClick={() => menuClickHandle('userSetting')}>전체서비스</button>
+                    <button css={S.logoutButton} onClick={() => menuClickHandle('/userSetting')}>전체서비스</button>
                 </div>
                 <div css={S.componyBox}>
                     <button css={S.componyButton} onClick={() => menuClickHandle('')}>©pkkk Corp.</button>

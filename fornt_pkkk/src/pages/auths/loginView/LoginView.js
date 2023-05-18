@@ -8,8 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useRecoilState } from 'recoil';
-import { loginUserState } from '../../../atom/login/LoginAtom';
-import { authenticationState } from '../../../atom/auth/AuthAtom';
+import { loginUserState } from '../../../store/atoms/login/LoginAtom';
+
 
 const LoginView = () => {
     const [ loginUser, setLoginUser ] = useState({username: "", password: ""});
@@ -17,7 +17,7 @@ const LoginView = () => {
     const navigate = useNavigate();
 
     const menuClickHandle = (path) => {
-        navigate(`/${path}`);
+        navigate(path);
     }
 
     const handleChange = (e) => {
@@ -32,15 +32,17 @@ const LoginView = () => {
             }
         }
         try{
-            const response = await axios.post("http://localhost:8080/api/auth/signin", JSON.stringify(loginUser), option);
+            const response = await axios.post("http://192.168.2.18:8080/api/auth/signin", JSON.stringify(loginUser), option);
             const accessToken = response.data.grantType + " " + response.data.accessToken;
             const refreshToken = response.data.refreshToken;
 
             Cookies.set('refreshToken', refreshToken, { expires: 14 });
             Cookies.set('accessToken', accessToken, { expires: 1 / 24 });
-            setsuccessLoginUser(successLoginUser, ...loginUser);
-        } catch {
-            
+            setsuccessLoginUser(successLoginUser, loginUser);
+            alert("환영합니다.");
+            window.location.replace("/");
+        } catch(e) {
+            console.error(e);
         }
         
     }
@@ -65,7 +67,7 @@ const LoginView = () => {
                     <AiOutlineLock css={S.inputIcon}/>
                 </div>    
                 <div css={S.loginButtonBox}>
-                    <button css={S.loginButton} onClick={loginHandleSubmit}>로그인</button>
+                    <button css={S.loginButton} onClick={loginHandleSubmit} >로그인</button>
                 </div>
             </div>
             <div css={S.registerBox}>
@@ -73,7 +75,7 @@ const LoginView = () => {
                 <div css={S.wordSeparation}>|</div>
                 <button css={S.registerButton}>비밀번호 찾기</button>
                 <div css={S.wordSeparation}>|</div>
-                <button css={S.registerButton} onClick={() => menuClickHandle('register')}>회원가입</button>
+                <button css={S.registerButton} onClick={() => menuClickHandle('/auth/register')}>회원가입</button>
             </div>
             <footer css={S.footer}>
                 <button css={S.componyButton}>PKKK</button>

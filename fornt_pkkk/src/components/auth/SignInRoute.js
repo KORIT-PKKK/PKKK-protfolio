@@ -1,29 +1,60 @@
 import { useNavigate } from "react-router-dom"
 import { useRecoilState} from "recoil";
-import { authenticationState } from "../../atom/auth/AuthAtom";
 import Cookies from "js-cookie";
+import { authenticationState } from "../../store/atoms/auth/AuthAtom";
+// import { useEffect } from "react";
+// import { useMutation } from "react-query";
+// import axios from "axios";
+import { loginUserState } from "../../store/atoms/login/LoginAtom";
 
 const SignInRoute = ({ path, element }) => {
     const navigate = useNavigate();
     const [ authState, setAuthState ] = useRecoilState(authenticationState);
-    const refreshToken = Cookies.get('refreshToken');
-    
-    const authenticatedPaths = ["/userSetting", "/userUpdate", "/review", "/visit", "/placeFav", "/postFav", "/postWriting"]
-    const authPath = "/auth"
+    // const [ loginUser, setLoginUser ] = useRecoilState(loginUserState);
 
-    if(refreshToken !== null) {
-        setAuthState(true);
-    } else {
-        setAuthState(false);
+    // const authenticated = useMutation(async () => {
+    //     const refreshInfo = {
+    //         "username" : loginUser.username,
+    //         "refreshToken" :  Cookies.get('refreshToken')
+    //     }
+        
+    //     try {
+    //         const response = await axios.post("http://192.168.2.18:8080/api/auth/refresh", refreshInfo);
+    //         Cookies.set('accessToken', response.data.accessToken, { expires: 1 / 24 });
+    //         setAuthState(true);
+    //         return response;
+    //     } catch(error) {
+    //         setAuthState(false);
+    //         return error;
+    //     }
+    // }, {
+    //     enable: !Cookies.get("accessToken")
+    // });
+    // useEffect(() => {
+    //     authenticated.mutate();
+    // }, [])
+    
+    // if(authenticated.isLoading) {
+    //     return <></>;
+    // }
+
+    const rtk = Cookies.get("refreshToken");
+    if (rtk == null){
+        console.log("rtk null");
+        console.log(authState);
     }
 
-    if(!authState && authenticatedPaths.some(authenticatedPath => path.startWith(authenticatedPath))) {
+    const authenticatedPaths = ["/userSetting", "/userUpdate", "/postWriting"]
+    const authPath = "/auth"
+
+    if(!authState && authenticatedPaths.some(authenticatedPath => path.startsWith(authenticatedPath))) {
         navigate("/auth/login");
     }
 
-    if(authState && path.startWith(authPath)) {
+    if(authState && path.startsWith(authPath)) {
         navigate("/");
     }
+    
     return element;
 }
 

@@ -8,7 +8,7 @@ const RegisterView = () => {
     const navigate = useNavigate();
 
     const menuClickHandle = (path) => {
-        navigate(`/${path}`);
+        navigate(path);
     }
 
     return (

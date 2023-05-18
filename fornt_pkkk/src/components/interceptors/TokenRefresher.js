@@ -5,7 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { loginUserState } from '../../atom/login/LoginAtom';
 
 const axiosInstance  = axios.create({
-    baseURL: `http://localhost:8080`,
+    baseURL: `http://192.168.2.18:8080`,
     headers: {"Content-Type": "application/json"}
 });
 
@@ -15,7 +15,6 @@ axiosInstance.interceptors.request.use(
         let accessToken = Cookies.get('accessToken');
         const refreshToken = Cookies.get('refreshToken');
         const { username } = useRecoilValue(loginUserState);
-
 
         if(accessToken === null) {
             const option = {
@@ -28,8 +27,9 @@ axiosInstance.interceptors.request.use(
                 "username" : username,
                 "refreshToken" :  refreshToken
             }
-            const response = await axios.post("http://localhost:8080/api/auth/refresh", JSON.stringify(refreshInfo), option);
+            const response = await axios.post("http://192.168.2.18:8080/api/auth/refresh", JSON.stringify(refreshInfo), option);
             accessToken = response.data.accessToken;
+
             Cookies.set('accessToken', accessToken, { expires: 1 / 24 });
         }
 
@@ -50,8 +50,5 @@ axiosInstance.interceptors.response.use(
         return Promise.reject(error);
     }
 );
-
-
-    
 
 export default axiosInstance;
