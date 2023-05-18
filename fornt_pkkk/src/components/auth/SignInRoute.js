@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { useRecoilState} from "recoil";
-import { authenticationState } from "../../atom/auth/AuthAtom";
 import Cookies from "js-cookie";
+import { authenticationState } from "../../store/atoms/auth/AuthAtom";
 
 const SignInRoute = ({ path, element }) => {
     const navigate = useNavigate();

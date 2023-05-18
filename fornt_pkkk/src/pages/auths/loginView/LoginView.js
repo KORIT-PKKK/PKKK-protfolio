@@ -8,8 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useRecoilState } from 'recoil';
-import { loginUserState } from '../../../atom/login/LoginAtom';
-import { authenticationState } from '../../../atom/auth/AuthAtom';
+import { loginUserState } from './../../../store/atoms/login/LoginAtom';
 
 const LoginView = () => {
     const [ loginUser, setLoginUser ] = useState({username: "", password: ""});

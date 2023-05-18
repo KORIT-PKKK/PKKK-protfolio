@@ -22,7 +22,8 @@ function App() {
         <Route path='/userSetting' element={<SignInRoute path={'/userSetting'}element={<UserSettingView />}/>}/>
         <Route path='/userUpdate' element={<SignInRoute path={'/userUpdate'}element={<UserUpdateView />}/>}/>
         <Route path='/follow/*' element={<SignInRoute path={'/follow/*'}element={<FollowHome />}/>}/>
-        <Route path='/postWriting' element={<SignInRoute path={'/postWriting'}element={<PostWriting />}/>}/>
+        {/* <Route path='/postWriting' element={<SignInRoute path={'/postWriting'}element={<PostWriting />}/>}/> */}
+        <Route path='/postWriting' element={<PostWriting/>} />
         <Route path='/place' element={<SignInRoute path={'/place'}element={<GooglePlace />}/>}/>
       </Routes>
     </>
