@@ -10,6 +10,7 @@ import UserUpdateView from './pages/users/userUpdate/UserUpdateView';
 import UserSettingView from './pages/users/userSetting/UserSettingView';
 import RegisterView from './pages/auths/registerView/RegisterView';
 import GooglePlace from './pages/google/googlePlace/GooglePlace';
+
 function App() {
   return (
     <>
