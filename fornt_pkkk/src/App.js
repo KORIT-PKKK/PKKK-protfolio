@@ -6,10 +6,10 @@ import MainView from './pages/MainView';
 import UserSettingView from './pages/user/UserSettingView';
 import UserUpdateView from './pages/user/UserUpdateView';
 import FollowHome from './pages/user/FollowHome';
-import PostWriting from './pages/post/PostWriting';
 import GooglePlace from './pages/google/GooglePlace';
 import LoginView from './pages/auths/LoginView';
 import RegisterView from './pages/auths/RegisterView';
+import PostWriting from './pages/postView/postwriting/PostWriting';
 
 function App() {
   return (
