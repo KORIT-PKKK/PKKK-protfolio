@@ -2,16 +2,14 @@
 import React from 'react';
 import * as S from './styles/TabsUIStyle';
 
-const TabsUI = ({ onClick }) => {
+const TabsUI = ({ onClick, selectPath }) => {
 
     return (
         <>
             <div css={S.menuBar}>
-                <span css={S.menu} onClick={() => onClick('/feed')}>피드</span>
-                <span css={S.menu} onClick={() => onClick('/visit')}>타임라인</span>
-                <span css={S.menu} onClick={() => onClick('/review')}>리뷰</span>
-                <span css={S.menu} onClick={() => onClick('/postFav')}>게시판</span>
-                <span css={S.menu} onClick={() => onClick('/placeFav')}>장소</span>
+                <span css={[S.menu, selectPath === "/feed" && S.selectedMenu]} onClick={() => onClick('/feed')}>피드</span>
+                <span css={[S.menu, selectPath === "/timeLine" && S.selectedMenu]} onClick={() => onClick('/timeLine')}>타임라인</span>
+                <span css={[S.menu, selectPath === "/fav" && S.selectedMenu]} onClick={() => onClick('/fav')}>즐겨찾기</span>
             </div>
         </>
     );

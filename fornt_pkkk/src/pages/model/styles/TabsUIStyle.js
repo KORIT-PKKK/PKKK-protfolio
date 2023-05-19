@@ -13,3 +13,8 @@ export const menu = css`
     padding: 14px 5px;
     cursor: pointer;
 `;
+
+
+export const selectedMenu = css`
+    border-bottom: 2px solid red;
+`;

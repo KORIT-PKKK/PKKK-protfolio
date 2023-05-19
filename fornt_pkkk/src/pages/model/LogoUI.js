@@ -13,7 +13,7 @@ const LogoUI = ({ onClick }) => {
                     <button css={S.pageName} onClick={() => onClick('')}>PKKK플레이스</button>
                 </div>
                 <div>
-                    <button css={S.menuButton} onClick={() => onClick('userSetting')}><BiMenu /></button>
+                    <button css={S.menuButton} onClick={() => onClick('/userSetting')}><BiMenu /></button>
                 </div>
             </div>
         </>

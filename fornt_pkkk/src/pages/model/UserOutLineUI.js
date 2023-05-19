@@ -9,10 +9,10 @@ const UserOutLineUI = ({ onClick }) => {
             <div css={S.userInfoBox}>
                 <div css={S.userInfo}>
                     <div css={S.userInfoLeft}>
-                        <div css={S.profileBox} onClick={() => onClick('userUpdate')}></div>
+                        <div css={S.profileBox} onClick={() => onClick('/userUpdate')}></div>
                     </div>
                     <div>
-                        <div css={S.usernameBox} onClick={() => onClick('userUpdate')}><div css={S.username}>병수</div> <button css={S.shareButton}><GrShare /></button></div>
+                        <div css={S.usernameBox} onClick={() => onClick('/userUpdate')}><div css={S.username}>병수</div> <button css={S.shareButton}><GrShare /></button></div>
                         <div css={S.Buttons}>
                             <button css={S.reviewButton} onClick={() => onClick('/review')}>리뷰 <em css={S.count}>0</em></button>
                             <button css={S.pictureButton} onClick={() => onClick('/review')}>사진 <em css={S.count}>0</em></button>
@@ -21,7 +21,6 @@ const UserOutLineUI = ({ onClick }) => {
                         </div>
                     </div>
                 </div>
-
             </div>
         </>
     );

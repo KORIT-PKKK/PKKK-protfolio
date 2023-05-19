@@ -1,13 +1,9 @@
-/** @jsxImportSource @emotion/react */
 import Cookies from 'js-cookie';
-import TimelineUI from './model/TimelineUI';
-import * as S from './styles/TimelineViewStyle';
 import React from 'react';
-import RequestLoginUI from './model/RequestLoginUI';
 import { useNavigate } from 'react-router-dom';
+import RequestLoginUI from './model/RequestLoginUI';
 
-
-const TimelineView = () => {
+const FavView = () => {
     const navigate = useNavigate();
 
     const menuClickHandle = (path) => {
@@ -19,9 +15,10 @@ const TimelineView = () => {
 
     return (
         <>
-            {authState ? (<TimelineUI />) : (<RequestLoginUI onClick={menuClickHandle} />)}
+            <div></div>
+            {authState ? "" : (<RequestLoginUI onClick={menuClickHandle} />)}
         </>
     );
 };
 
-export default TimelineView;
+export default FavView;
