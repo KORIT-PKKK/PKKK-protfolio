@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import React, { useRef, useState } from 'react';
 import * as S from './styles/PostAddViewStyle';
-import { FaStar } from 'react-icons/fa';
 import { MdSaveAlt } from 'react-icons/md';
 import LogoUI from '../model/LogoUI';
+import RatingUI from './model/RatingUI';
+
 
 //게시글 작성
 const PostAddView = () => {
@@ -39,7 +40,7 @@ const PostAddView = () => {
                     <main>
                         <div css={S.mainContainer}>
                             <div css={S.mainStarCheck}>별점을 체크해주세요!</div>
-
+                            <RatingUI />
                             <div css={S.starScore}>
                                 {/* <FaStar size={60} />
                                 <FaStar size={60} />

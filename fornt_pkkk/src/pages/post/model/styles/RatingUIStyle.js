@@ -1,27 +1,12 @@
-import { css } from '@emotion/react';
+import { css } from "@emotion/react";
 
-export const wrap = css`
-  display: flex;
-  flex-direction: column;
-  padding-top: 15px;
-`;
-
-export const ratingText = css`
-    color: #787878;
-    font-size: 12px;
-    font-weight: 400;
-`;
-
-export const stars = css`
+export const starRateWrap = css`
     display: flex;
-    padding-top: 5px;
-    cursor: pointer;
-    .star-icon {
-        &:hover {
-            
-        }
+    align-items: center;
+    width: 100%;
+    margin: 100px 0 0 15px;
+    .star_icon {
+        display: inline-flex;
+        margin-right: 5px;
     }
-`;
-
-export const yellowStar = css`
 `;

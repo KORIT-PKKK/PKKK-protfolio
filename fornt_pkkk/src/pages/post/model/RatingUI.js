@@ -1,36 +1,29 @@
-import React, { useEffect, useState } from 'react';
+/** @jsxImportSource @emotion/react */
+import React from 'react';
 import * as S from './styles/RatingUIStyle';
-import { FaStar } from 'react-icons/fa';
 
-const ARRAY = [0, 1, 2, 3, 4];
-
-const StarRating = () => {
-    const [score, setScore] = useState([false, false, false, false, false]);
-
-    const starScore = index => {
-        let star = [...score];
-        for (let i = 0; i < 5; i++) {
-          star[i] = i <= index ? true : false;
-        }
-        setScore(star);
-      };
+const RatingUI = () => {
 
   return (
     <>
-        <div css={S.wrap}>
-        <div css={S.ratingText}>평가하기</div>
-        <div css={S.stars}>
-            {ARRAY.map((el, index) => (
-            <FaStar
-            key={index}
-            size="20"
-            fill="Gray"
-            />
-        ))}
-        </div>
-        </div>
+        <starRateWrap>
+            <span className='star_icon'>
+                <svg xmlns='http://www.w3.org/2000/svg' width='40' height='39' viewBox='0 0 14 13' fill='#cacaca'>
+                    <clipPath id="firstStarClip">
+                        <rect width='7' height='39' />
+                    </clipPath>
+                    <path
+                        id='firstStar'
+                        d='M9,2l2.163,4.279L16,6.969,12.5,10.3l.826,4.7L9,12.779,4.674,15,5.5,10.3,2,6.969l4.837-.69Z'
+                        transform='translate(-2 -2)'
+                    />
+                    <use clipPath="url(#firstStarClip)" href="#firstStar" fill='gold'
+                    />
+                </svg>
+            </span>
+        </starRateWrap>
     </>
   );
 };
 
-export default StarRating;
+export default RatingUI;
