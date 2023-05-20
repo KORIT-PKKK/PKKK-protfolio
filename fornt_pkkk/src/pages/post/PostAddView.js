@@ -39,9 +39,7 @@ const PostAddView = () => {
                     <main>
                         <div css={S.mainContainer}>
                             <div css={S.mainStarCheck}>별점을 체크해주세요!</div>
-                            <div>
-                                {/* <StarRating /> */}
-                            </div>
+
                             <div css={S.starScore}>
                                 {/* <FaStar size={60} />
                                 <FaStar size={60} />
