@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-export const starRateWrap = css`
+export const StarRateWrap = css`
     display: flex;
     align-items: center;
     width: 100%;
