@@ -12,8 +12,10 @@ import FavPostView from './post/FavPostView';
 import FavPlaceView from './post/FavPlaceView';
 import Cookies from 'js-cookie';
 import RequestLoginUI from './model/RequestLoginUI';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FavView from './post/FavView';
+import { pathState } from '../store/atoms/path/pathAtom';
+import { useRecoilState } from 'recoil';
 
 
 const MainView = () => {
@@ -22,7 +24,12 @@ const MainView = () => {
     const authPath = "/auth";
     const rtk = Cookies.get("refreshToken");
     const authState = rtk !== undefined;
-    const [selectPath, setSelectPath] = useState("/feed");
+    const [ selectPath, setSelectPath ] = useRecoilState(pathState);
+
+    useEffect(() => {
+        const currentPath = window.location.pathname;
+        setSelectPath(currentPath);
+    }, []);
 
 
     const menuClickHandle = (path) => {
@@ -40,9 +47,13 @@ const MainView = () => {
         navigate(path);
     }
 
-    const tabsClickHandle = (path) => {
+    const selectClickHandle = (path) => {
         navigate(path);
         setSelectPath(path);
+    }
+
+    const getRefreshToken = () => {
+        Cookies.set('refreshToken', 'new', { expires: 14 });
     }
 
     return (
@@ -50,11 +61,11 @@ const MainView = () => {
             <header>
                 <LogoUI onClick={menuClickHandle} />
                 <div css={S.userOutLine}>
-                    {authState ? (<UserOutLineUI onClick={menuClickHandle} />) : <RequestLoginUI onClick={menuClickHandle} />}
+                    {authState ? (<UserOutLineUI onClick={selectClickHandle}/>) : <RequestLoginUI onClick={menuClickHandle} />}
                     <ButtonUI children={"글쓰기"} />
                 </div>
                 <div>
-                    <TabsUI onClick={tabsClickHandle} selectPath={selectPath} />
+                    <TabsUI onClick={selectClickHandle} selectPath={selectPath} />
                 </div>
             </header >
             <main css={S.main}>
@@ -75,6 +86,7 @@ const MainView = () => {
                     <button css={S.componyButton} onClick={() => menuClickHandle('')}>©pkkk Corp.</button>
                 </div>
             </footer>
+            <button onClick={getRefreshToken}>임의로 refreshToken 추가</button>
         </>
     );
 };

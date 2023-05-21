@@ -7,20 +7,15 @@ import { useNavigate } from 'react-router-dom';
 import { authenticationState } from '../../store/atoms/auth/AuthAtom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import Cookies from 'js-cookie';
+import { loginUserState } from '../../store/atoms/login/LoginAtom';
 
 const UserSettingView = () => {
 
     const navigate = useNavigate();
-    const { authState } = useRecoilValue(authenticationState);
-    const authRequiredPath = ["/userSetting", "/userUpdate", "/postWriting"];
-
+    const { username } = useRecoilValue(loginUserState);
 
     const menuClickHandle = (path) => {
-        if (!authState && authRequiredPath.some(authPath => path.startsWith(authPath))) {
-            console.log(`current state : ${authState} `);
-            navigate("/auth/login");
-        }
-        navigate(`/${path}`);
+        navigate(path);
     }
     return (
         <div css={S.container}>
@@ -39,10 +34,10 @@ const UserSettingView = () => {
                             </div>
                         </div>
                     </div>
-                    <div css={S.backButton} onClick={() => menuClickHandle('')}>×</div>
+                    <div css={S.backButton} onClick={() => menuClickHandle('/')}>×</div>
                 </div>
                 <div css={S.profilemodifyButtonBox}>
-                    <button css={S.profilemodifyButton} onClick={() => menuClickHandle('userUpdate')}><FiUser css={S.profilemodifyButtonIcon} />프로필 편집</button>
+                    <button css={S.profilemodifyButton} onClick={() => menuClickHandle('/userUpdate')}><FiUser css={S.profilemodifyButtonIcon} />프로필 편집</button>
                 </div>
             </div>
             <div css={S.followSettingContainer}>
@@ -55,21 +50,19 @@ const UserSettingView = () => {
             </div>
             <div css={S.Buttoncontainer}>
                 <div css={S.buttonBox}>
-                    <button css={S.button} onClick={() => menuClickHandle('login')}><div>로그아웃</div> <div css={S.logoutUsername}>username</div></button>
+                    <button css={S.button}><div>로그아웃</div> <div css={S.logoutUsername}>{username}</div></button>
                 </div>
             </div>
             <div css={S.Buttoncontainer}>
                 <div css={S.buttonBox}>
-                    <button css={S.button} onClick={() => menuClickHandle('feed')}><div>피드</div></button>
-                    <button css={S.button} onClick={() => menuClickHandle('visit')}><div>타임라인</div></button>
-                    <button css={S.button} onClick={() => menuClickHandle('review')}><div>리뷰</div></button>
-                    <button css={S.button} onClick={() => menuClickHandle('placeFav')}><div>게시물</div></button>
-                    <button css={S.button} onClick={() => menuClickHandle('postFav')}><div>장소</div></button>
+                    <button css={S.button} onClick={() => menuClickHandle('/feed')}><div>피드</div></button>
+                    <button css={S.button} onClick={() => menuClickHandle('/timeLine')}><div>타임라인</div></button>
+                    <button css={S.button} onClick={() => menuClickHandle('/fav')}><div>즐겨찾기</div></button>
                 </div>
             </div>
             <footer css={S.footer}>
                 <div css={S.componyBox}>
-                    <button css={S.componyButton}>©PKKK Corp.</button>
+                    <button css={S.componyButton} onClick={() => menuClickHandle('/')}>©PKKK Corp.</button>
                 </div>
             </footer>
         </div>

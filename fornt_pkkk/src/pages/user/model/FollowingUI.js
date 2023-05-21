@@ -1,16 +1,33 @@
 /** @jsxImportSource @emotion/react */
 import * as S from './styles/FollowingUIStyle';
 import React from 'react';
+import { BiUser } from 'react-icons/bi';
 
 const FollowingUI = () => {
     return (
         <>
             <div css={S.container}>
-                <li css={S.followingList}>
+                <h1 css={S.title}>나의 팔로우</h1>
+                <div css={S.userBox}>
                     <div css={S.photoBox}></div>
-                    <div css={S.username}>병수</div>
-                    <button css={S.followingCancelButton}>팔로우 취소</button>
-                </li>
+                    <div css={S.username}>username</div>
+                    <button css={S.stateButton}>X 팔로우 취소</button>
+                </div>
+                <div css={S.userBox}>
+                    <div css={S.photoBox}></div>
+                    <div css={S.username}>username</div>
+                    <button css={S.stateButton}>X 팔로우 취소</button>
+                </div>
+                <div css={S.userBox}>
+                    <div css={S.photoBox}></div>
+                    <div css={S.username}>username</div>
+                    <button css={S.stateButton}>X 팔로우 취소</button>
+                </div>
+                <div css={S.userBox}>
+                    <div css={S.photoBox}></div>
+                    <div css={S.username}>username</div>
+                    <button css={S.stateButton}>X 팔로우 취소</button>
+                </div>
             </div>
         </>
     );

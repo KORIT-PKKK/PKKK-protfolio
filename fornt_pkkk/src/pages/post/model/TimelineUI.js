@@ -9,28 +9,34 @@ const TimelineUI = () => {
     return (
         <>
             <div css={S.container}>
-                <div css={S.mainContainer}>
-                    <div css={S.monthBox}>3월 방문</div>
-                    <div css={S.reviewContainer}>
-                        <div css={S.reviewHeader}>
-                            <div css={S.placeInfo}>
-                                <div css={S.placeName}>삼촌집</div>
-                                <div css={S.date}>05.03</div>
-                                <div css={S.wordSeparation}> ⋅ </div>
-                                <div css={S.visitCount}>4번방문</div>
-                            </div>
-                            <div>
-                                <button css={S.bookMark}><AiOutlineStar /></button>
-                                <button css={S.deleteButton}><BsTrash /></button>
-                            </div>
+                <div css={S.month}>5월 방문</div>
+                <div css={S.reviewContainer}>
+                    <div css={S.reviewCard}>
+                        <div css={S.review}>꼭 방문하고 싶네요~! 다음에는 쿠폰을 챙겨가야 겠어요 하하하하하하 </div>
+                        <div css={S.placeContainer}>
+                            <div css={S.address}>부산시 서동</div>
+                            <div css={S.place}>스튜디오</div>
                         </div>
-                        <div css={S.reviewMain}>
-                            <div css={S.presidentName}>김사장</div>
-                            <div css={S.wordSeparation}> ⋅ </div>
-                            <div css={S.price}>20000</div>
+                    </div>
+                    <div css={S.reviewCard}>
+                        <div css={S.review}>아주 맛있고 좋았어요!</div>
+                        <div css={S.placeContainer}>
+                            <div css={S.address}>부산시 서동</div>
+                            <div css={S.place}>스튜디오 PKKK</div>
                         </div>
-                        <div css={S.reviewFooter}>
-                            <button css={S.reviewButton}>리뷰 쓰기</button>
+                    </div>
+                    <div css={S.reviewCard}>
+                        <div css={S.review}>아주 맛있고 좋았어요!</div>
+                        <div css={S.placeContainer}>
+                            <div css={S.address}>부산시 서동</div>
+                            <div css={S.place}>스튜디오 PKKK</div>
+                        </div>
+                    </div>
+                    <div css={S.reviewCard}>
+                        <div css={S.review}>아주 맛있고 좋았어요!</div>
+                        <div css={S.placeContainer}>
+                            <div css={S.address}>부산시 서동</div>
+                            <div css={S.place}>스튜디오 PKKK</div>
                         </div>
                     </div>
                 </div>

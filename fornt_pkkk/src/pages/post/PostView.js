@@ -1,8 +1,4 @@
-/** @jsxImportSource @emotion/react */
 import React, { useState } from 'react';
-import * as S from './styles/PostViewStyle';
-import { AiOutlineStar } from 'react-icons/ai';
-import { SlArrowRight } from 'react-icons/sl';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import PostUI from './model/PostUI';

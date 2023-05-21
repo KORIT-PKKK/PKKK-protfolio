@@ -11,8 +11,10 @@ export const backButton = css`
     height: 100%;
     background-color: white;
     border: none;
+    margin-top: 5px;
     padding: 17px 12px 19px 18px;
     font-size: 18px;
+    cursor: pointer;
 `;
 
 export const followTitle = css`
@@ -37,20 +39,7 @@ export const followButtonBox = css`
     padding-bottom: 20px;
 `;
 
-export const followingButton = css`
-    height: 100%;
-    width: 88px;
-    padding: 0px 14px;
-    border: 1px solid #dbdbdb;
-    border-radius: 25px;
-    background-color: black; 
-    font-size: 16px;
-    font-weight: 600;
-    color: #fff;
-    cursor: pointer;
-`;
-
-export const followerButton = css`
+export const followeButton = css`
     height: 100%;
     width: 88px;
     padding: 0px 14px;
@@ -61,4 +50,9 @@ export const followerButton = css`
     font-weight: 600;
     cursor: pointer;
     margin-left: 7px;
+`;
+
+export const selectButton = css`
+    background-color: black;
+    color: white;
 `;

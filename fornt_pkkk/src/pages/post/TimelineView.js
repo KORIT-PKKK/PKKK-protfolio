@@ -1,7 +1,5 @@
-/** @jsxImportSource @emotion/react */
 import Cookies from 'js-cookie';
 import TimelineUI from './model/TimelineUI';
-import * as S from './styles/TimelineViewStyle';
 import React from 'react';
 import RequestLoginUI from './model/RequestLoginUI';
 import { useNavigate } from 'react-router-dom';

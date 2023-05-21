@@ -1,11 +1,10 @@
-/** @jsxImportSource @emotion/react */
 import React from 'react';
-import * as S from './styles/FavPostViewStyle';
+import FavPostUI from './model/FavPostUI';
 
 const FavPostView = () => {
     return (
         <>
-
+            <FavPostUI/>
         </>
     );
 };
