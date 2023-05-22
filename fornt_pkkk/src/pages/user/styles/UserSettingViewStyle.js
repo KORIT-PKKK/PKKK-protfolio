@@ -118,11 +118,6 @@ export const followSettingIcon = css`
     font-size: 20px;
 `;
 
-export const addFollowState = css`
-    font-size: 14px;
-    color: green;
-`;
-
 export const alarmSettingIcon = css`
     margin: 0px 5px 5px 0px;
     font-size: 22px;

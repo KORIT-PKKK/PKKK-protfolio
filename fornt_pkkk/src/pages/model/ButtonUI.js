@@ -2,11 +2,11 @@
 import React from 'react';
 import * as S from './styles/ButtonUIStyle';
 
-const ButtonUI = ({ children }) => {
+const ButtonUI = ({ children, onClick }) => {
     return (
         <>
             <div css={S.buttonBox}>
-                <button css={S.button}>{children}</button>
+                <button css={S.button} onClick={() => onClick('/postAddView')}>{children}</button>
             </div>
         </>
     );

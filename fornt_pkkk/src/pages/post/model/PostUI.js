@@ -7,9 +7,26 @@ import { SlArrowRight } from 'react-icons/sl';
 const PostUI = ({ post }) => {
     let imageUrls = [];
 
+    let now = new Date();
+    let postDate = new Date(post.updateAt);
+
+    let formattedDate = "";
+    if (now.toDateString() === postDate.toDateString()) {
+        const hours = postDate.getHours();
+        let ampm = hours >= 12 ? '오후' : '오전';
+        const twelveHoursFormat = hours % 12 || 12;
+        const minutes = postDate.getMinutes();
+        formattedDate = `${ampm} ${twelveHoursFormat}:${minutes}`;
+    } else {
+        const year = postDate.getFullYear();
+        const month = postDate.getMonth() + 1;
+        const day = postDate.getDate();
+        formattedDate = `${year}년 ${month}월 ${day}일`;
+    }
+
+
     if (post.picDatas && post.picDatas.includes(',')) {
         imageUrls = post.picDatas.split(',');
-        console.log(post.picDatas);
     }
 
     const getStyles = (imageUrls) => {
@@ -54,9 +71,9 @@ const PostUI = ({ post }) => {
                         <div>
                             <div css={S.profileID}>{post.name}</div>
                             <div>
-                                <span css={S.profileInfo}>사진리뷰 {post.picPostCnt}</span>
-                                <span css={S.profileInfo}> · </span>
-                                <span css={S.profileInfo}>작성일자 {post.updateAt}</span>
+                                <span css={S.profileInfo}>사진리뷰 : {post.picPostCnt}</span>
+                                <span css={S.placeWordConnection}>·</span>
+                                <span css={S.profileInfo}>작성일자 : {formattedDate}</span>
                             </div>
                         </div>
                     </button>
@@ -71,16 +88,16 @@ const PostUI = ({ post }) => {
                     <div css={getStyles(imageUrls)}>
                         {imageUrls.map((url, index) => (
                             index < 3 ?
-                                <div css={getIndexCss(index)}>
+                                <div key={index} css={getIndexCss(index)}>
                                     <img src={url} css={S.responsiveImage} />
                                 </div> : null
                         ))}
                     </div>
                 </main>
                 <div>
-                <div css={S.detail}>
-                    {post.content}{post.evalScore}
-                </div>
+                    <div css={S.detail}>
+                        {post.content}{post.evalScore}
+                    </div>
                 </div>
                 <footer>
                     <div css={S.footer}>

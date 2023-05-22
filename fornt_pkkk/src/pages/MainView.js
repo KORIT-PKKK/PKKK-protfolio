@@ -6,13 +6,10 @@ import UserOutLineUI from './model/UserOutLineUI';
 import ButtonUI from './model/ButtonUI';
 import TabsUI from './model/TabsUI';
 import PostView from './post/PostView';
-import HistoryView from './post/HistoryView';
 import TimelineView from './post/TimelineView';
-import FavPostView from './post/FavPostView';
-import FavPlaceView from './post/FavPlaceView';
 import Cookies from 'js-cookie';
 import RequestLoginUI from './model/RequestLoginUI';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import FavView from './post/FavView';
 import { pathState } from '../store/atoms/path/pathAtom';
 import { useRecoilState } from 'recoil';
@@ -24,7 +21,7 @@ const MainView = () => {
     const authPath = "/auth";
     const rtk = Cookies.get("refreshToken");
     const authState = rtk !== undefined;
-    const [ selectPath, setSelectPath ] = useRecoilState(pathState);
+    const [selectPath, setSelectPath] = useRecoilState(pathState);
 
     useEffect(() => {
         const currentPath = window.location.pathname;
@@ -56,13 +53,20 @@ const MainView = () => {
         Cookies.set('refreshToken', 'new', { expires: 14 });
     }
 
+    const logoutButton = () => {
+        Cookies.remove("accessToken", { path: '/' });
+        Cookies.remove("refreshToken", { path: '/' });
+        window.location.replace("/");
+    }
+
+
     return (
         <>
             <header>
                 <LogoUI onClick={menuClickHandle} />
                 <div css={S.userOutLine}>
-                    {authState ? (<UserOutLineUI onClick={selectClickHandle}/>) : <RequestLoginUI onClick={menuClickHandle} />}
-                    <ButtonUI children={"글쓰기"} />
+                    {authState ? (<UserOutLineUI onClick={selectClickHandle} />) : <RequestLoginUI onClick={menuClickHandle} />}
+                    <ButtonUI onClick={menuClickHandle} children={"글쓰기"} />
                 </div>
                 <div>
                     <TabsUI onClick={selectClickHandle} selectPath={selectPath} />
@@ -78,14 +82,16 @@ const MainView = () => {
             </main>
             <footer css={S.footerBox}>
                 <div css={S.logoutBox}>
-                    <button css={S.logoutButton} onClick={() => menuClickHandle('/auth/login')}>로그아웃</button>
+                    {authState ? (<button css={S.logoutButton} onClick={logoutButton}>로그아웃</button>)
+                        : (<button css={S.logoutButton} onClick={() => menuClickHandle('/auth/login')}>로그인</button>)}
+
                     <div css={S.wordSeparation}>|</div>
                     <button css={S.logoutButton} onClick={() => menuClickHandle('/userSetting')}>전체서비스</button>
                 </div>
                 <div css={S.componyBox}>
                     <button css={S.componyButton} onClick={() => menuClickHandle('')}>©pkkk Corp.</button>
                 </div>
-            </footer>
+            </footer >
             <button onClick={getRefreshToken}>임의로 refreshToken 추가</button>
         </>
     );

@@ -7,12 +7,9 @@ import { BiUser } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useRecoilState } from 'recoil';
-import { loginUserState } from '../../store/atoms/login/LoginAtom';
 
 const LoginView = () => {
     const [loginUser, setLoginUser] = useState({ username: "", password: "" });
-    const [successLoginUser, setsuccessLoginUser] = useRecoilState(loginUserState);
     const navigate = useNavigate();
 
     const menuClickHandle = (path) => {
@@ -34,12 +31,10 @@ const LoginView = () => {
             const response = await axios.post("http://192.168.2.18:8080/api/auth/signin", JSON.stringify(loginUser), option);
             const accessToken = response.data.accessToken;
             const refreshToken = response.data.refreshToken;
-
             Cookies.set('refreshToken', refreshToken, { expires: 14 });
             Cookies.set('accessToken', accessToken, { expires: 1 / 24 });
-            setsuccessLoginUser(successLoginUser, loginUser);
             alert("환영합니다.");
-            window.location.replace("/");
+            navigate("/");
         } catch (e) {
             console.error(e);
         }
