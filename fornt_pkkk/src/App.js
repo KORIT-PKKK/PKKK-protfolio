@@ -27,7 +27,7 @@ function App() {
         <Route path='/follow/*' element={<FollowView />} />
         <Route path='/postAddView' element={<PostAddView />} />
         <Route path='/place' element={<GooglePlace />} />
-        <Route path='/otherUser' element={<OtherUserView />} />
+        <Route path='/otherUser/:userId' element={<OtherUserView />} />
         <Route path='/postDetail/:postId' element={<PostDetailView />} />
       </Routes>
     </>

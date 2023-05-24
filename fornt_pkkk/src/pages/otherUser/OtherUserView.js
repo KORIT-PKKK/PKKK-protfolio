@@ -2,12 +2,17 @@
 import React from 'react';
 import * as S from './styles/OtherUserViewStyle';
 import LogoUI from '../model/LogoUI';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import OtherUserOutLineUI from './model/OtherUserOutLineUI';
 import ButtonUI from './model/ButtonUI';
 import ReviewCardUI from './model/ReviewCardUI';
 
 const OtherUserView = () => {
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const userId = searchParams.get('userId');
+    console.log(userId)
+
     const navigate = useNavigate();
 
     const menuClickHandle = (path) => {
@@ -19,7 +24,7 @@ const OtherUserView = () => {
             <LogoUI onClick={menuClickHandle} />
             <div css={S.userOutLine}>
                 <OtherUserOutLineUI />
-                <ButtonUI/>
+                <ButtonUI />
             </div>
             <div css={S.container}>
                 <div css={S.reviewContainer}>

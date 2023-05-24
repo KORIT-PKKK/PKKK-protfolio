@@ -65,7 +65,6 @@ const MainView = () => {
             Cookies.remove("accessToken", { path: '/' });
             Cookies.remove("refreshToken", { path: '/' });
             Cookies.remove("username", { path: '/' });
-            alert("로그아웃 되었습니다!");
             window.location.replace("/");
         } catch (error) {
             console.log(error.response)
@@ -116,6 +115,7 @@ const MainView = () => {
                         <RequestLoginUI onClick={menuClickHandle} />
                     )}
                     <ButtonUI onClick={menuClickHandle} />
+                    <TabsUI onClick={selectClickHandle} selectPath={selectPath} />
                 </div>
             </header >
             <main css={S.main}>

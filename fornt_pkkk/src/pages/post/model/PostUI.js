@@ -62,8 +62,12 @@ const PostUI = ({ post, onClick }) => {
         return map[length] ?? S.main;
     }
 
-    const showOtherDetail = () => {
+    const showPostDetail = () => {
         navigate(`/postDetail/${post.postId}`);
+    }
+
+    const showOtherUser = () => {
+        navigate(`/otherUser?userId=${post.userId}`);
     }
 
     return (
@@ -87,7 +91,7 @@ const PostUI = ({ post, onClick }) => {
                         <button css={S.followButton}>팔로우</button>
                     </div>
                 </header>
-                <main css={mainSetting(imageUrls.length)} onClick={showOtherDetail}>
+                <main css={mainSetting(imageUrls.length)} onClick={showPostDetail}>
                     <div css={getStyles(imageUrls)}>
                         {imageUrls.map((url, index) => (
                             index < 3 ?
