@@ -9,25 +9,29 @@ import PostView from './post/PostView';
 import TimelineView from './post/TimelineView';
 import Cookies from 'js-cookie';
 import RequestLoginUI from './model/RequestLoginUI';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import FavView from './post/FavView';
 import { pathState } from '../store/atoms/path/pathAtom';
 import { useRecoilState } from 'recoil';
+import axios from 'axios';
+import jwtDecode from 'jwt-decode';
+import { axiosInstance, tokenRefresher } from '../Controller/interceptors/TokenRefresher';
 
 
 const MainView = () => {
     const navigate = useNavigate();
-    const authRequiredPath = ["/userSetting", "/userUpdate", "/postWriting"];
+    const authRequiredPath = ["/userSetting", "/userUpdate", "/postAddView"];
     const authPath = "/auth";
     const rtk = Cookies.get("refreshToken");
-    const authState = rtk !== undefined;
     const [selectPath, setSelectPath] = useRecoilState(pathState);
+    const [authState, setAuthState] = useState(false);
+    const [userId, setUserId] = useState('');
+    const [isLoading, setLoadState] = useState(true);
 
     useEffect(() => {
         const currentPath = window.location.pathname;
         setSelectPath(currentPath);
     }, []);
-
 
     const menuClickHandle = (path) => {
         if (!authState && authRequiredPath.some(authPath => path.startsWith(authPath))) {
@@ -49,15 +53,54 @@ const MainView = () => {
         setSelectPath(path);
     }
 
-    const getRefreshToken = () => {
-        Cookies.set('refreshToken', 'new', { expires: 14 });
+    const signOut = async () => {
+        const accessToken = Cookies.get("accessToken");
+        const accessTokenDecodedToken = jwtDecode(accessToken);
+        const data = {
+            "username": accessTokenDecodedToken.username,
+            "refreshToken": rtk
+        }
+        try {
+            await axiosInstance.post("/api/auth/signout", JSON.stringify(data));
+            Cookies.remove("accessToken", { path: '/' });
+            Cookies.remove("refreshToken", { path: '/' });
+            Cookies.remove("username", { path: '/' });
+            alert("로그아웃 되었습니다!");
+            window.location.replace("/");
+        } catch (error) {
+            console.log(error.response)
+        }
+
     }
 
-    const logoutButton = () => {
-        Cookies.remove("accessToken", { path: '/' });
-        Cookies.remove("refreshToken", { path: '/' });
-        window.location.replace("/");
-    }
+    useEffect(() => {
+        const fetchUserId = async () => {
+            if (rtk !== undefined) {
+                let atk = Cookies.get('accessToken');
+                if (atk === undefined || atk === null || atk === '') {
+                    atk = await tokenRefresher();
+                }
+
+                const decodedToken = jwtDecode(atk);
+                const userId = decodedToken.userId;
+
+                setUserId(userId);
+            }
+            setLoadState(false);
+        };
+
+        fetchUserId();
+    }, []);
+
+    useEffect(() => {
+        const stateChange = async () => {
+            if (rtk !== undefined) {
+                setAuthState(true);
+            }
+        }
+
+        stateChange();
+    });
 
 
     return (
@@ -65,11 +108,14 @@ const MainView = () => {
             <header>
                 <LogoUI onClick={menuClickHandle} />
                 <div css={S.userOutLine}>
-                    {authState ? (<UserOutLineUI onClick={selectClickHandle} />) : <RequestLoginUI onClick={menuClickHandle} />}
-                    <ButtonUI onClick={menuClickHandle} children={"글쓰기"} />
-                </div>
-                <div>
-                    <TabsUI onClick={selectClickHandle} selectPath={selectPath} />
+                    {isLoading ? (
+                        <div>Loading...</div>
+                    ) : authState ? (
+                        <UserOutLineUI currentUserId={userId} onClick={selectClickHandle} />
+                    ) : (
+                        <RequestLoginUI onClick={menuClickHandle} />
+                    )}
+                    <ButtonUI onClick={menuClickHandle} />
                 </div>
             </header >
             <main css={S.main}>
@@ -82,7 +128,7 @@ const MainView = () => {
             </main>
             <footer css={S.footerBox}>
                 <div css={S.logoutBox}>
-                    {authState ? (<button css={S.logoutButton} onClick={logoutButton}>로그아웃</button>)
+                    {authState ? (<button css={S.logoutButton} onClick={signOut}>로그아웃</button>)
                         : (<button css={S.logoutButton} onClick={() => menuClickHandle('/auth/login')}>로그인</button>)}
 
                     <div css={S.wordSeparation}>|</div>
@@ -92,7 +138,6 @@ const MainView = () => {
                     <button css={S.componyButton} onClick={() => menuClickHandle('')}>©pkkk Corp.</button>
                 </div>
             </footer >
-            <button onClick={getRefreshToken}>임의로 refreshToken 추가</button>
         </>
     );
 };

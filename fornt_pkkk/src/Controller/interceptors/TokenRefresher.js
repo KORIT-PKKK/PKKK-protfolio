@@ -1,40 +1,49 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import React from 'react';
-import { useRecoilValue } from 'recoil';
-import { loginUserState } from '../../atom/login/LoginAtom';
 
 const axiosInstance = axios.create({
     baseURL: `http://192.168.2.18:8080`,
     headers: { "Content-Type": "application/json" }
 });
 
+const tokenRefresher = async () => {
+    const refreshToken = Cookies.get('refreshToken');
+    const username = Cookies.get('username');
+    const option = {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }
+
+    console.log("REFRESHER HERE!")
+
+    const refreshInfo = {
+        "username": username,
+        "refreshToken": refreshToken
+    }
+    const response = await axios.post("http://192.168.2.18:8080/api/auth/refresh", JSON.stringify(refreshInfo), option);
+
+    let accessToken = response.data.accessToken;
+    console.log(response);
+
+    Cookies.set('accessToken', accessToken, { expires: 1 / 24 });
+
+    return accessToken;
+}
+
 axiosInstance.interceptors.request.use(
 
     async (request) => {
-        let accessToken = Cookies.get('accessToken');
-        const refreshToken = Cookies.get('refreshToken');
-        const { username } = useRecoilValue(loginUserState);
+        console.log("Request has called");
 
-        if (accessToken === null) {
-            const option = {
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }
-
-            const refreshInfo = {
-                "username": username,
-                "refreshToken": refreshToken
-            }
-            const response = await axios.post("http://192.168.2.18:8080/api/auth/refresh", JSON.stringify(refreshInfo), option);
-            accessToken = response.data.accessToken;
-
-            Cookies.set('accessToken', accessToken, { expires: 1 / 24 });
+        let atk = Cookies.get("accessToken");
+        if (atk === undefined || atk === null || atk === "") {
+            atk = await tokenRefresher();
         }
 
-        request.headers.Authorization = `Bearer ${accessToken}`
+        request.headers.Authorization = `Bearer ${atk}`
 
+        console.log(request);
         return request;
     },
     (error) => {
@@ -51,4 +60,4 @@ axiosInstance.interceptors.response.use(
     }
 );
 
-export default axiosInstance;
+export { axiosInstance, tokenRefresher };

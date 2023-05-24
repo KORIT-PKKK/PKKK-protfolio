@@ -5,72 +5,69 @@ import { FiUsers } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import axios from 'axios';
+import { axiosInstance, tokenRefresher } from '../../Controller/interceptors/TokenRefresher';
+import UserOutLineUI from './model/UserOutLineUI';
 
 const UserSettingView = () => {
 
     const navigate = useNavigate();
-    const accessToken = Cookies.get("accessToken");
-    const accessTokenDecodedToken = jwtDecode(accessToken);
-    const [userOutline, setUserOutline] = useState({
-        followeeCount: 0,
-        followerCount: 0,
-        imageUrl: "",
-        introduce: "",
-        name: "",
-        picCount: 0,
-        postCount: 0,
-        userId: 0
-    });
+    const rtk = Cookies.get("refreshToken");
+    const username = Cookies.get("username");
+    const [userId, setUserId] = useState('');
+    const [isLoading, setLoadState] = useState(true);
 
-    const userOutLine = useQuery(["userOutLine"], async () => {
-        const params = {
-            params: {
-                userId: accessTokenDecodedToken.userId,
-            },
+    useEffect(() => {
+        const fetchUserId = async () => {
+            if (rtk !== undefined) {
+                let atk = Cookies.get('accessToken');
+                if (atk === undefined || atk === null || atk === '') {
+                    atk = await tokenRefresher();
+                }
+
+                const decodedToken = jwtDecode(atk);
+                const userId = decodedToken.userId;
+
+                setUserId(userId);
+            }
+            setLoadState(false);
         };
-        const response = await axios.get("http://192.168.2.18:8080/api/user/info", params)
-        console.log(response.data[0]);
-        return response;
-    }, {
-        onSuccess: (response) => {
-            setUserOutline(response.data[0]);
+
+        fetchUserId();
+    }, []);
+
+    const signOut = async () => {
+        const accessToken = Cookies.get("accessToken");
+        const accessTokenDecodedToken = jwtDecode(accessToken);
+        const data = {
+            "username": accessTokenDecodedToken.username,
+            "refreshToken": rtk
         }
-    });
+        try {
+            const response = await axiosInstance.post("/api/auth/signout", JSON.stringify(data));
+            Cookies.remove("accessToken", { path: '/' });
+            Cookies.remove("refreshToken", { path: '/' });
+            Cookies.remove("username", { path: '/' });
+            alert("로그아웃 되었습니다!");
+            window.location.replace("/");
+        } catch (error) {
+            console.log(error.response)
+        }
+    }
 
     const menuClickHandle = (path) => {
         navigate(path);
-    }
-
-    const logoutButton = () => {
-        Cookies.remove("accessToken", { path: '/' });
-        Cookies.remove("refreshToken", { path: '/' });
-        window.location.replace("/");
-    }
-
-    if (userOutLine.isLoading) {
-        <div>...불러오는중</div>
     }
 
     return (
         <div css={S.container}>
             <div css={S.userInfocontainer}>
                 <div css={S.userInfoAndBackButton}>
-                    <div css={S.userInfoBox}>
-                        <div css={S.photoBox}></div>
-                        <div css={S.userInfo}>
-                            <div css={S.userName}>{userOutline.name}</div>
-                            <div css={S.userFunctionBox}>
-                                <div css={S.userFunction}>리뷰 {userOutline.postCount}</div>
-                                <div css={S.wordSeparation}>·</div>
-                                <div css={S.userFunction}>팔로잉 {userOutline.followeeCount}</div>
-                                <div css={S.wordSeparation}>·</div>
-                                <div css={S.userFunction}>팔로워 {userOutline.followerCount}</div>
-                            </div>
-                        </div>
-                    </div>
+                    {isLoading ? (<div>...불러오는 중</div>) : (
+                        <UserOutLineUI currentUserId={userId} />
+                    )}
                     <div css={S.backButton} onClick={() => menuClickHandle('/')}>×</div>
                 </div>
                 <div css={S.profilemodifyButtonBox}>
@@ -85,8 +82,8 @@ const UserSettingView = () => {
                 </div>
             </div>
             <div css={S.Buttoncontainer}>
-                <div css={S.buttonBox} onClick={logoutButton}>
-                    <button css={S.button}><div>로그아웃</div> <div css={S.logoutUsername}>{accessTokenDecodedToken.username}</div></button>
+                <div css={S.buttonBox} onClick={signOut}>
+                    <button css={S.button}><div>로그아웃</div> <div css={S.logoutUsername}>{username}</div></button>
                 </div>
             </div>
             <div css={S.Buttoncontainer}>

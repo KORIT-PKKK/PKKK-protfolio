@@ -30,11 +30,11 @@ const FavPostUI = () => {
                     </div>
                 </header>
                 <main>
-                    
+
                 </main>
                 <div>
-                <div css={S.detail}>
-                </div>
+                    <div css={S.detail}>
+                    </div>
                 </div>
                 <footer>
                     <div css={S.footer}>

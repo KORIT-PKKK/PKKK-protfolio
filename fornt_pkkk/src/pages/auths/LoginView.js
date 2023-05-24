@@ -7,6 +7,7 @@ import { BiUser } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import jwtDecode from 'jwt-decode';
 
 const LoginView = () => {
     const [loginUser, setLoginUser] = useState({ username: "", password: "" });
@@ -31,8 +32,12 @@ const LoginView = () => {
             const response = await axios.post("http://192.168.2.18:8080/api/auth/signin", JSON.stringify(loginUser), option);
             const accessToken = response.data.accessToken;
             const refreshToken = response.data.refreshToken;
+            const userId = jwtDecode(accessToken).userId;
+            console.log(userId);
+
             Cookies.set('refreshToken', refreshToken, { expires: 14 });
             Cookies.set('accessToken', accessToken, { expires: 1 / 24 });
+            Cookies.set('username', loginUser.username, { expires: 14 });
             alert("환영합니다.");
             navigate("/");
         } catch (e) {

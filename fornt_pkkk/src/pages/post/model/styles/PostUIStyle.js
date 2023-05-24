@@ -18,6 +18,7 @@ export const header = css`
     align-items: center;
     width: 680px;
     height: 42px;
+    margin-bottom: 20px;
 `;
 
 export const profile = css`
@@ -28,6 +29,7 @@ export const profile = css`
     margin: -10px;
     padding: 10px;
     background-color: white;
+    cursor: pointer;
 `;
 
 export const profilePictureBox = css`
@@ -70,24 +72,14 @@ export const followButton = css`
     border-radius: 5px;
     background-color: #F3F9FE;
     color: #2D8DEE;
+    cursor: pointer;
 `;
 
-export const block = css`
-    justify-content: center;
-`;
-
-export const blockButton = css`
-    border: 1px solid white;
-    background-color: white;
-    color: #8F8F8F;
-    font-size: 16px;
-    width: 26px;
-    height: 30px;
-`;
 
 export const main = css`
     width: 680px;
     height: 439px;
+    cursor: pointer;
 `;
 
 export const blank = css`
@@ -113,6 +105,7 @@ export const wrapper1 = css`
     grid-template-areas: 
     "box1";
 `;
+
 export const wrapper2 = css`
     width: 100%;
     display: grid;
@@ -121,6 +114,7 @@ export const wrapper2 = css`
     grid-template-areas: 
     "box1 box2";
 `;
+
 export const wrapper3 = css`
     width: 100%;
     display: grid;
@@ -149,6 +143,7 @@ export const detail = css`
     height: auto;
     margin: 5px 0px 5px 0px;
     padding: 30px 20px 30px 20px;
+    cursor: pointer;
 `;
 
 export const tag = css`
@@ -166,6 +161,7 @@ export const footer = css`
     height: 66px;
     margin: 5px 0px 0px 0px;
     padding: 12px 20px 12px 20px;
+    cursor: pointer;
 `;
 
 export const place = css`

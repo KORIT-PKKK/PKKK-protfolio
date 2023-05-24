@@ -4,21 +4,27 @@ import * as S from './styles/PostAddViewStyle';
 import { MdSaveAlt } from 'react-icons/md';
 import LogoUI from '../model/LogoUI';
 import RatingUI from './model/RatingUI';
+import { useNavigate } from 'react-router-dom';
 
 
 //게시글 작성
 const PostAddView = () => {
+    const navigate = useNavigate();
     const [countent, setContent] = useState("");
     const [imgFiles, setImgFiles] = useState([]);
     const fileId = useRef(1);
 
     const formData = new FormData();
 
+    const menuClickHandle = (path) => {
+        navigate(path);
+    }
+
     return (
         <>
             <div>
                 <div>
-                    <LogoUI />
+                    <LogoUI onClick={menuClickHandle} />
                 </div>
                 <div css={S.postContainer}>
                     <header>
@@ -42,7 +48,7 @@ const PostAddView = () => {
                             <div css={S.mainStarCheck}>별점을 체크해주세요!</div>
 
                             <RatingUI />
-                            
+
                             <div css={S.starScore}>
                                 {/* <FaStar size={60} />
                                 <FaStar size={60} />

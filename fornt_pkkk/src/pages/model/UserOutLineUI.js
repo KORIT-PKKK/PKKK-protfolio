@@ -2,15 +2,11 @@
 import React, { useState } from 'react';
 import * as S from './styles/UserOutLineUIStyle';
 import { GrShare } from 'react-icons/gr';
-import axios from 'axios';
 import { useQuery } from 'react-query';
-import Cookies from 'js-cookie';
-import jwtDecode from 'jwt-decode';
+import axios from 'axios';
 
 
-const UserOutLineUI = ({ onClick }) => {
-    const accessToken = Cookies.get('accessToken');
-    const accessTokenDecodedToken = jwtDecode(accessToken);
+const UserOutLineUI = ({ currentUserId, onClick }) => {
     const [userOutline, setUserOutline] = useState({
         followeeCount: 0,
         followerCount: 0,
@@ -25,7 +21,7 @@ const UserOutLineUI = ({ onClick }) => {
     const userOutLine = useQuery(["userOutLine"], async () => {
         const params = {
             params: {
-                userId: accessTokenDecodedToken.userId,
+                userId: currentUserId,
             },
         };
         const response = await axios.get("http://192.168.2.18:8080/api/user/info", params)
@@ -38,7 +34,7 @@ const UserOutLineUI = ({ onClick }) => {
     });
 
     if (userOutLine.isLoading) {
-        <div>...불러오는중</div>
+        return <div>...불러오는중</div>
     }
 
     return (

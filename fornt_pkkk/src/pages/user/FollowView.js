@@ -8,11 +8,9 @@ import FollowingUI from './model/FollowingUI';
 import { useRecoilState } from 'recoil';
 import { pathState } from '../../store/atoms/path/pathAtom';
 
-
-
 const FollowView = () => {
     const navigate = useNavigate();
-    const [ selectPath, setSelectPath ] = useRecoilState(pathState);
+    const [selectPath, setSelectPath] = useRecoilState(pathState);
 
     const menuClickHandle = (path) => {
         setSelectPath(path);

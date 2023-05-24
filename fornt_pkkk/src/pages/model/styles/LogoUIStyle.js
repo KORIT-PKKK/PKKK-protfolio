@@ -5,6 +5,8 @@ export const logoBox = css`
     justify-content: space-between;
     align-items: center;
     padding: 8px 18px 8px 15px;
+    border-bottom: 1px solid #dbdbdb;
+    margin-bottom: 30px;
 `;
 
 export const logo = css`

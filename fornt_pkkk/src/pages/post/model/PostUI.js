@@ -4,7 +4,9 @@ import React from 'react';
 import * as S from './styles/PostUIStyle';
 import { AiOutlineStar } from 'react-icons/ai';
 import { SlArrowRight } from 'react-icons/sl';
-const PostUI = ({ post }) => {
+import { useNavigate } from 'react-router-dom';
+const PostUI = ({ post, onClick }) => {
+    const navigate = useNavigate();
     let imageUrls = [];
 
     let now = new Date();
@@ -60,11 +62,15 @@ const PostUI = ({ post }) => {
         return map[length] ?? S.main;
     }
 
+    const showOtherDetail = () => {
+        navigate(`/postDetail/${post.postId}`);
+    }
+
     return (
         <>
             <div css={S.feed}>
                 <header css={S.header}>
-                    <button css={S.profile}>
+                    <button css={S.profile} onClick={() => onClick('/otherUser')}>
                         <div css={S.profilePictureBox}>
                             <div css={S.profilePicture}></div>
                         </div>
@@ -80,11 +86,8 @@ const PostUI = ({ post }) => {
                     <div css={S.follow}>
                         <button css={S.followButton}>팔로우</button>
                     </div>
-                    <div css={S.block}>
-                        <button css={S.blockButton}>⁝</button>
-                    </div>
                 </header>
-                <main css={mainSetting(imageUrls.length)}>
+                <main css={mainSetting(imageUrls.length)} onClick={showOtherDetail}>
                     <div css={getStyles(imageUrls)}>
                         {imageUrls.map((url, index) => (
                             index < 3 ?

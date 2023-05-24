@@ -11,6 +11,8 @@ import RegisterView from './pages/auths/RegisterView';
 import FollowView from './pages/user/FollowView';
 import PostAddView from './pages/post/PostAddView';
 import SignInRoute from './components/auth/SignInRoute';
+import OtherUserView from './pages/otherUser/OtherUserView';
+import PostDetailView from './pages/postDetail/PostDetailView';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
         <Route path='/follow/*' element={<FollowView />} />
         <Route path='/postAddView' element={<PostAddView />} />
         <Route path='/place' element={<GooglePlace />} />
+        <Route path='/otherUser' element={<OtherUserView />} />
+        <Route path='/postDetail/:postId' element={<PostDetailView />} />
       </Routes>
     </>
   );
