@@ -1,18 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, MarkerF, useJsApiLoader } from '@react-google-maps/api';
 
 const GoogleMaps = () => {
   const [currentPosition, setCurrentPosition] = useState({ lat: 37.5665, lng: 126.9780 });
+  const [mapInstance, setMapInstance] = useState(null);
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: ""
   })
 
+  
+
   const containerStyle = {
     width: '100%',
     height: '400px'
   };
+
+  const myStyles = [
+    {
+      featureType: "poi",
+      elementType: "labels",
+      stylers: [{ visibility: "off" }],
+    },
+  ];
 
 
   const onLoad = (map) => {
@@ -30,7 +41,6 @@ const GoogleMaps = () => {
     }
   }, []);
 
-
   return isLoaded ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
@@ -38,8 +48,15 @@ const GoogleMaps = () => {
       zoom={17}
       onLoad={onLoad}
       onUnmount={onUnmount}
-
+      options={{ disableDefaultUI: true, styles: myStyles }}
     >
+    <MarkerF
+      position={{ lat: 35.151063, lng: 129.058063 }}
+      icon={{
+        url: `/src/images.marker.png`,
+        scaledSize: new window.google.maps.Size(32, 32),
+      }}
+    />
     </GoogleMap >
   ) : <></>;
 };
