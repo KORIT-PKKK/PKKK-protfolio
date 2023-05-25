@@ -1,11 +1,17 @@
 /* eslint-disable jsx-a11y/alt-text */
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from './styles/PostUIStyle';
 import { AiOutlineStar } from 'react-icons/ai';
 import { SlArrowRight } from 'react-icons/sl';
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from 'react-query';
+import Cookies from 'js-cookie';
+import { axiosInstance } from '../../../Controller/interceptors/TokenRefresher';
+import jwtDecode from 'jwt-decode';
 const PostUI = ({ post, onClick }) => {
+    const [postSaveState, setPostSaveState] = useState(false);
+    const [locationSaveState, setLocationSaveState] = useState(false);
     const navigate = useNavigate();
     let imageUrls = [];
 
@@ -63,18 +69,69 @@ const PostUI = ({ post, onClick }) => {
     }
 
     const showPostDetail = () => {
-        navigate(`/postDetail/${post.postId}`);
+        navigate(`/postDetail`, { state: { postId: post.postId } });
     }
 
     const showOtherUser = () => {
-        navigate(`/otherUser?userId=${post.userId}`);
+        navigate('/otherUser', { state: { userId: post.userId } });
     }
+
+    const showPlaceDetail = () => {
+        navigate('/locationDetail', { state: { locId: post.locId } });
+    }
+
+    const addPostFav = useMutation(async () => {
+        const formData = new FormData();
+        formData.append("username", Cookies.get("username"))
+        formData.append("elementId", post.postId)
+        try {
+            const response = await axiosInstance.post(`/api/post/fav/add/post`, formData);
+            return response;
+        } catch {
+            alert("로그인 후 사용해주세요!");
+        }
+    }, {
+        onSuccess: () => {
+            setPostSaveState(true);
+        }
+    });
+
+    const addLocationFav = useMutation(async () => {
+        const formData = new FormData();
+        formData.append("username", Cookies.get("username"));
+        formData.append("elementId", post.locId);
+        try {
+            const response = await axiosInstance.post(`/api/post/fav/add/loc`, formData);
+            return response;
+        } catch {
+            alert("로그인 후 사용해주세요!");
+        }
+    }, {
+        onSuccess: (response) => {
+            setLocationSaveState(true);
+        }
+    });
+
+    const addSub = useMutation(async () => {
+        const atk = Cookies.get("accessToken"); 
+        const userId = jwtDecode(atk).userId;
+        const formData = new FormData();
+        formData.append("userId", userId);
+        formData.append("subUserId", post.userId);
+        try {
+            const response = await axiosInstance.post(`/api/user/addsub`, formData);
+            return response;
+        } catch {
+            alert("로그인 후 사용해주세요!");
+        }
+    });
+
 
     return (
         <>
             <div css={S.feed}>
                 <header css={S.header}>
-                    <button css={S.profile} onClick={() => onClick('/otherUser')}>
+                    <button css={S.profile} onClick={showOtherUser}>
                         <div css={S.profilePictureBox}>
                             <div css={S.profilePicture}></div>
                         </div>
@@ -88,8 +145,18 @@ const PostUI = ({ post, onClick }) => {
                         </div>
                     </button>
                     <div css={S.follow}>
-                        <button css={S.followButton}>팔로우</button>
+                        <button css={S.followButton} onClick={() => { addSub.mutate() }}>팔로우</button>
                     </div>
+                    {postSaveState ?
+                        <div css={S.postDeleteSaveButton} >
+                            <div><AiOutlineStar css={S.saveIcon} /></div>
+                            <div>저장</div>
+                        </div>
+                        : <div css={S.postSaveButton} onClick={() => { addPostFav.mutate() }}>
+                            <div><AiOutlineStar css={S.saveIcon} /></div>
+                            <div>저장</div>
+                        </div>
+                    }
                 </header>
                 <main css={mainSetting(imageUrls.length)} onClick={showPostDetail}>
                     <div css={getStyles(imageUrls)}>
@@ -107,8 +174,8 @@ const PostUI = ({ post, onClick }) => {
                     </div>
                 </div>
                 <footer>
-                    <div css={S.footer}>
-                        <div css={S.place}>
+                    <div css={S.footer} >
+                        <div css={S.place} onClick={showPlaceDetail}>
                             <div css={S.placeDetail}>
                                 <div>{post.locName}</div>
                                 <div><SlArrowRight /></div>
@@ -120,9 +187,9 @@ const PostUI = ({ post, onClick }) => {
                             </div>
                         </div>
                         <div css={S.favorites}>
-                            <button css={S.favoritesButton}>
+                            <button css={S.placeSaveButton} onClick={() => { addLocationFav.mutate() }}>
                                 <div><AiOutlineStar /></div>
-                                <div css={S.favoritesDetail}>저장</div>
+                                <div css={S.placeSaveDetail}>저장</div>
                             </button>
                         </div>
                     </div>

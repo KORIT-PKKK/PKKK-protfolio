@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import PostDetailUI from './model/PostDetailUI';
 import PlaceUI from './model/PlaceUI';
 import HeaderUI from './model/HeaderUI';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import axios from 'axios';
+import { localURL } from '../../config/ApiURL';
 
 const PostDetailView = () => {
-    const { postId } = useParams();
+    const location = useLocation();
+    const postId = location.state.postId;
+
     const [postDetail, setPostDetail] = useState({
         postId: 0,
         userId: 0,
@@ -38,12 +41,11 @@ const PostDetailView = () => {
                 postId: postId
             }
         }
-        const response = await axios.get("http://192.168.2.18:8080/api/post/view", params);
+        const response = await axios.get(`${localURL}/api/post/view`, params);
         return response;
     }, {
         onSuccess: (response) => {
             setPostDetail(response.data[0]);
-            console.log(response)
         }
     });
 

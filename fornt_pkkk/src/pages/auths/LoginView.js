@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
+import { localURL } from '../../config/ApiURL';
 
 const LoginView = () => {
     const [loginUser, setLoginUser] = useState({ username: "", password: "" });
@@ -29,7 +30,7 @@ const LoginView = () => {
             }
         }
         try {
-            const response = await axios.post("http://192.168.2.18:8080/api/auth/signin", JSON.stringify(loginUser), option);
+            const response = await axios.post(`${localURL}/api/auth/signin`, JSON.stringify(loginUser), option);
             const accessToken = response.data.accessToken;
             const refreshToken = response.data.refreshToken;
             const userId = jwtDecode(accessToken).userId;

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './styles/RegisterViewStyle';
 import React, { useState } from 'react';
 import axios from 'axios';
+import { localURL } from '../../config/ApiURL';
 
 const RegisterView = () => {
 
@@ -29,7 +30,7 @@ const RegisterView = () => {
             }
         }
         try {
-            await axios.post("http://192.168.2.18:8080/api/auth/signup", JSON.stringify(data), option);
+            await axios.post(`${localURL}/api/auth/signup`, JSON.stringify(data), option);
             // setErrorMessages({ username: "", password: "", name: "" });
             alert("회원가입 성공!");
             navigate("/auth/login");

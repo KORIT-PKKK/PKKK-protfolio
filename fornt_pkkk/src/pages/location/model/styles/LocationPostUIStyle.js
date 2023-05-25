@@ -75,26 +75,6 @@ export const followButton = css`
     cursor: pointer;
 `;
 
-export const postSaveButton = css`
-    width: 30px;
-    margin: 0px 10px;
-    font-size: 11px;
-    text-align: center;
-    cursor: pointer;
-`;
-
-export const postDeleteSaveButton = css`
-    width: 30px;
-    margin: 0px 10px;
-    font-size: 11px;
-    text-align: center;
-    color: green;
-    cursor: pointer;
-`;
-
-export const saveIcon = css`
-    font-size: 16px;
-`;
 
 export const main = css`
     width: 680px;
@@ -204,12 +184,11 @@ export const favorites = css`
     height: 39px;
 `;
 
-export const placeSaveButton = css`
+export const favoritesButton = css`
     background-color: white;
     border: 1px solid white;
-    cursor: pointer;
 `;
 
-export const placeSaveDetail = css`
+export const favoritesDetail = css`
     font-size: 11px;
 `;

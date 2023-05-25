@@ -3,6 +3,7 @@ import { useQuery } from 'react-query';
 import axios from 'axios';
 import PostUI from './model/PostUI';
 import { useNavigate } from 'react-router-dom';
+import { localURL } from '../../config/ApiURL';
 
 const PostView = () => {
 
@@ -10,7 +11,7 @@ const PostView = () => {
     const navigate = useNavigate();
 
     const searchPostList = useQuery(["searchPostList"], async () => {
-        const response = await axios.get("http://192.168.2.18:8080/api/post/list")
+        const response = await axios.get(`${localURL}/api/post/list`)
         return response;
     }, {
         onSuccess: (response) => {
@@ -25,7 +26,7 @@ const PostView = () => {
 
 
     const menuClickHandle = (path) => {
-        
+
         navigate(path);
     }
 

@@ -13,6 +13,7 @@ import PostAddView from './pages/post/PostAddView';
 import SignInRoute from './components/auth/SignInRoute';
 import OtherUserView from './pages/otherUser/OtherUserView';
 import PostDetailView from './pages/postDetail/PostDetailView';
+import LocationOverView from './pages/location/LocationOverView';
 
 function App() {
   return (
@@ -27,9 +28,10 @@ function App() {
         <Route path='/follow/*' element={<FollowView />} />
         <Route path='/postAddView' element={<PostAddView />} />
         <Route path='/place' element={<GooglePlace />} />
-        <Route path='/otherUser/:userId' element={<OtherUserView />} />
-        <Route path='/postDetail/:postId' element={<PostDetailView />} />
-      </Routes>
+        <Route path='/otherUser' element={<OtherUserView />} />
+        <Route path='/postDetail' element={<PostDetailView />} />
+        <Route path='/locationDetail' element={<LocationOverView />} />
+      </Routes >
     </>
   );
 }
