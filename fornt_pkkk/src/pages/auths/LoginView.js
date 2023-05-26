@@ -34,15 +34,15 @@ const LoginView = () => {
             const accessToken = response.data.accessToken;
             const refreshToken = response.data.refreshToken;
             const userId = jwtDecode(accessToken).userId;
-            console.log(userId);
 
             Cookies.set('refreshToken', refreshToken, { expires: 14 });
             Cookies.set('accessToken', accessToken, { expires: 1 / 24 });
             Cookies.set('username', loginUser.username, { expires: 14 });
+            Cookies.set('userId', userId, { expires: 14 });
             alert("환영합니다.");
             navigate("/");
         } catch (e) {
-            console.error(e);
+            alert("로그인 정보가 일치하지 않습니다!")
         }
 
     }

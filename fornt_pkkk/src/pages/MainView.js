@@ -20,7 +20,7 @@ import { axiosInstance, tokenRefresher } from '../Controller/interceptors/TokenR
 
 const MainView = () => {
     const navigate = useNavigate();
-    const authRequiredPath = ["/userSetting", "/userUpdate", "/postAddView"];
+    const authRequiredPath = ["/userSetting", "/userUpdate", "/postAddView", "/map"];
     const authPath = "/auth";
     const rtk = Cookies.get("refreshToken");
     const [selectPath, setSelectPath] = useRecoilState(pathState);

@@ -14,6 +14,7 @@ import OtherUserView from './pages/otherUser/OtherUserView';
 import PostDetailView from './pages/postDetail/PostDetailView';
 import LocationOverView from './pages/location/LocationOverView';
 import GoogleMaps from './pages/google/GoogleMaps';
+import ChangePasswordView from './pages/auths/ChangePasswordView';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path='/otherUser' element={<OtherUserView />} />
         <Route path='/postDetail' element={<PostDetailView />} />
         <Route path='/locationDetail' element={<LocationOverView />} />
+        <Route path='/change/password' element={<ChangePasswordView />} />
       </Routes >
     </>
   );

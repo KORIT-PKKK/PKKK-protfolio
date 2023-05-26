@@ -10,11 +10,13 @@ import { localURL } from '../../config/ApiURL';
 import axios from 'axios';
 import { useState } from 'react';
 import UserPostUI from './model/UserPostUI';
+import Cookies from 'js-cookie';
 
 const OtherUserView = () => {
     const location = useLocation();
     const userId = location.state.userId;
     const [userPosts, setUserPosts] = useState([]);
+    const rtk = Cookies.get("refreshToken");
 
 
     const userPostOverView = useQuery(["userPostOverView"], async () => {

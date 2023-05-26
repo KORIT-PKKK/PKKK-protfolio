@@ -4,15 +4,26 @@ import axios from 'axios';
 import PostUI from './model/PostUI';
 import { useNavigate } from 'react-router-dom';
 import { localURL } from '../../config/ApiURL';
+import Cookies from 'js-cookie';
 
 const PostView = () => {
 
     const [postList, setPostList] = useState([]);
     const navigate = useNavigate();
+    const rtk = Cookies.get("refreshToken");
 
     const searchPostList = useQuery(["searchPostList"], async () => {
-        const response = await axios.get(`${localURL}/api/post/list`)
+            
+        if (rtk === undefined) {
+            const response = await axios.get(`${localURL}/api/post/list`)
+            return response;
+        }
+
+        const userId = Cookies.get("userId");
+
+        const response = await axios.get(`${localURL}/api/post/list`, { params: { userId: userId } })
         return response;
+
     }, {
         onSuccess: (response) => {
             setPostList(response.data)

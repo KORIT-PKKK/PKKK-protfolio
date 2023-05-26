@@ -113,8 +113,7 @@ const PostUI = ({ post, onClick }) => {
     });
 
     const addSub = useMutation(async () => {
-        const atk = Cookies.get("accessToken"); 
-        const userId = jwtDecode(atk).userId;
+        const userId = Cookies.get("userId");
         const formData = new FormData();
         formData.append("userId", userId);
         formData.append("subUserId", post.userId);

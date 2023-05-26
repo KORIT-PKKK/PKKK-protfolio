@@ -87,6 +87,11 @@ const UserSettingView = () => {
                 </div>
             </div>
             <div css={S.Buttoncontainer}>
+                <div css={S.buttonBox} onClick={() => menuClickHandle('/change/password')}>
+                    <button css={S.button}><div>비밀번호 변경</div></button>
+                </div>
+            </div>
+            <div css={S.Buttoncontainer}>
                 <div css={S.buttonBox}>
                     <button css={S.button} onClick={() => menuClickHandle('/feed')}><div>피드</div></button>
                     <button css={S.button} onClick={() => menuClickHandle('/timeLine')}><div>타임라인</div></button>
