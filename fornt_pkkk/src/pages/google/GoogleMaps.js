@@ -12,7 +12,7 @@ const GoogleMaps = () => {
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: "AIzaSyC2ofC8-Q_0eam9Xvi8e6iVr3viFYJGlVc"
+    googleMapsApiKey: ""
   })
 
   const containerStyle = {
