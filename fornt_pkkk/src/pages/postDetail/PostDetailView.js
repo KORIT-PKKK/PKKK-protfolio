@@ -6,10 +6,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import { localURL } from '../../config/ApiURL';
+import Cookies from 'js-cookie';
 
 const PostDetailView = () => {
     const location = useLocation();
     const postId = location.state.postId;
+    const rtk = Cookies.get("refreshToken");
 
     const [postDetail, setPostDetail] = useState({
         postId: 0,
@@ -36,13 +38,27 @@ const PostDetailView = () => {
     }
 
     const postDetailView = useQuery(["postDetailView"], async () => {
+        
+        if (rtk === undefined) {
+            const params = {
+                params: {
+                    postId: postId
+                }
+            }
+            const response = await axios.get(`${localURL}/api/post/view`, params);
+            return response;
+        }
+
+        const userId = Cookies.get("userId");
         const params = {
             params: {
-                postId: postId
+                postId: postId,
+                userId: userId
             }
         }
         const response = await axios.get(`${localURL}/api/post/view`, params);
         return response;
+        
     }, {
         onSuccess: (response) => {
             setPostDetail(response.data[0]);

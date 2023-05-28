@@ -7,11 +7,12 @@ import PostDetailUI from './model/LocationPostUI';
 import { localURL } from '../../config/ApiURL';
 import { useQuery } from 'react-query';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const LocationOverView = () => {
     const location = useLocation();
     const locId = location.state.locId;
-    console.log(locId);
+    const rtk = Cookies.get("refreshToken");
 
     const [locationPosts, setLocationPosts] = useState([]);
     const [locationInfo, setLocationInfo] = useState({});
@@ -23,13 +24,28 @@ const LocationOverView = () => {
     }
 
     const postDetailView = useQuery(["postDetailView"], async () => {
+        
+        if (rtk === undefined) {
+            const params = {
+                params: {
+                    locId: locId
+                }
+            }
+            const response = await axios.get(`${localURL}/api/post/location`, params);
+            return response;
+        }
+
+        const userId = Cookies.get("userId");
         const params = {
             params: {
-                locId: locId
+                locId: locId,
+                userId: userId
             }
         }
         const response = await axios.get(`${localURL}/api/post/location`, params);
         return response;
+        
+        
     }, {
         onSuccess: (response) => {
             setLocationPosts(response.data);

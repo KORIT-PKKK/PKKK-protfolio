@@ -14,19 +14,34 @@ import Cookies from 'js-cookie';
 
 const OtherUserView = () => {
     const location = useLocation();
-    const userId = location.state.userId;
+    const puId = location.state.userId;
     const [userPosts, setUserPosts] = useState([]);
     const rtk = Cookies.get("refreshToken");
 
 
     const userPostOverView = useQuery(["userPostOverView"], async () => {
+        
+        if (rtk === undefined) {
+            const params = {
+                params: {
+                    puId: puId
+                },
+            };
+            const response = await axios.get(`${localURL}/api/post/user`, params)
+            return response;
+        }
+
+        const userId = Cookies.get("userId");
         const params = {
             params: {
-                userId: userId,
+                puId: puId,
+                userId: userId
             },
         };
         const response = await axios.get(`${localURL}/api/post/user`, params)
         return response;
+
+        
     }, {
         onSuccess: (response) => {
             setUserPosts(response.data);
@@ -43,7 +58,7 @@ const OtherUserView = () => {
         <>
             <LogoUI onClick={menuClickHandle} />
             <div css={S.userOutLine}>
-                <OtherUserOutLineUI userId={userId} />
+                <OtherUserOutLineUI userId={puId} />
                 <ButtonUI />
             </div>
             <div css={S.container}>

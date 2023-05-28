@@ -40,7 +40,7 @@ const PostView = () => {
 
         navigate(path);
     }
-
+    console.log(postList);
     return (
         <>
             {postList.length > 0 ? postList.map(post => (<PostUI key={post.postId} post={post} onClick={menuClickHandle} ></PostUI>)) : ""}

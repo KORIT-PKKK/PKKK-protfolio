@@ -63,6 +63,11 @@ export const follow = css`
     justify-content: center;
 `;
 
+export const unFollow = css`
+    padding: 5px;
+    justify-content: center;
+`;
+
 export const followButton = css`
     width: 70px;
     height: 30px;
@@ -75,26 +80,54 @@ export const followButton = css`
     cursor: pointer;
 `;
 
+export const unFollowButton = css`
+    width: 70px;
+    height: 30px;
+    font-weight: 600;
+    font-size: 13px;
+    border: #F3F9FE;
+    border-radius: 5px;
+    background-color: #dbdbdb;
+    color: black;
+    cursor: pointer;
+`;
+
 export const postSaveButton = css`
-    width: 30px;
+    width: 40px;
     margin: 0px 10px;
     font-size: 11px;
+    font-weight: 600;
     text-align: center;
     cursor: pointer;
 `;
 
-export const postDeleteSaveButton = css`
-    width: 30px;
+export const postUnSaveButton = css`
+    width: 40px;
     margin: 0px 10px;
     font-size: 11px;
+    font-weight: 600;
     text-align: center;
-    color: green;
     cursor: pointer;
+`;
+
+export const postSave = css`
+    color: black;
+`;
+
+export const postUnSave = css`
+    color: green;
 `;
 
 export const saveIcon = css`
     font-size: 16px;
+    fill: black;
 `;
+
+export const saveUnIcon = css`
+    font-size: 16px;
+    fill: green;
+`;
+
 
 export const main = css`
     width: 680px;
@@ -200,16 +233,39 @@ export const placeWordConnection = css`
 export const favorites = css`
     display: flex;
     text-align: right;
-    width: 39px;
-    height: 39px;
+    width: 50px;
+    height: 42px;
 `;
 
 export const placeSaveButton = css`
     background-color: white;
     border: 1px solid white;
+    font-weight: 600;
     cursor: pointer;
 `;
 
+export const placeUnSaveButton = css`
+    background-color: white;
+    border: 1px solid white;
+    font-weight: 600;
+    cursor: pointer;
+`;
+
+export const placeSaveIcon = css`
+    fill: black;
+`;
+
+export const placeUnSaveIcon = css`
+    fill: green;
+`;
+
+
 export const placeSaveDetail = css`
     font-size: 11px;
+    color: black;
+`;
+
+export const placeUnSaveDetail = css`
+    font-size: 11px;
+    color: green;
 `;

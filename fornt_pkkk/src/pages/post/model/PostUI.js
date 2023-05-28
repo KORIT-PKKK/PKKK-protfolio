@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './styles/PostUIStyle';
 import { AiOutlineStar } from 'react-icons/ai';
 import { SlArrowRight } from 'react-icons/sl';
@@ -8,13 +8,39 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import Cookies from 'js-cookie';
 import { axiosInstance } from '../../../Controller/interceptors/TokenRefresher';
-import jwtDecode from 'jwt-decode';
 const PostUI = ({ post, onClick }) => {
-    const [postSaveState, setPostSaveState] = useState(false);
-    const [locationSaveState, setLocationSaveState] = useState(false);
     const navigate = useNavigate();
+    const rtk = Cookies.get("refreshToken");
+    const userId = Cookies.get("userId");
+    const [postFavState, setPostFavState] = useState(false);
+    const [locationFavState, setLocationFavState] = useState(false);
+    const [subState, setSubState] = useState(false);
     let imageUrls = [];
+    
+    useEffect(() => {
+        const userLocFavId = post.userLocFavId;
+        const userPostFavId = post.userPostFavId;
+        const userSubId = post.userSubId;
 
+        if (userLocFavId === null) {
+            setLocationFavState(false);
+        } else {
+            setLocationFavState(true);
+        }
+
+        if (userPostFavId === null) {
+            setPostFavState(false);
+        } else {
+            setPostFavState(true);
+        }
+
+        if(userSubId === null) {
+            setSubState(false);
+        } else {
+            setSubState(true);
+        }
+    }, [post.userLocFavId, post.userPostFavId, post.userSubId]);
+    
     let now = new Date();
     let postDate = new Date(post.updateAt);
 
@@ -80,19 +106,37 @@ const PostUI = ({ post, onClick }) => {
         navigate('/locationDetail', { state: { locId: post.locId } });
     }
 
+
     const addPostFav = useMutation(async () => {
         const formData = new FormData();
         formData.append("username", Cookies.get("username"))
         formData.append("elementId", post.postId)
         try {
-            const response = await axiosInstance.post(`/api/post/fav/add/post`, formData);
+            const response = await axiosInstance.post(`/api/user/fav/post/add`, formData);
             return response;
         } catch {
             alert("로그인 후 사용해주세요!");
         }
     }, {
         onSuccess: () => {
-            setPostSaveState(true);
+            setPostFavState(true);
+            alert(`${post.name}님의 게시글을 저장하였습니다!`);
+        }
+    });
+
+    const undoPostFav = useMutation(async () => {
+        const formData = new FormData();
+        formData.append("elementId", post.userPostFavId)
+        try {
+            const response = await axiosInstance.post(`/api/user/fav/post/undo`, formData);
+            return response;
+        } catch {
+            alert("로그인 후 사용해주세요!");
+        }
+    }, {
+        onSuccess: () => {
+            setPostFavState(false);
+            alert(`${post.name}님의 게시글저장을 취소하였습니다!`);
         }
     });
 
@@ -101,29 +145,67 @@ const PostUI = ({ post, onClick }) => {
         formData.append("username", Cookies.get("username"));
         formData.append("elementId", post.locId);
         try {
-            const response = await axiosInstance.post(`/api/post/fav/add/loc`, formData);
+            const response = await axiosInstance.post(`/api/user/fav/loc/add`, formData);
             return response;
         } catch {
             alert("로그인 후 사용해주세요!");
         }
     }, {
-        onSuccess: (response) => {
-            setLocationSaveState(true);
+        onSuccess: () => {
+            setLocationFavState(true);
+            alert(`${post.locName} 장소를 저장하였습니다!`);
         }
     });
 
-    const addSub = useMutation(async () => {
-        const userId = Cookies.get("userId");
+    const undoLocationFav = useMutation(async () => {
         const formData = new FormData();
-        formData.append("userId", userId);
-        formData.append("subUserId", post.userId);
+        formData.append("elementId", post.userLocFavId);
         try {
-            const response = await axiosInstance.post(`/api/user/addsub`, formData);
+            const response = await axiosInstance.post(`/api/user/fav/loc/undo`, formData);
             return response;
         } catch {
             alert("로그인 후 사용해주세요!");
         }
+    }, {
+        onSuccess: () => {
+            setLocationFavState(false);
+            alert(`${post.locName} 장소를 저장취소하였습니다!`);
+        }
     });
+
+    const addSub = useMutation(async () => {
+        const formData = new FormData();
+        formData.append("userId", userId);
+        formData.append("subUserId", post.userId);
+        try {
+            const response = await axiosInstance.post(`/api/user/subscribe/add`, formData);
+            return response;
+        } catch {
+            alert("로그인 후 사용해주세요!");
+        }
+    }, {
+        onSuccess: () => {
+            setSubState(true);
+            alert(`${post.name}님을 팔로우 하였습니다.`);
+        }
+    });
+
+    const unSub = useMutation(async () => {
+        const formData = new FormData();
+        formData.append("elementId", post.userSubId);
+        try {
+            const response = await axiosInstance.post(`/api/user/subscribe/unSub`, formData);
+            return response;
+        } catch {
+            alert("로그인 후 사용해주세요!");
+        }
+    }, {
+        onSuccess: () => {
+            setSubState(false);
+            alert(`${post.name}님을 팔로우취소 하였습니다.`);
+        }
+    });
+    
 
 
     return (
@@ -143,18 +225,39 @@ const PostUI = ({ post, onClick }) => {
                             </div>
                         </div>
                     </button>
-                    <div css={S.follow}>
-                        <button css={S.followButton} onClick={() => { addSub.mutate() }}>팔로우</button>
-                    </div>
-                    {postSaveState ?
-                        <div css={S.postDeleteSaveButton} >
-                            <div><AiOutlineStar css={S.saveIcon} /></div>
-                            <div>저장</div>
-                        </div>
-                        : <div css={S.postSaveButton} onClick={() => { addPostFav.mutate() }}>
-                            <div><AiOutlineStar css={S.saveIcon} /></div>
-                            <div>저장</div>
-                        </div>
+                    {(rtk === undefined || parseInt(userId) === parseInt(post.userId)) 
+                        ? (<></>)
+                        : (<>
+                            {subState? 
+                                <>
+                                    <div css={S.unFollow}>
+                                        <button css={S.unFollowButton} onClick={() => { unSub.mutate() }}>팔로잉</button>
+                                    </div>
+                                </>
+                                :
+                                <>
+                                    <div css={S.follow}>
+                                        <button css={S.followButton} onClick={() => { addSub.mutate() }}>팔로우</button>
+                                    </div>
+                                </>
+                            }
+                            
+                            {postFavState? 
+                                <>
+                                    <div css={S.postUnSaveButton} onClick={() => { undoPostFav.mutate() }}>
+                                        <div><AiOutlineStar css={S.saveUnIcon} /></div>
+                                        <div css={S.postUnSave}>저장됨</div>
+                                    </div>
+                                </>
+                                : 
+                                <>
+                                    <div css={S.postSaveButton} onClick={() => { addPostFav.mutate() }}>
+                                        <div><AiOutlineStar css={S.saveIcon} /></div>
+                                        <div css={S.postSave}>저장</div>
+                                    </div>
+                                </>
+                            }
+                        </>)
                     }
                 </header>
                 <main css={mainSetting(imageUrls.length)} onClick={showPostDetail}>
@@ -186,10 +289,27 @@ const PostUI = ({ post, onClick }) => {
                             </div>
                         </div>
                         <div css={S.favorites}>
-                            <button css={S.placeSaveButton} onClick={() => { addLocationFav.mutate() }}>
-                                <div><AiOutlineStar /></div>
-                                <div css={S.placeSaveDetail}>저장</div>
-                            </button>
+                        {(rtk === undefined || parseInt(userId) === parseInt(post.userId)) 
+                            ? <></>
+                            : 
+                            <>
+                                {locationFavState? 
+                                    <>
+                                        <button css={S.placeUnSaveButton} onClick={() => { undoLocationFav.mutate() }}>
+                                            <div><AiOutlineStar css={S.placeUnSaveIcon}/></div>
+                                            <div css={S.placeUnSaveDetail}>저장됨</div>
+                                        </button>
+                                    </>
+                                    :
+                                    <>
+                                        <button css={S.placeSaveButton} onClick={() => { addLocationFav.mutate() }}>
+                                            <div><AiOutlineStar css={S.placeSaveIcon}/></div>
+                                            <div css={S.placeSaveDetail}>저장</div>
+                                        </button>
+                                    </>
+                                }
+                            </>
+                        }
                         </div>
                     </div>
                 </footer>
