@@ -112,7 +112,7 @@ const PostUI = ({ post, onClick }) => {
         formData.append("username", Cookies.get("username"))
         formData.append("elementId", post.postId)
         try {
-            const response = await axiosInstance.post(`/api/user/fav/post/add`, formData);
+            const response = await axiosInstance.post(`/api/user/favorite/post/add`, formData);
             return response;
         } catch {
             alert("로그인 후 사용해주세요!");
@@ -128,7 +128,7 @@ const PostUI = ({ post, onClick }) => {
         const formData = new FormData();
         formData.append("elementId", post.userPostFavId)
         try {
-            const response = await axiosInstance.post(`/api/user/fav/post/undo`, formData);
+            const response = await axiosInstance.delete(`/api/user/favorite/post/undo` , { data: formData });
             return response;
         } catch {
             alert("로그인 후 사용해주세요!");
@@ -145,7 +145,7 @@ const PostUI = ({ post, onClick }) => {
         formData.append("username", Cookies.get("username"));
         formData.append("elementId", post.locId);
         try {
-            const response = await axiosInstance.post(`/api/user/fav/loc/add`, formData);
+            const response = await axiosInstance.post(`/api/user/favorite/loc/add`, formData);
             return response;
         } catch {
             alert("로그인 후 사용해주세요!");
@@ -161,7 +161,7 @@ const PostUI = ({ post, onClick }) => {
         const formData = new FormData();
         formData.append("elementId", post.userLocFavId);
         try {
-            const response = await axiosInstance.post(`/api/user/fav/loc/undo`, formData);
+            const response = await axiosInstance.delete(`/api/user/favorite/loc/undo`, { data: formData });
             return response;
         } catch {
             alert("로그인 후 사용해주세요!");
@@ -194,7 +194,7 @@ const PostUI = ({ post, onClick }) => {
         const formData = new FormData();
         formData.append("elementId", post.userSubId);
         try {
-            const response = await axiosInstance.post(`/api/user/subscribe/unSub`, formData);
+            const response = await axiosInstance.delete(`/api/user/subscribe/unSub`, { data: formData });
             return response;
         } catch {
             alert("로그인 후 사용해주세요!");
