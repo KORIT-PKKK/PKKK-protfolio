@@ -10,7 +10,7 @@ import { localURL } from '../../config/ApiURL';
 
 const UserUpdateView = () => {
     const navigate = useNavigate();
-    const [userUpdate, setUserUpdate] = useState({ name:"", imageUrl:"" , introduce:"" });
+    const [userUpdate, setUserUpdate] = useState({ name: "", imageUrl: "", introduce: "" });
     const [nicknameLength, setNicknameLength] = useState(0);
     const [introduceLength, setIntroduceLength] = useState(0);
 
@@ -67,8 +67,8 @@ const UserUpdateView = () => {
         }
     }, {
         onSuccess: () => {
-            alert("업데이트 성공하였습니다!")
-            
+            alert("업데이트 성공하였습니다.")
+
         }
     });
 
@@ -87,11 +87,11 @@ const UserUpdateView = () => {
             <div css={S.infoModifyBox}>
                 <div css={S.photoBox}></div>
                 <div css={S.inputLabel}>닉네임</div>
-                <input 
-                    css={S.nickNameInput} 
-                    type="text" 
+                <input
+                    css={S.nickNameInput}
+                    type="text"
                     name="name"
-                    placeholder='한글, 영문, 숫자, 공백2~20자까지 입력할 수 있어요!' 
+                    placeholder='한글, 영문, 숫자, 공백2~20자까지 입력할 수 있어요!'
                     value={userUpdate.name}
                     onChange={handleChange}
                     minLength={2}
@@ -106,7 +106,7 @@ const UserUpdateView = () => {
                     css={S.introduceInput}
                     type="text"
                     name="introduce"
-                    placeholder='예) 분위기 있는 카페 찾아다녀요~' 
+                    placeholder='예) 분위기 있는 카페 찾아다녀요~'
                     value={userUpdate.introduce}
                     onChange={handleChange}
                     maxLength={150}

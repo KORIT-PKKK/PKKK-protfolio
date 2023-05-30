@@ -65,6 +65,7 @@ const MainView = () => {
             Cookies.remove("accessToken", { path: '/' });
             Cookies.remove("refreshToken", { path: '/' });
             Cookies.remove("username", { path: '/' });
+            Cookies.remove("userId", { path: '/' });
             window.location.replace("/");
         } catch (error) {
             console.log(error.response)

@@ -1,10 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FavPostUI from './model/FavPostUI';
+import Cookies from 'js-cookie';
+import { useQuery } from 'react-query';
+import { axiosInstance } from '../../Controller/interceptors/TokenRefresher';
+import { localURL } from '../../config/ApiURL';
 
 const FavPostView = () => {
+    const [favPostList, setFavPostList] = useState([]);
+    const rtk = Cookies.get("refreshToken");
+    const authState = rtk !== undefined;
+
+    const searchFavPostList = useQuery(["searchFavPostList"], async () => {
+        const username = Cookies.get("username");
+        const response = await axiosInstance.get(`/api/user/favorite/post/list`, { params: { username: username } })
+        return response
+    }, {
+        enabled: authState,
+        onSuccess: (response) => {
+            setFavPostList(response.data)
+        }
+    });
+
+    console.log(favPostList)
+
     return (
         <>
-            <FavPostUI/>
+            {favPostList.map(favPost => (<FavPostUI favPost={favPost} key={favPost.postId} />))}
         </>
     );
 };

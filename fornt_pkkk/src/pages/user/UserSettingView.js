@@ -50,6 +50,7 @@ const UserSettingView = () => {
             Cookies.remove("accessToken", { path: '/' });
             Cookies.remove("refreshToken", { path: '/' });
             Cookies.remove("username", { path: '/' });
+            Cookies.remove("userId", { path: '/' });
             alert("로그아웃 되었습니다!");
             window.location.replace("/");
         } catch (error) {

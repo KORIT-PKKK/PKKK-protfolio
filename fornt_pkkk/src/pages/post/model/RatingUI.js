@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import emptyStar from './assets/icon_empty_star.svg';
 import fullStar from './assets/icon_full_star.svg';
 import halfStar from './assets/icon_half_star.svg';
+import { useEffect } from 'react';
 
 
-const RatingUI = () => {
+const RatingUI = ({ onRatingChange }) => {
   const [starCount, setStarCount] = useState(0);
+  
   const [isHalfOver, setIsHalfOver] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
 
@@ -49,6 +51,10 @@ const RatingUI = () => {
     return starCount - 0.5;
   };
 
+  useEffect(() => {
+    onRatingChange(getFinalScore());
+  }, [onRatingChange, getFinalScore()]);
+
   return (
     <div className="w-10/12 max-w-md space-y-6 rounded-lg bg-slate-50 px-3 py-6 text-slate-800 shadow-lg">
       <header>
@@ -57,9 +63,8 @@ const RatingUI = () => {
 
       <div className="flex justify-center">
         <div
-          className={`flex w-fit rounded-lg border-2 bg-slate-300 py-2 px-1 ${
-            isClicked && 'border-yellow-400'
-          }`}
+          className={`flex w-fit rounded-lg border-2 bg-slate-300 py-2 px-1 ${isClicked && 'border-yellow-400'
+            }`}
         >
           {Array(5)
             .fill(0)
@@ -112,20 +117,20 @@ export default RatingUI;
 // const RatingUI = () => {
 //   const AvrRate = 10; // 상품 평균 평점 (데이터패치할때 사용)
 
-//   // 다섯개의 별을 따로 컨트롤하기 위해서는 고유 id를 각각 가지고 
+//   // 다섯개의 별을 따로 컨트롤하기 위해서는 고유 id를 각각 가지고
 //   // 이 고유 아이디를 쉽게 생성해 주기 위한 리스트
-//   const StarIndList = ['first', 'second', 'third', 'fourth', 'last']; 
+//   const StarIndList = ['first', 'second', 'third', 'fourth', 'last'];
 //   // 별점 리스트 상태
-//   const [ratesResList, setRatesResList] = useState([0, 0, 0, 0, 0]);    
+//   const [ratesResList, setRatesResList] = useState([0, 0, 0, 0, 0]);
 //   const [ selectedScore, setSelectedScore ] = useState(0);
 //     const calcStarRates = () => {
 //         // 임시 리스트.
-//         let tempStarRatesArr = [0, 0, 0, 0, 0]; 
+//         let tempStarRatesArr = [0, 0, 0, 0, 0];
 //         // 별 한 개 당 width가 14이므로 총 70. 100점 만점인 현재와 비율을 맞추기
-//         let starVerScore = (AvrRate * 70) / 100;   
+//         let starVerScore = (AvrRate * 70) / 100;
 //         let idx = 0;
 //         // 14를 starVerScore에서 하나씩 빼가면서 별 하나하나에 채워질 width를 지정해줍니다. 다 채워지지 않을 인덱스의 별은 아래 tempStarRatesArr[idx] = starVerScore; 에서 채워줌
-//         while (starVerScore > 14) { 
+//         while (starVerScore > 14) {
 //           tempStarRatesArr[idx] = 14;
 //           idx += 1; // 인덱스 0부터 첫번째 별 입니다.
 //           starVerScore -= 14;
@@ -135,7 +140,7 @@ export default RatingUI;
 //       };
 //     useEffect(() => {
 //         // 별점 리스트는 첫 렌더링 때 한번만 상태를 설정해줌
-//         setRatesResList(calcStarRates()); 
+//         setRatesResList(calcStarRates());
 //     }, [selectedScore])
 
 //     const handleStarClick = (score) => {
@@ -149,8 +154,8 @@ export default RatingUI;
 //         {StarIndList.map((item, idx) => {
 //           const score = idx + 1;
 //           return (
-//             <span 
-//               className='star_icon' 
+//             <span
+//               className='star_icon'
 //               key={`${item}_${idx}`}
 //               onClick={() => handleStarClick(score)}
 //             >

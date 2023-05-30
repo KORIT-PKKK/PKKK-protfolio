@@ -16,7 +16,7 @@ const PostUI = ({ post, onClick }) => {
     const [locationFavState, setLocationFavState] = useState(false);
     const [subState, setSubState] = useState(false);
     let imageUrls = [];
-    
+
     useEffect(() => {
         const userLocFavId = post.userLocFavId;
         const userPostFavId = post.userPostFavId;
@@ -34,13 +34,13 @@ const PostUI = ({ post, onClick }) => {
             setPostFavState(true);
         }
 
-        if(userSubId === null) {
+        if (userSubId === null) {
             setSubState(false);
         } else {
             setSubState(true);
         }
     }, [post.userLocFavId, post.userPostFavId, post.userSubId]);
-    
+
     let now = new Date();
     let postDate = new Date(post.updateAt);
 
@@ -128,15 +128,15 @@ const PostUI = ({ post, onClick }) => {
         const formData = new FormData();
         formData.append("elementId", post.userPostFavId)
         try {
-            const response = await axiosInstance.delete(`/api/user/favorite/post/undo` , { data: formData });
+            const response = await axiosInstance.delete(`/api/user/favorite/post/undo`, { data: formData });
             return response;
         } catch {
-            alert("로그인 후 사용해주세요!");
+            alert("로그인 후 사용해주세요.");
         }
     }, {
         onSuccess: () => {
             setPostFavState(false);
-            alert(`${post.name}님의 게시글저장을 취소하였습니다!`);
+            alert(`즐겨찾기에서 삭제했습니다.`);
         }
     });
 
@@ -148,12 +148,12 @@ const PostUI = ({ post, onClick }) => {
             const response = await axiosInstance.post(`/api/user/favorite/loc/add`, formData);
             return response;
         } catch {
-            alert("로그인 후 사용해주세요!");
+            alert("로그인 후 사용해주세요.");
         }
     }, {
         onSuccess: () => {
             setLocationFavState(true);
-            alert(`${post.locName} 장소를 저장하였습니다!`);
+            alert(`${post.locName}을(를) 즐겨찾기에 저장했습니다.`);
         }
     });
 
@@ -164,12 +164,12 @@ const PostUI = ({ post, onClick }) => {
             const response = await axiosInstance.delete(`/api/user/favorite/loc/undo`, { data: formData });
             return response;
         } catch {
-            alert("로그인 후 사용해주세요!");
+            alert("로그인 후 사용해주세요.");
         }
     }, {
         onSuccess: () => {
             setLocationFavState(false);
-            alert(`${post.locName} 장소를 저장취소하였습니다!`);
+            alert(`${post.locName}을(를) 즐겨찾기에서 삭제했습니다.`);
         }
     });
 
@@ -181,12 +181,12 @@ const PostUI = ({ post, onClick }) => {
             const response = await axiosInstance.post(`/api/user/subscribe/add`, formData);
             return response;
         } catch {
-            alert("로그인 후 사용해주세요!");
+            alert("로그인 후 사용해주세요.");
         }
     }, {
         onSuccess: () => {
             setSubState(true);
-            alert(`${post.name}님을 팔로우 하였습니다.`);
+            alert(`${post.name}님을 팔로우 합니다.`);
         }
     });
 
@@ -197,16 +197,14 @@ const PostUI = ({ post, onClick }) => {
             const response = await axiosInstance.delete(`/api/user/subscribe/unSub`, { data: formData });
             return response;
         } catch {
-            alert("로그인 후 사용해주세요!");
+            alert("로그인 후 사용해주세요.");
         }
     }, {
         onSuccess: () => {
             setSubState(false);
-            alert(`${post.name}님을 팔로우취소 하였습니다.`);
+            alert(`${post.name}님을 언팔로우 했습니다.`);
         }
     });
-    
-
 
     return (
         <>
@@ -225,13 +223,13 @@ const PostUI = ({ post, onClick }) => {
                             </div>
                         </div>
                     </button>
-                    {(rtk === undefined || parseInt(userId) === parseInt(post.userId)) 
+                    {(rtk === undefined || parseInt(userId) === parseInt(post.userId))
                         ? (<></>)
                         : (<>
-                            {subState? 
+                            {subState ?
                                 <>
                                     <div css={S.unFollow}>
-                                        <button css={S.unFollowButton} onClick={() => { unSub.mutate() }}>팔로잉</button>
+                                        <button css={S.unFollowButton} onClick={() => { unSub.mutate() }}>언팔로우</button>
                                     </div>
                                 </>
                                 :
@@ -241,19 +239,19 @@ const PostUI = ({ post, onClick }) => {
                                     </div>
                                 </>
                             }
-                            
-                            {postFavState? 
+
+                            {postFavState ?
                                 <>
                                     <div css={S.postUnSaveButton} onClick={() => { undoPostFav.mutate() }}>
                                         <div><AiOutlineStar css={S.saveUnIcon} /></div>
-                                        <div css={S.postUnSave}>저장됨</div>
+                                        <div css={S.postUnSave}>즐겨찾기 삭제</div>
                                     </div>
                                 </>
-                                : 
+                                :
                                 <>
                                     <div css={S.postSaveButton} onClick={() => { addPostFav.mutate() }}>
                                         <div><AiOutlineStar css={S.saveIcon} /></div>
-                                        <div css={S.postSave}>저장</div>
+                                        <div css={S.postSave}>즐겨찾기 추가</div>
                                     </div>
                                 </>
                             }
@@ -289,27 +287,27 @@ const PostUI = ({ post, onClick }) => {
                             </div>
                         </div>
                         <div css={S.favorites}>
-                        {(rtk === undefined || parseInt(userId) === parseInt(post.userId)) 
-                            ? <></>
-                            : 
-                            <>
-                                {locationFavState? 
-                                    <>
-                                        <button css={S.placeUnSaveButton} onClick={() => { undoLocationFav.mutate() }}>
-                                            <div><AiOutlineStar css={S.placeUnSaveIcon}/></div>
-                                            <div css={S.placeUnSaveDetail}>저장됨</div>
-                                        </button>
-                                    </>
-                                    :
-                                    <>
-                                        <button css={S.placeSaveButton} onClick={() => { addLocationFav.mutate() }}>
-                                            <div><AiOutlineStar css={S.placeSaveIcon}/></div>
-                                            <div css={S.placeSaveDetail}>저장</div>
-                                        </button>
-                                    </>
-                                }
-                            </>
-                        }
+                            {(rtk === undefined)
+                                ? <></>
+                                :
+                                <>
+                                    {locationFavState ?
+                                        <>
+                                            <button css={S.placeUnSaveButton} onClick={() => { undoLocationFav.mutate() }}>
+                                                <div><AiOutlineStar css={S.placeUnSaveIcon} /></div>
+                                                <div css={S.placeUnSaveDetail}>저장됨</div>
+                                            </button>
+                                        </>
+                                        :
+                                        <>
+                                            <button css={S.placeSaveButton} onClick={() => { addLocationFav.mutate() }}>
+                                                <div><AiOutlineStar css={S.placeSaveIcon} /></div>
+                                                <div css={S.placeSaveDetail}>저장</div>
+                                            </button>
+                                        </>
+                                    }
+                                </>
+                            }
                         </div>
                     </div>
                 </footer>
