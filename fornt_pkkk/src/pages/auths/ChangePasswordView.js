@@ -18,13 +18,13 @@ const ChangePasswordView = () => {
     }
 
     const changePasswordSubmit = useMutation(async () => {
-        const username = Cookies.get("username");
-        const formData = new FormData();
-        formData.append("username", username);
-        formData.append("oldPassword", changePassword.oldPassword);
-        formData.append("newPassword", changePassword.newPassword);
+        const data = {
+            "username": Cookies.get("username"),
+            "oldPassword": changePassword.oldPassword,
+            "newPassword": changePassword.newPassword
+        }
         try {
-            const response = await axiosInstance.post(`/api/user/password/change`, formData);
+            const response = await axiosInstance.post(`/api/user/password/change`, data);
             navigate("/");
             alert("비밀번호 변경이 완료 되었습니다!")
             return response;

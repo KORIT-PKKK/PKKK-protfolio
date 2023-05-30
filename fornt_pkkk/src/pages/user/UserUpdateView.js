@@ -53,14 +53,14 @@ const UserUpdateView = () => {
     });
 
     const updateUserInfo = useMutation(async () => {
-        const formData = new FormData();
-        formData.append("username", Cookies.get("username"))
-        formData.append("name", userUpdate.name)
-        formData.append("introduce", userUpdate.introduce)
-        formData.append("imageUrl", userUpdate.imageUrl)
-        console.log(formData);
+        const data = {
+            "username": Cookies.get("username"),
+            "name": userUpdate.name,
+            "introduce": userUpdate.introduce,
+            "imageUrl": userUpdate.imageUrl
+        }
         try {
-            const response = await axiosInstance.post(`/api/user/detail/update`, formData);
+            const response = await axiosInstance.post(`/api/user/detail/update`, data);
             return response;
         } catch {
             alert("업데이트 실패하였습니다.");

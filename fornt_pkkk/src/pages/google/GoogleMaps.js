@@ -21,7 +21,6 @@ const GoogleMaps = () => {
   const rtk = Cookies.get("refreshToken");
   const authState = rtk !== undefined;
 
-
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: process.env.REACT_APP_GCP_AUTH_KEY
@@ -113,6 +112,8 @@ const undoLocationFav = useMutation(async () => {
     return <div>불러오는 중...</div>
   }
 
+  console.log(locationList);
+
   return isLoaded ? (
     <>
       <GoogleMap
@@ -132,7 +133,20 @@ const undoLocationFav = useMutation(async () => {
               scaledSize: new window.google.maps.Size(32, 32)
             }}
             onClick={(e) => {
-              setSelectedMarker({ lat: location.lat, lng: location.lng, title: location.locName, locId: location.locId });
+              setSelectedMarker({
+                lat: location.lat,
+                lng: location.lng,
+                title: location.locName,
+                locId: location.locId,
+                userLocFavId: location.userLocFavId,
+                evalScore: location.evalScore
+              });
+              const userLocFavId = location.userLocFavId;
+                if (userLocFavId === null) {
+                  setLocationFavState(false);
+                } else {
+                  setLocationFavState(true);
+                }
             }}
             title={location.locName} />
         ))}

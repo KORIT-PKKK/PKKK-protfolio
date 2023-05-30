@@ -11,8 +11,10 @@ import { axiosInstance } from '../../../Controller/interceptors/TokenRefresher';
 import { BsFillTrashFill } from 'react-icons/bs';
 import { BsPencilSquare } from 'react-icons/bs';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const TimelineUI = ({ timeLine }) => {
+    const navigate = useNavigate();
     let now = new Date();
     let imageUrls = [];
     let timeLineDate = new Date(timeLine.updateAt);
@@ -79,37 +81,47 @@ const TimelineUI = ({ timeLine }) => {
     }
 
     const addLocationFav = useMutation(async () => {
-        const formData = new FormData();
-        formData.append("username", Cookies.get("username"));
-        formData.append("elementId", timeLine.locId);
+        const data = {
+            "username": Cookies.get("username"),
+            "elementId": timeLine.locId
+        }
         try {
-            const response = await axiosInstance.post(`/api/user/favorite/loc/add`, formData);
+            const response = await axiosInstance.post(`/api/user/favorite/loc/add`, data);
             return response;
         } catch {
-            alert("로그인 후 사용해주세요!");
+            alert("로그인 후 사용해주세요.");
         }
     }, {
         onSuccess: () => {
             setLocationFavState(true);
-            alert(`${timeLine.locName} 장소를 저장하였습니다!`);
+            alert(`${timeLine.locName}을(를) 즐겨찾기에 저장했습니다.`);
         }
     });
 
     const undoLocationFav = useMutation(async () => {
-        const formData = new FormData();
-        formData.append("elementId", timeLine.userLocFavId);
+        const data = {
+            "elementId": timeLine.userLocFavId
+        }
         try {
-            const response = await axiosInstance.delete(`/api/user/favorite/loc/undo`, { data: formData });
+            const response = await axiosInstance.delete(`/api/user/favorite/loc/undo`, { data: data });
             return response;
         } catch {
-            alert("로그인 후 사용해주세요!");
+            alert("로그인 후 사용해주세요.");
         }
     }, {
         onSuccess: () => {
             setLocationFavState(false);
-            alert(`${timeLine.locName} 장소를 저장취소하였습니다!`);
+            alert(`${timeLine.locName}을(를) 즐겨찾기에서 삭제했습니다.`);
         }
     });
+
+    const showPostDetail = () => {
+        navigate(`/postDetail`, { state: { postId: timeLine.postId } });
+    }
+
+    const showPlaceDetail = () => {
+        navigate('/locationDetail', { state: { locId: timeLine.locId } });
+    }
 
     return (
         <>
@@ -121,7 +133,7 @@ const TimelineUI = ({ timeLine }) => {
                         <BsFillTrashFill css={S.icon} />
                     </div>
                 </header >
-                <main css={mainSetting(imageUrls.length)} >
+                <main css={mainSetting(imageUrls.length)} onClick={showPostDetail}>
                     <div css={getStyles(imageUrls)}>
                         {imageUrls.map((url, index) => (
                             index < 3 ?
@@ -138,7 +150,7 @@ const TimelineUI = ({ timeLine }) => {
                 </div>
                 <footer>
                     <div css={S.footer} >
-                        <div css={S.place}>
+                        <div css={S.place} onClick={showPlaceDetail}>
                             <div css={S.placeDetail}>
                                 <div>{timeLine.locName}</div>
                                 <div><SlArrowRight /></div>

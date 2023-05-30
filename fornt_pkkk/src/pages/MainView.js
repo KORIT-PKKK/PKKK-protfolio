@@ -62,7 +62,7 @@ const MainView = () => {
             "refreshToken": rtk
         }
         try {
-            await axiosInstance.post("/api/auth/signout", JSON.stringify(data));
+            await axiosInstance.post("/api/auth/signout", data);
             Cookies.remove("accessToken", { path: '/' });
             Cookies.remove("refreshToken", { path: '/' });
             Cookies.remove("username", { path: '/' });
