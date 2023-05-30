@@ -81,22 +81,6 @@ export const starScore = css`
     margin: 20px 0px 20px 0px;
 `;
 
-export const pictureButton = css`
-  padding: 10px 10px;
-  background-color: white;
-  border: 1px solid #dbdbdb;
-  border-radius: 6px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #dbdbdb;
-  }
-  &:active {
-    background-color: #fafafa;
-  }
-
-`;
-
 export const mainPicture = css`
     width: 600px;
     height: 300px;

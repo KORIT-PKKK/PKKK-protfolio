@@ -187,7 +187,6 @@ const PostAddView = () => {
                             </div>
                             <div>
                                 <input multiple={true} type="file" onChange={handleChange} accept="" />
-                                <button onClick={handleUpload} css={S.pictureButton}>사진 업로드</button>
                             </div>
                         </div>
                         <div>

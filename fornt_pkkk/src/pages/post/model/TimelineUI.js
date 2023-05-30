@@ -12,8 +12,11 @@ import { BsFillTrashFill } from 'react-icons/bs';
 import { BsPencilSquare } from 'react-icons/bs';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { deleteObject, ref } from 'firebase/storage';
+import storage from '../../../Firebase';
 
 const TimelineUI = ({ timeLine }) => {
+    console.log(timeLine);
     const navigate = useNavigate();
     let now = new Date();
     let imageUrls = [];
@@ -115,12 +118,50 @@ const TimelineUI = ({ timeLine }) => {
         }
     });
 
+    const deletePost = useMutation(async () => {
+        const data = {
+            "postId": timeLine.postId,
+            "username": Cookies.get("username")
+        }
+        try {
+            const response = await axiosInstance.delete(`/api/post/delete`, { data: data });
+            return response;
+        } catch {
+            alert("로그인 후 사용해주세요.");
+        }
+    }, {
+        onSuccess: () => {
+            deleteFiles();
+            alert(`게시글이 삭제되었습니다!`)
+        }
+    })
+
+    const deleteFiles = async () => {
+        for (const url of imageUrls) {
+            // URL에서 파일의 경로 추출
+            const path = decodeURIComponent(url.split("?")[0].split("/o/")[1]);
+        
+            // 파일 삭제
+            const fileRef = ref(storage, path);
+            try {
+                await deleteObject(fileRef);
+                console.log(`파일 삭제 성공: ${url}`);
+            } catch (error) {
+                console.log(`파일 삭제 실패: ${url}`, error);
+            }
+        }
+    };
+
     const showPostDetail = () => {
         navigate(`/postDetail`, { state: { postId: timeLine.postId } });
     }
 
     const showPlaceDetail = () => {
         navigate('/locationDetail', { state: { locId: timeLine.locId } });
+    }
+
+    const deleteSubmitHandle = () => {
+        deletePost.mutate();
     }
 
     return (
@@ -130,7 +171,7 @@ const TimelineUI = ({ timeLine }) => {
                     <div css={S.date}>{formattedDate}</div>
                     <div css={S.iconContainer}>
                         <BsPencilSquare css={S.icon} />
-                        <BsFillTrashFill css={S.icon} />
+                        <BsFillTrashFill css={S.icon} onClick={deleteSubmitHandle}/>
                     </div>
                 </header >
                 <main css={mainSetting(imageUrls.length)} onClick={showPostDetail}>
