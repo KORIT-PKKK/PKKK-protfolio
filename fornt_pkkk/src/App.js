@@ -13,7 +13,6 @@ import SignInRoute from './components/auth/SignInRoute';
 import OtherUserView from './pages/otherUser/OtherUserView';
 import PostDetailView from './pages/postDetail/PostDetailView';
 import LocationOverView from './pages/location/LocationOverView';
-import GoogleMaps from './pages/google/GoogleMaps';
 import ChangePasswordView from './pages/auths/ChangePasswordView';
 
 function App() {
@@ -27,8 +26,7 @@ function App() {
         <Route path='/userSetting' element={<SignInRoute path='/userSetting' element={<UserSettingView />} />} />
         <Route path='/userUpdate' element={<SignInRoute path='/userUpdate' element={<UserUpdateView />} />} />
         <Route path='/follow/*' element={<FollowView />} />
-        <Route path='/postAddView' element={<PostAddView />} />
-        <Route path='/map' element={<GoogleMaps />} />
+        <Route path='/postAddView' element={<SignInRoute path='/postAddView' element={<PostAddView />} />} />
         <Route path='/otherUser' element={<OtherUserView />} />
         <Route path='/postDetail' element={<PostDetailView />} />
         <Route path='/locationDetail' element={<LocationOverView />} />

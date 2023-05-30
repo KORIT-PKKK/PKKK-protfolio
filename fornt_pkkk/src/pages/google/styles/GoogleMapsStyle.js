@@ -11,9 +11,44 @@ export const whiteCancelButton = css`
 `;
 
 export const placeInfo = css`
-    cursor: pointer;
+    text-align: center;
 `;
 
-export const backButton = css`
-    font-size: 30px;
+export const title = css`
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+`;
+
+export const save = css`
+    color: black;
+    cursor: pointer;
+    margin: 10px 0px;
+    font-size: 14px;
+    font-weight: 600;
+`;
+
+export const unSave = css`
+    color: green;
+    cursor: pointer;
+    margin: 10px 0px;
+    font-size: 14px;
+    font-weight: 600;
+`;
+
+export const saveIcon = css`
+    fill: black;
+`;
+
+export const unSaveIcon = css`
+    fill: green;
+`;
+
+export const writeButton = css`
+    margin-top: 10px;
+    color: green;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
 `;

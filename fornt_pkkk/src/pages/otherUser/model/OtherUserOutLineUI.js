@@ -4,8 +4,6 @@ import * as S from './styles/OtherUserOutLineUIStyle';
 import { GrShare } from 'react-icons/gr';
 import axios from 'axios';
 import { useQuery } from 'react-query';
-import Cookies from 'js-cookie';
-import jwtDecode from 'jwt-decode';
 import { localURL } from '../../../config/ApiURL';
 
 

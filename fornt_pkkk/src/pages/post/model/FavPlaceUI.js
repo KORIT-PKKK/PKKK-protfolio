@@ -4,6 +4,7 @@ import React from 'react';
 import * as S from './styles/FavPlaceUIStyle';
 import { AiOutlineStar } from 'react-icons/ai';
 import { SlArrowRight } from 'react-icons/sl';
+import { GiCancel } from 'react-icons/gi';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -28,36 +29,20 @@ const FavPlaceUI = ({ favPlace }) => {
         navigate('/locationDetail', { state: { locId: favPlace.locId } });
     }
 
-    const addLocationFav = useMutation(async () => {
-        const formData = new FormData();
-        formData.append("username", Cookies.get("username"));
-        formData.append("elementId", favPlace.locId);
-        try {
-            const response = await axiosInstance.post(`/api/user/favorite/loc/add`, formData);
-            return response;
-        } catch {
-            alert("로그인 후 사용해주세요!");
-        }
-    }, {
-        onSuccess: () => {
-            setLocationFavState(true);
-            alert(`${favPlace.locName} 장소를 저장하였습니다!`);
-        }
-    });
-
     const undoLocationFav = useMutation(async () => {
-        const formData = new FormData();
-        formData.append("elementId", favPlace.userLocFavId);
+        const data = {
+            "elementId": favPlace.userLocFavId
+        }
         try {
-            const response = await axiosInstance.delete(`/api/user/favorite/loc/undo`, { data: formData });
+            const response = await axiosInstance.delete(`/api/user/favorite/loc/undo`, { data: data });
             return response;
         } catch {
-            alert("로그인 후 사용해주세요!");
+            alert("로그인 후 사용해주세요.");
         }
     }, {
         onSuccess: () => {
             setLocationFavState(false);
-            alert(`${favPlace.locName} 장소를 저장취소하였습니다!`);
+            alert(`${favPlace.locName}을(를) 즐겨찾기에서 삭제했습니다.`);
         }
     });
 
@@ -77,21 +62,10 @@ const FavPlaceUI = ({ favPlace }) => {
                         </div>
                     </div>
                     <div css={S.favorites}>
-                        {locationFavState ?
-                            <>
-                                <button css={S.placeUnSaveButton} onClick={() => { undoLocationFav.mutate() }}>
-                                    <div><AiOutlineStar css={S.placeUnSaveIcon} /></div>
-                                    <div css={S.placeUnSaveDetail}>저장됨</div>
-                                </button>
-                            </>
-                            :
-                            <>
-                                <button css={S.placeSaveButton} onClick={() => { addLocationFav.mutate() }}>
-                                    <div><AiOutlineStar css={S.placeSaveIcon} /></div>
-                                    <div css={S.placeSaveDetail}>저장</div>
-                                </button>
-                            </>
-                        }
+                        <button css={S.placeUnSaveButton} onClick={() => { undoLocationFav.mutate() }}>
+                            <div><GiCancel css={S.placeUnSaveIcon} /></div>
+                            <div css={S.placeUnSaveDetail}>삭제</div>
+                        </button>
                     </div>
                 </div>
             </div>

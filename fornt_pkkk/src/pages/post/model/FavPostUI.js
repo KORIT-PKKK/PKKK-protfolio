@@ -4,6 +4,8 @@ import React from 'react';
 import * as S from './styles/FavPostUIStyle.js';
 import { AiOutlineStar } from 'react-icons/ai';
 import { SlArrowRight } from 'react-icons/sl';
+import { AiFillStar } from 'react-icons/ai';
+import { GiCancel } from 'react-icons/gi';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { useState } from 'react';
@@ -109,94 +111,84 @@ const FavPostUI = ({ favPost }) => {
         navigate('/locationDetail', { state: { locId: favPost.locId } });
     }
 
-    const addPostFav = useMutation(async () => {
-        const formData = new FormData();
-        formData.append("username", Cookies.get("username"))
-        formData.append("elementId", favPost.postId)
-        try {
-            const response = await axiosInstance.post(`/api/user/favorite/post/add`, formData);
-            return response;
-        } catch {
-            alert("로그인 후 사용해주세요!");
-        }
-    }, {
-        onSuccess: () => {
-            setPostFavState(true);
-            alert(`${favPost.name}님의 게시글을 저장하였습니다!`);
-        }
-    });
-
     const undoPostFav = useMutation(async () => {
-        const formData = new FormData();
-        formData.append("elementId", favPost.userPostFavId)
+        const data = {
+            "elementId": favPost.userPostFavId
+        }
         try {
-            const response = await axiosInstance.delete(`/api/user/favorite/post/undo`, { data: formData });
+            const response = await axiosInstance.delete(`/api/user/favorite/post/undo`, { data: data});
             return response;
         } catch {
-            alert("로그인 후 사용해주세요!");
+            alert("로그인 후 사용해주세요.");
         }
     }, {
         onSuccess: () => {
             setPostFavState(false);
-            alert(`${favPost.name}님의 게시글저장을 취소하였습니다!`);
+            alert(`즐겨찾기에서 삭제했습니다.`);
         }
     });
 
     const addLocationFav = useMutation(async () => {
-        const formData = new FormData();
-        formData.append("username", Cookies.get("username"));
-        formData.append("elementId", favPost.locId);
+        const data = {
+            "username": Cookies.get("username"),
+            "elementId": favPost.locId
+        }
         try {
-            const response = await axiosInstance.post(`/api/user/favorite/loc/add`, formData);
+            const response = await axiosInstance.post(`/api/user/favorite/loc/add`, data);
             return response;
         } catch {
-            alert("로그인 후 사용해주세요!");
+            alert("로그인 후 사용해주세요.");
         }
     }, {
         onSuccess: () => {
             setLocationFavState(true);
-            alert(`${favPost.locName} 장소를 저장하였습니다!`);
+            alert(`${favPost.locName}을(를) 즐겨찾기에 저장했습니다.`);
         }
     });
 
     const undoLocationFav = useMutation(async () => {
-        const formData = new FormData();
-        formData.append("elementId", favPost.userLocFavId);
+        const data = {
+            "elementId": favPost.userLocFavId
+        }
         try {
-            const response = await axiosInstance.delete(`/api/user/favorite/loc/undo`, { data: formData });
+            const response = await axiosInstance.delete(`/api/user/favorite/loc/undo`, { data: data });
             return response;
         } catch {
-            alert("로그인 후 사용해주세요!");
+            alert("로그인 후 사용해주세요.");
         }
     }, {
         onSuccess: () => {
             setLocationFavState(false);
-            alert(`${favPost.locName} 장소를 저장취소하였습니다!`);
+            alert(`${favPost.locName}을(를) 즐겨찾기에서 삭제했습니다.`);
         }
     });
 
     const addSub = useMutation(async () => {
-        const formData = new FormData();
-        formData.append("userId", userId);
-        formData.append("subUserId", favPost.userId);
+        const data = {
+            "userId": userId,
+            "subUserId": favPost.userId
+        }
         try {
-            const response = await axiosInstance.post(`/api/user/subscribe/add`, formData);
+            const response = await axiosInstance.post(`/api/user/subscribe/add`, data);
             return response;
         } catch {
-            alert("로그인 후 사용해주세요!");
+            alert("로그인 후 사용해주세요.");
         }
     }, {
         onSuccess: () => {
             setSubState(true);
-            alert(`${favPost.name}님을 팔로우 하였습니다.`);
+            alert(`${favPost.name}님을 팔로우 합니다.`);
         }
     });
 
     const unSub = useMutation(async () => {
+        const data = {
+            "elementId": favPost.userSubId
+        }
         const formData = new FormData();
         formData.append("elementId", favPost.userSubId);
         try {
-            const response = await axiosInstance.delete(`/api/user/subscribe/unSub`, { data: formData });
+            const response = await axiosInstance.delete(`/api/user/subscribe/unSub`, { data: data });
             return response;
         } catch {
             alert("로그인 후 사용해주세요!");
@@ -204,7 +196,7 @@ const FavPostUI = ({ favPost }) => {
     }, {
         onSuccess: () => {
             setSubState(false);
-            alert(`${favPost.name}님을 팔로우취소 하였습니다.`);
+            alert(`${favPost.name}님을 언팔로우 했습니다.`);
         }
     });
 
@@ -231,7 +223,7 @@ const FavPostUI = ({ favPost }) => {
                             {subState ?
                                 <>
                                     <div css={S.unFollow}>
-                                        <button css={S.unFollowButton} onClick={() => { unSub.mutate() }}>팔로잉</button>
+                                        <button css={S.unFollowButton} onClick={() => { unSub.mutate() }}>언팔로우</button>
                                     </div>
                                 </>
                                 :
@@ -241,22 +233,10 @@ const FavPostUI = ({ favPost }) => {
                                     </div>
                                 </>
                             }
-
-                            {postFavState ?
-                                <>
-                                    <div css={S.postUnSaveButton} onClick={() => { undoPostFav.mutate() }}>
-                                        <div><AiOutlineStar css={S.saveUnIcon} /></div>
-                                        <div css={S.postUnSave}>저장됨</div>
-                                    </div>
-                                </>
-                                :
-                                <>
-                                    <div css={S.postSaveButton} onClick={() => { addPostFav.mutate() }}>
-                                        <div><AiOutlineStar css={S.saveIcon} /></div>
-                                        <div css={S.postSave}>저장</div>
-                                    </div>
-                                </>
-                            }
+                            <div css={S.postUnSaveButton} onClick={() => { undoPostFav.mutate() }}>
+                                <div><GiCancel css={S.saveUnIcon} /></div>
+                                <div css={S.postUnSave}>삭제</div>
+                            </div>
                         </>)
                     }
                 </header>
@@ -296,8 +276,8 @@ const FavPostUI = ({ favPost }) => {
                                     {locationFavState ?
                                         <>
                                             <button css={S.placeUnSaveButton} onClick={() => { undoLocationFav.mutate() }}>
-                                                <div><AiOutlineStar css={S.placeUnSaveIcon} /></div>
-                                                <div css={S.placeUnSaveDetail}>저장됨</div>
+                                                <div><AiFillStar css={S.placeUnSaveIcon} /></div>
+                                                <div css={S.placeUnSaveDetail}>저장</div>
                                             </button>
                                         </>
                                         :

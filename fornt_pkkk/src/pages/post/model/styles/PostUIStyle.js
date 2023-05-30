@@ -69,7 +69,7 @@ export const unFollow = css`
 `;
 
 export const followButton = css`
-    width: 70px;
+    width: 80px;
     height: 30px;
     font-weight: 600;
     font-size: 13px;
@@ -81,7 +81,7 @@ export const followButton = css`
 `;
 
 export const unFollowButton = css`
-    width: 70px;
+    width: 80px;
     height: 30px;
     font-weight: 600;
     font-size: 13px;

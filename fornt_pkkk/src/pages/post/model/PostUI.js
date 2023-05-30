@@ -4,10 +4,12 @@ import React, { useEffect, useState } from 'react';
 import * as S from './styles/PostUIStyle';
 import { AiOutlineStar } from 'react-icons/ai';
 import { SlArrowRight } from 'react-icons/sl';
+import { AiFillStar } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import Cookies from 'js-cookie';
 import { axiosInstance } from '../../../Controller/interceptors/TokenRefresher';
+
 const PostUI = ({ post, onClick }) => {
     const navigate = useNavigate();
     const rtk = Cookies.get("refreshToken");
@@ -108,27 +110,29 @@ const PostUI = ({ post, onClick }) => {
 
 
     const addPostFav = useMutation(async () => {
-        const formData = new FormData();
-        formData.append("username", Cookies.get("username"))
-        formData.append("elementId", post.postId)
+        const data = {
+            "username": Cookies.get("username"),
+            "elementId": post.postId
+        }
         try {
-            const response = await axiosInstance.post(`/api/user/favorite/post/add`, formData);
+            const response = await axiosInstance.post(`/api/user/favorite/post/add`, data);
             return response;
         } catch {
-            alert("로그인 후 사용해주세요!");
+            alert("로그인 후 사용해주세요.");
         }
     }, {
         onSuccess: () => {
             setPostFavState(true);
-            alert(`${post.name}님의 게시글을 저장하였습니다!`);
+            alert(`즐겨찾기에서 저장했습니다.`);
         }
     });
 
     const undoPostFav = useMutation(async () => {
-        const formData = new FormData();
-        formData.append("elementId", post.userPostFavId)
+        const data = {
+            "elementId": post.userPostFavId
+        }
         try {
-            const response = await axiosInstance.delete(`/api/user/favorite/post/undo`, { data: formData });
+            const response = await axiosInstance.delete(`/api/user/favorite/post/undo`, {data: data});
             return response;
         } catch {
             alert("로그인 후 사용해주세요.");
@@ -141,11 +145,12 @@ const PostUI = ({ post, onClick }) => {
     });
 
     const addLocationFav = useMutation(async () => {
-        const formData = new FormData();
-        formData.append("username", Cookies.get("username"));
-        formData.append("elementId", post.locId);
+        const data = {
+            "username": Cookies.get("username"),
+            "elementId": post.locId
+        }
         try {
-            const response = await axiosInstance.post(`/api/user/favorite/loc/add`, formData);
+            const response = await axiosInstance.post(`/api/user/favorite/loc/add`, data);
             return response;
         } catch {
             alert("로그인 후 사용해주세요.");
@@ -158,10 +163,11 @@ const PostUI = ({ post, onClick }) => {
     });
 
     const undoLocationFav = useMutation(async () => {
-        const formData = new FormData();
-        formData.append("elementId", post.userLocFavId);
+        const data = {
+            "elementId": post.userLocFavId
+        }
         try {
-            const response = await axiosInstance.delete(`/api/user/favorite/loc/undo`, { data: formData });
+            const response = await axiosInstance.delete(`/api/user/favorite/loc/undo`, {data: data});
             return response;
         } catch {
             alert("로그인 후 사용해주세요.");
@@ -174,11 +180,12 @@ const PostUI = ({ post, onClick }) => {
     });
 
     const addSub = useMutation(async () => {
-        const formData = new FormData();
-        formData.append("userId", userId);
-        formData.append("subUserId", post.userId);
+        const data = {
+            "userId": userId,
+            "subUserId": post.userId
+        }
         try {
-            const response = await axiosInstance.post(`/api/user/subscribe/add`, formData);
+            const response = await axiosInstance.post(`/api/user/subscribe/add`, data);
             return response;
         } catch {
             alert("로그인 후 사용해주세요.");
@@ -191,10 +198,11 @@ const PostUI = ({ post, onClick }) => {
     });
 
     const unSub = useMutation(async () => {
-        const formData = new FormData();
-        formData.append("elementId", post.userSubId);
+        const data = {
+            "elementId": post.userSubId
+        }
         try {
-            const response = await axiosInstance.delete(`/api/user/subscribe/unSub`, { data: formData });
+            const response = await axiosInstance.delete(`/api/user/subscribe/unSub`, {data: data});
             return response;
         } catch {
             alert("로그인 후 사용해주세요.");
@@ -243,15 +251,15 @@ const PostUI = ({ post, onClick }) => {
                             {postFavState ?
                                 <>
                                     <div css={S.postUnSaveButton} onClick={() => { undoPostFav.mutate() }}>
-                                        <div><AiOutlineStar css={S.saveUnIcon} /></div>
-                                        <div css={S.postUnSave}>즐겨찾기 삭제</div>
+                                        <div><AiFillStar css={S.saveUnIcon} /></div>
+                                        <div css={S.postUnSave}>저장</div>
                                     </div>
                                 </>
                                 :
                                 <>
                                     <div css={S.postSaveButton} onClick={() => { addPostFav.mutate() }}>
                                         <div><AiOutlineStar css={S.saveIcon} /></div>
-                                        <div css={S.postSave}>즐겨찾기 추가</div>
+                                        <div css={S.postSave}>저장</div>
                                     </div>
                                 </>
                             }
@@ -294,8 +302,8 @@ const PostUI = ({ post, onClick }) => {
                                     {locationFavState ?
                                         <>
                                             <button css={S.placeUnSaveButton} onClick={() => { undoLocationFav.mutate() }}>
-                                                <div><AiOutlineStar css={S.placeUnSaveIcon} /></div>
-                                                <div css={S.placeUnSaveDetail}>저장됨</div>
+                                                <div><AiFillStar css={S.placeUnSaveIcon} /></div>
+                                                <div css={S.placeUnSaveDetail}>저장</div>
                                             </button>
                                         </>
                                         :

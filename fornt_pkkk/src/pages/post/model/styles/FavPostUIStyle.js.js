@@ -69,7 +69,7 @@ export const unFollow = css`
 `;
 
 export const followButton = css`
-    width: 70px;
+    width: 80px;
     height: 30px;
     font-weight: 600;
     font-size: 13px;
@@ -81,7 +81,7 @@ export const followButton = css`
 `;
 
 export const unFollowButton = css`
-    width: 70px;
+    width: 80px;
     height: 30px;
     font-weight: 600;
     font-size: 13px;
@@ -89,15 +89,6 @@ export const unFollowButton = css`
     border-radius: 5px;
     background-color: #dbdbdb;
     color: black;
-    cursor: pointer;
-`;
-
-export const postSaveButton = css`
-    width: 40px;
-    margin: 0px 10px;
-    font-size: 11px;
-    font-weight: 600;
-    text-align: center;
     cursor: pointer;
 `;
 
@@ -110,22 +101,13 @@ export const postUnSaveButton = css`
     cursor: pointer;
 `;
 
-export const postSave = css`
-    color: black;
-`;
-
 export const postUnSave = css`
-    color: green;
-`;
-
-export const saveIcon = css`
-    font-size: 16px;
-    fill: black;
+    color: red;
 `;
 
 export const saveUnIcon = css`
     font-size: 16px;
-    fill: green;
+    fill: red;
 `;
 
 

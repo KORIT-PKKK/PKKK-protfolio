@@ -31,13 +31,6 @@ export const favorites = css`
     height: 39px;
 `;
 
-export const placeSaveButton = css`
-    background-color: white;
-    border: 1px solid white;
-    font-weight: 600;
-    cursor: pointer;
-`;
-
 export const placeUnSaveButton = css`
     background-color: white;
     border: 1px solid white;
@@ -45,21 +38,11 @@ export const placeUnSaveButton = css`
     cursor: pointer;
 `;
 
-export const placeSaveIcon = css`
-    fill: black;
-`;
-
 export const placeUnSaveIcon = css`
-    fill: green;
-`;
-
-
-export const placeSaveDetail = css`
-    font-size: 11px;
-    color: black;
+    fill: red;
 `;
 
 export const placeUnSaveDetail = css`
     font-size: 11px;
-    color: green;
+    color: red;
 `;
