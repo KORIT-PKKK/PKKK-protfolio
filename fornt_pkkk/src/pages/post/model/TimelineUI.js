@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import * as S from './styles/TimelineUIStyle';
-import { AiOutlineStar } from 'react-icons/ai';
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { BsTrash } from 'react-icons/bs';
 import { SlArrowRight } from 'react-icons/sl';
 import { useState } from 'react';
@@ -166,8 +166,8 @@ const TimelineUI = ({ timeLine }) => {
                             {locationFavState ?
                                 <>
                                     <button css={S.placeUnSaveButton} onClick={() => { undoLocationFav.mutate() }}>
-                                        <div><AiOutlineStar css={S.placeUnSaveIcon} /></div>
-                                        <div css={S.placeUnSaveDetail}>저장됨</div>
+                                        <div><AiFillStar css={S.placeUnSaveIcon} /></div>
+                                        <div css={S.placeUnSaveDetail}>저장</div>
                                     </button>
                                 </>
                                 :

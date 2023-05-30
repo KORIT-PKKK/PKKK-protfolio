@@ -15,7 +15,7 @@ const LocationOverView = () => {
     const rtk = Cookies.get("refreshToken");
 
     const [locationPosts, setLocationPosts] = useState([]);
-    const [locationInfo, setLocationInfo] = useState({});
+    const [locDetail, setLocDetail] = useState({});
 
     const navigate = useNavigate();
 
@@ -24,7 +24,6 @@ const LocationOverView = () => {
     }
 
     const postDetailView = useQuery(["postDetailView"], async () => {
-        
         if (rtk === undefined) {
             const params = {
                 params: {
@@ -44,12 +43,22 @@ const LocationOverView = () => {
         }
         const response = await axios.get(`${localURL}/api/post/location`, params);
         return response;
-        
-        
     }, {
         onSuccess: (response) => {
             setLocationPosts(response.data);
-            setLocationInfo(response.data[0]);
+        }
+    });
+
+    const searchLocDetail = useQuery(["searchLocDetail"], async () => {
+
+        const userId = Cookies.get("userId");
+
+        const response = await axios.get(`${localURL}/api/loc/detail`, { params: { userId: userId, locId: locId } })
+        return response;
+
+    }, {
+        onSuccess: (response) => {
+            setLocDetail(response.data)
         }
     });
 
@@ -57,11 +66,10 @@ const LocationOverView = () => {
         <div>불러오는 중...</div>
     }
 
-    console.log(setLocationPosts);
     return (
         <>
             <HeaderUI onClick={menuClickHandle} />
-            <PlaceUI locationInfo={locationInfo} />
+            <PlaceUI locDetail={locDetail}/>
             {locationPosts.map((locationPost, index) => (
                 <PostDetailUI key={index} locationPost={locationPost} />
             ))}

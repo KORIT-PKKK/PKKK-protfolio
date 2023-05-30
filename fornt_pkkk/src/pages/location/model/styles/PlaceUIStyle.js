@@ -1,7 +1,6 @@
 import { css } from "@emotion/react";
 
 export const container = css`
-    height: 83px;
     padding: 12px 24px 20px;
     border-bottom: 1px solid #dbdbdb;
 `;
@@ -34,13 +33,53 @@ export const address = css`
     font-size: 14px;
 `;
 
+export const wordConnection = css`
+    margin: 0px 5px;
+`;
+
 export const saveButtonBox = css`
     border: none;
     background-color: white;
     font-size: 12px;
+    font-weight: 600;
     cursor: pointer;
-`
+`;
+
+export const unSaveButtonBox = css`
+    border: none;
+    background-color: white;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+`;
 
 export const saveIcon = css`
+    fill: black;
     font-size: 25px;
+`;
+
+
+export const unSaveIcon = css`
+    fill: green;
+    font-size: 25px;
+`;
+
+export const save = css`
+    color: black;
+`;
+
+export const unSave = css`
+    color: green;
+`;
+
+export const locationDetailContainer = css`
+    width: 720px;
+    height: 20px;
+    margin: 10px auto;
+    display: flex;
+    align-items: center;
+`;
+
+export const score = css`
+    padding: 1px 6px;
 `;

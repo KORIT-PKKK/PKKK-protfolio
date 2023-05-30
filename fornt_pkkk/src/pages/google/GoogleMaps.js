@@ -84,14 +84,14 @@ const GoogleMaps = () => {
     } catch {
         alert("로그인 후 사용해주세요.");
     }
-}, {
+  }, {
     onSuccess: () => {
         setLocationFavState(true);
         alert(`${selectedMarker.locName}을(를) 즐겨찾기에 저장했습니다.`);
     }
-});
+  });
 
-const undoLocationFav = useMutation(async () => {
+  const undoLocationFav = useMutation(async () => {
     const data = {
         "elementId": selectedMarker.userLocFavId
     }
@@ -101,12 +101,12 @@ const undoLocationFav = useMutation(async () => {
     } catch {
         alert("로그인 후 사용해주세요.");
     }
-}, {
+  }, {
     onSuccess: () => {
         setLocationFavState(false);
         alert(`${selectedMarker.locName}을(를) 즐겨찾기에서 삭제했습니다.`);
     }
-});
+  });
 
   if (searchLocationList.isLoading) {
     return <div>불러오는 중...</div>
