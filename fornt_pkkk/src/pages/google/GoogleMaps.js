@@ -15,11 +15,11 @@ const GoogleMaps = () => {
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [locationList, setLocationList] = useState([]);
   const navigate = useNavigate();
-  
+
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: "AIzaSyC2ofC8-Q_0eam9Xvi8e6iVr3viFYJGlVc"
+    googleMapsApiKey: process.env.REACT_APP_GCP_AUTH_KEY
   })
 
   const containerStyle = {
@@ -76,7 +76,7 @@ const GoogleMaps = () => {
 
   return isLoaded ? (
     <>
-      <button css={S.whiteCancelButton} onClick={backClickHandle}><BsArrowLeftShort css={S.backButton}/>글쓰기 취소</button>
+      <button css={S.whiteCancelButton} onClick={backClickHandle}><BsArrowLeftShort css={S.backButton} />글쓰기 취소</button>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={currentPosition}
@@ -87,15 +87,15 @@ const GoogleMaps = () => {
       >
         {locationList.map(location => (
           <MarkerF
-          position={{ lat: location.lat, lng: location.lng }}
-          icon={{
-            url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
-            scaledSize: new window.google.maps.Size(32, 32),
-          }}
-          onClick={(e) => {
-            setSelectedMarker({ lat: location.lat, lng: location.lng, title: location.locName, locId: location.locId });
-          }}
-          title = {location.locName} />
+            position={{ lat: location.lat, lng: location.lng }}
+            icon={{
+              url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+              scaledSize: new window.google.maps.Size(32, 32),
+            }}
+            onClick={(e) => {
+              setSelectedMarker({ lat: location.lat, lng: location.lng, title: location.locName, locId: location.locId });
+            }}
+            title={location.locName} />
         ))}
         {selectedMarker && (
           <InfoWindowF
