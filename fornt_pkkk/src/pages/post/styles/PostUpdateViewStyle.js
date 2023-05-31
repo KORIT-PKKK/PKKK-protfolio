@@ -97,7 +97,10 @@ export const starScore = css`
 
 export const photoContainer = css`
     width: 600px;
-    height: 600px;
+    display: flex;
+    padding: 20px 0px;
+    margin: 20px 0px;
+    flex-wrap: wrap;
 `;
 
 export const mainPicture = css`

@@ -14,6 +14,7 @@ const FollowingUI = () => {
         const userId = Cookies.get("userId");
 
         const response = await axiosInstance.get(`/api/user/subscribe/subTo`, { params: { userId: userId } })
+        console.log(response.data)
         return response;
     }, {
         onSuccess: (response) => {
@@ -28,12 +29,12 @@ const FollowingUI = () => {
     return (
         <>
             <div css={S.container}>
-                <h1 css={S.title}>나의 팔로우</h1>
+                <h1 css={S.title}>팔로우 중</h1>
                 {followingList.map(following => (
                     <div css={S.userBox}>
                         <div css={S.photoBox}></div>
                         <div css={S.username}>{following.name}</div>
-                        <button css={S.stateButton}>X 팔로우 취소</button>
+                        <button css={S.stateButton}>언팔로우</button>
                     </div>
                 )
                 )}

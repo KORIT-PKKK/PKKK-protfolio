@@ -11,6 +11,8 @@ import RatingUI from './model/RatingUI';
 import { BiLeftArrow } from 'react-icons/bi';
 import { BsPencilSquare } from 'react-icons/bs';
 import PhotoCardUI from './model/PhotoCardUI';
+import { deleteObject, ref } from 'firebase/storage';
+import storage from '../../Firebase';
 
 const PostUpdateView = () => {
     const navigate = useNavigate();
@@ -37,6 +39,27 @@ const PostUpdateView = () => {
     const [contentCount, setContentCount] = useState(0);
     const [evalScore, setEvalScore] = useState(0);
     const [errorMessage, setErrorMessage] = useState('');
+    let imageUrls = [];
+    let deleteImageUrls = [];
+
+    if (postDetail.picDatas && postDetail.picDatas.includes(',')) {
+        imageUrls = postDetail.picDatas.split(',');
+    }
+
+    const handleDelete = async (url) => {
+
+        // URL에서 파일의 경로 추출
+        const path = decodeURIComponent(url.split("?")[0].split("/o/")[1]);
+
+        // 파일 삭제
+        const fileRef = ref(storage, path);
+        try {
+            await deleteObject(fileRef);
+            console.log(`파일 삭제 성공: ${url}`);
+        } catch (error) {
+            console.log(`파일 삭제 실패: ${url}`, error);
+        }
+    };
 
 
     const postDetailView = useQuery(["postDetailView"], async () => {
@@ -98,7 +121,7 @@ const PostUpdateView = () => {
         navigate("/");
     }
 
-    console.log(postDetail);
+    console.log(imageUrls);
 
     return (
         <>
@@ -135,9 +158,15 @@ const PostUpdateView = () => {
                                 <input multiple={true} type="file" accept="" />
                             </div>
                         </div>
-                        <div css={S.photoContainer}>
-                            <PhotoCardUI />
-                        </div>
+                        {imageUrls.length === 0 ? (
+                            <></>
+                        ) : (
+                            <div css={S.photoContainer}>
+                                {imageUrls.map(url => (
+                                    <PhotoCardUI key={url} url={url} handleDelete={() => handleDelete(url)} />
+                                ))}
+                            </div>
+                        )}
                         <div>
                             <div css={S.mainTextInputContainer}>
                                 <textarea css={S.mainTextInput} placeholder=' 리뷰글 작성하기
