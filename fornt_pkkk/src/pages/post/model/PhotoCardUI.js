@@ -3,18 +3,17 @@ import React from 'react';
 import * as S from './styles/PhotoCardUIStyle';
 import { GiCancel } from 'react-icons/gi';
 
-const PhotoCardUI = ({ url, handleDelete }) => {
+const PhotoCardUI = ({ url, onDeleteURL }) => {
 
-
-  const handleDeleteClick = () => {
-    handleDelete(url);
+  const handleDelete = () => {
+    onDeleteURL(url);
   };
 
   return (
     <>
       <div css={S.photoCardContainer}>
         <>
-          <div css={S.cancelButton} onClick={handleDeleteClick}>
+          <div css={S.cancelButton} onClick={handleDelete}>
             <GiCancel css={S.cancelIcon} />
           </div>
           <div css={S.photoBox}>

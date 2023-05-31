@@ -6,13 +6,15 @@ import React from 'react';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { localURL } from '../../config/ApiURL';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import RatingUI from './model/RatingUI';
 import { BiLeftArrow } from 'react-icons/bi';
 import { BsPencilSquare } from 'react-icons/bs';
 import PhotoCardUI from './model/PhotoCardUI';
-import { deleteObject, ref } from 'firebase/storage';
+import { v4 as uuidv4 } from 'uuid'
+import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import storage from '../../Firebase';
+import { axiosInstance } from '../../Controller/interceptors/TokenRefresher';
 
 const PostUpdateView = () => {
     const navigate = useNavigate();
@@ -39,25 +41,95 @@ const PostUpdateView = () => {
     const [contentCount, setContentCount] = useState(0);
     const [evalScore, setEvalScore] = useState(0);
     const [errorMessage, setErrorMessage] = useState('');
-    let imageUrls = [];
-    let deleteImageUrls = [];
+    const [imageUrls, setImageUrls] = useState([]);
+    const [percentages, setPercentages] = useState([]);
+    const [files, setFiles] = useState("");
 
-    if (postDetail.picDatas && postDetail.picDatas.includes(',')) {
-        imageUrls = postDetail.picDatas.split(',');
+    let initList = imageUrls;
+    let deleteList = [];
+    let updateList = [];
+
+    const handleChange = (e) => {
+        if (e.target.files.length > 0) {
+            const fileList = Array.from(e.target.files);
+            setFiles(fileList);
+            setPercentages(new Array(fileList.length).fill(0));
+        }
     }
 
-    const handleDelete = async (url) => {
+    const handleUpload = async () => {
+        if (files.length === 0) {
+            alert("업로드할 이미지를 먼저 선택해주세요.");
+            return;
+        }
 
-        // URL에서 파일의 경로 추출
-        const path = decodeURIComponent(url.split("?")[0].split("/o/")[1]);
+        const urlList = [];
 
-        // 파일 삭제
-        const fileRef = ref(storage, path);
-        try {
-            await deleteObject(fileRef);
-            console.log(`파일 삭제 성공: ${url}`);
-        } catch (error) {
-            console.log(`파일 삭제 실패: ${url}`, error);
+        await Promise.all(
+            files.map((file, index) => {
+                return new Promise((resolve, reject) => {
+                    const storageRef = ref(storage, `/files/${uuidv4()}`);
+                    const uploadTask = uploadBytesResumable(storageRef, file);
+
+                    uploadTask.on(
+                        "state_changed",
+                        (snapshot) => {
+                            const percent = Math.round(
+                                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                            );
+
+                            const newPercentages = [...percentages];
+                            newPercentages[index] = percent;
+                            setPercentages(newPercentages);
+                        },
+                        (err) => {
+                            console.log(err);
+                            reject(err);
+                        },
+                        () => {
+                            getDownloadURL(uploadTask.snapshot.ref)
+                                .then((url) => {
+                                    urlList[index] = url;
+                                    resolve();
+                                })
+                                .catch((error) => reject(error));
+                        }
+                    );
+                });
+            })
+        );
+        return urlList;
+    };
+
+    const handleDeleteURL = (url) => {
+        const updateList = initList.filter(i => i !== url);
+        initList = updateList;
+        setImageUrls(updateList);
+        deleteList.push(url)
+
+        console.log(`update list : ${updateList}`);
+        console.log(`initList : ${initList}`);
+        console.log(`delList : ${deleteList}`);
+        // setDeleteImageUrls([...deleteImageUrls, url]);
+        // setImageUrls((prevImageUrls) => prevImageUrls.filter((imageUrl) => imageUrl !== url));
+    };
+
+    const handleDelete = async () => {
+        for (const url of deleteList) {
+            // URL에서 파일의 경로 추출
+            const path = decodeURIComponent(url.split("?")[0].split("/o/")[1]);
+
+            const ref = storage.refFromUrl(path);
+
+            console.log(url);
+
+            // 파일 삭제
+            try {
+                await ref.delete();
+                console.log(`파일 삭제 성공: ${url}`);
+            } catch (error) {
+                console.log(`파일 삭제 실패: ${url}`, error);
+            }
         }
     };
 
@@ -90,6 +162,10 @@ const PostUpdateView = () => {
             setPostDetail(post);
             setContent(post.content);
             setContentCount((post.content).length);
+            if (post.picDatas && post.picDatas.includes(',')) {
+                setImageUrls(post.picDatas.split(','));
+                initList = imageUrls;
+            }
         }
     });
 
@@ -121,7 +197,35 @@ const PostUpdateView = () => {
         navigate("/");
     }
 
-    console.log(imageUrls);
+
+    const updatePost = async (list) => {
+        setImageUrls(...imageUrls, ...list)
+        const data = {
+            "username": Cookies.get("username"),
+            "evalScore": evalScore,
+            "picDatas": imageUrls,
+            "content": content
+        }
+
+        try {
+            const response = await axiosInstance.put(`/api/post/update`, data);
+            return response;
+        } catch {
+            alert("포스트 업데이트 실패하였습니다.");
+        }
+    }
+
+    const updateSubmitHandle = () => {
+        postUpdate();
+    };
+
+    function postUpdate() {
+        handleUpload().then((list) => {
+            updatePost()
+            handleDelete();
+            alert("게시글을 업데이트 하였습니다.")
+        });
+    }
 
     return (
         <>
@@ -155,7 +259,7 @@ const PostUpdateView = () => {
                             <div css={S.starScore}>
                             </div>
                             <div>
-                                <input multiple={true} type="file" accept="" />
+                                <input multiple={true} type="file" accept="" onChange={handleChange} />
                             </div>
                         </div>
                         {imageUrls.length === 0 ? (
@@ -163,7 +267,7 @@ const PostUpdateView = () => {
                         ) : (
                             <div css={S.photoContainer}>
                                 {imageUrls.map(url => (
-                                    <PhotoCardUI key={url} url={url} handleDelete={() => handleDelete(url)} />
+                                    <PhotoCardUI key={url} url={url} onDeleteURL={handleDeleteURL} />
                                 ))}
                             </div>
                         )}
@@ -183,7 +287,7 @@ const PostUpdateView = () => {
                     </main>
                     <footer>
                         <div css={S.mainTextContainer}>
-                            <button css={S.mainTextButton} type="button"><BsPencilSquare />수정하기</button>
+                            <button css={S.mainTextButton} type="button" onClick={updateSubmitHandle}><BsPencilSquare />수정하기</button>
                             {/* <button css={S.mainTextButton} type="button"><AiOutlineDelete />삭제</button> */}
                         </div>
                     </footer>

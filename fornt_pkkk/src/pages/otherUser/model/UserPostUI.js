@@ -70,6 +70,7 @@ const UserPostUI = ({ post, onClick }) => {
         navigate('/locationDetail', { state: { locId: post.locId } });
     }
 
+
     return (
         <>
             <div css={S.feed}>

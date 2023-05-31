@@ -26,7 +26,6 @@ const PostAddView = () => {
     const [locDetail, setLocDetail] = useState({});
     const [contentCount, setContentCount] = useState(0);
     const [errorMessage, setErrorMessage] = useState('');
-    const [imageUrls, setImageUrls] = useState();
     const [percentages, setPercentages] = useState([]);
 
     const [files, setFiles] = useState("");
@@ -81,7 +80,7 @@ const PostAddView = () => {
             })
         );
         console.log(urlList);
-        setImageUrls(urlList);
+        return urlList;
     };
 
     const handleRatingChange = (score) => {
@@ -121,15 +120,8 @@ const PostAddView = () => {
         }
     });
 
-    const addPost = useMutation(async () => {
-        const data = {
-            "username": Cookies.get("username"),
-            "content": content,
-            "locId": locId,
-            "evalScore": evalScore,
-            "picDatas": imageUrls
-        }
-
+    const addPost = useMutation(async (data) => {
+        
         try {
             const response = await axiosInstance.post(`/api/post/add`, data);
             return response;
@@ -137,14 +129,27 @@ const PostAddView = () => {
             alert("포스트 생성 실패하였습니다.");
         }
     }, {
-        onSuccess: () => {
-            alert("포스트 생성 성공하였습니다.")
+        onSuccess: (response) => {
+            console.log(response.data.postId)
+            if (response.status === 200) {
+                alert("포스트 생성 성공하였습니다.")
+                navigate(`/postDetail`, { state: { postId: response.data.postId } });
+            }
         }
     });
 
-    const addPostSubmitHandle = async () => {
-        await handleUpload();
-        addPost.mutate();
+    const addPostSubmitHandle = () => {
+        handleUpload().then((list) => {
+            const data = {
+                "username": Cookies.get("username"),
+                "content": content,
+                "locId": locId,
+                "evalScore": evalScore,
+                "picDatas": list
+            }
+            console.log(data);
+            addPost.mutate(data);
+        });
     }
 
     if (searchLocDetail.isLoading) {

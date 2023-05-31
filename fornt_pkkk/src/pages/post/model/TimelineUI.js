@@ -122,9 +122,17 @@ const TimelineUI = ({ timeLine }) => {
         }
     });
 
-    const deletePost = useMutation(async () => {
+    function postDelete(postId){
+        deletePost(postId).then(()=>{
+            deleteFiles();
+            alert("게시글이 삭제되었습니다.");
+            navigate("/timeLine")
+        });
+    }
+
+    const deletePost = async (postId) => {
         const data = {
-            "postId": timeLine.postId,
+            "postId": postId,
             "username": Cookies.get("username")
         }
         try {
@@ -132,22 +140,14 @@ const TimelineUI = ({ timeLine }) => {
             return response;
         } catch {
             alert("로그인 후 사용해주세요.");
+            return;
         }
-    }, {
-        onSuccess: (response) => {
-            if (response.status === 200) {
-                deleteFiles();
-                alert(`게시글이 삭제되었습니다!`)
-            }
-        }
-    })
+    }
 
     const deleteFiles = async () => {
         for (const url of imageUrls) {
-            // URL에서 파일의 경로 추출
             const path = decodeURIComponent(url.split("?")[0].split("/o/")[1]);
 
-            // 파일 삭제
             const fileRef = ref(storage, path);
             try {
                 await deleteObject(fileRef);
@@ -167,7 +167,7 @@ const TimelineUI = ({ timeLine }) => {
     }
 
     const deleteSubmitHandle = () => {
-        deletePost.mutate();
+        postDelete(timeLine.postId);
     }
 
     const modifyButtonHandle = () => {
