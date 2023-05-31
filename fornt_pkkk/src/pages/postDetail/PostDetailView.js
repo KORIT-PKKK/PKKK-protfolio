@@ -38,7 +38,7 @@ const PostDetailView = () => {
     }
 
     const postDetailView = useQuery(["postDetailView"], async () => {
-        
+
         if (rtk === undefined) {
             const params = {
                 params: {
@@ -58,7 +58,7 @@ const PostDetailView = () => {
         }
         const response = await axios.get(`${localURL}/api/post/view`, params);
         return response;
-        
+
     }, {
         onSuccess: (response) => {
             setPostDetail(response.data[0]);
@@ -68,7 +68,7 @@ const PostDetailView = () => {
     if (postDetailView.isLoading) {
         <div>불러오는 중...</div>
     }
-
+    console.log(postDetail)
     return (
         <>
             <HeaderUI onClick={menuClickHandle} />

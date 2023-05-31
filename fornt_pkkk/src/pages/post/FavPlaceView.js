@@ -22,6 +22,9 @@ const FavPlaceView = () => {
     });
 
     console.log(favPlaceList)
+    if (searchFavPlaceList.isLoading) {
+        <div>불러오는 중...</div>
+    }
 
     return (
         <>

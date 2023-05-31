@@ -40,9 +40,11 @@ const FavPlaceUI = ({ favPlace }) => {
             alert("로그인 후 사용해주세요.");
         }
     }, {
-        onSuccess: () => {
-            setLocationFavState(false);
-            alert(`${favPlace.locName}을(를) 즐겨찾기에서 삭제했습니다.`);
+        onSuccess: (response) => {
+            if (response.status === 200) {
+                setLocationFavState(false);
+                alert(`${favPlace.locName}을(를) 즐겨찾기에서 삭제했습니다.`);
+            }
         }
     });
 

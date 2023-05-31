@@ -121,9 +121,11 @@ const PostUI = ({ post, onClick }) => {
             alert("로그인 후 사용해주세요.");
         }
     }, {
-        onSuccess: () => {
-            setPostFavState(true);
-            alert(`즐겨찾기에서 저장했습니다.`);
+        onSuccess: (response) => {
+            if (response.status === 200) {
+                setPostFavState(true);
+                alert(`즐겨찾기에서 저장했습니다.`);
+            }
         }
     });
 
@@ -132,15 +134,17 @@ const PostUI = ({ post, onClick }) => {
             "elementId": post.userPostFavId
         }
         try {
-            const response = await axiosInstance.delete(`/api/user/favorite/post/undo`, {data: data});
+            const response = await axiosInstance.delete(`/api/user/favorite/post/undo`, { data: data });
             return response;
         } catch {
             alert("로그인 후 사용해주세요.");
         }
     }, {
-        onSuccess: () => {
-            setPostFavState(false);
-            alert(`즐겨찾기에서 삭제했습니다.`);
+        onSuccess: (response) => {
+            if (response.status === 200) {
+                setPostFavState(false);
+                alert(`즐겨찾기에서 삭제했습니다.`);
+            }
         }
     });
 
@@ -156,9 +160,11 @@ const PostUI = ({ post, onClick }) => {
             alert("로그인 후 사용해주세요.");
         }
     }, {
-        onSuccess: () => {
-            setLocationFavState(true);
-            alert(`${post.locName}을(를) 즐겨찾기에 저장했습니다.`);
+        onSuccess: (response) => {
+            if (response.status === 200) {
+                setLocationFavState(true);
+                alert(`${post.locName}을(를) 즐겨찾기에 저장했습니다.`);
+            }
         }
     });
 
@@ -167,15 +173,17 @@ const PostUI = ({ post, onClick }) => {
             "elementId": post.userLocFavId
         }
         try {
-            const response = await axiosInstance.delete(`/api/user/favorite/loc/undo`, {data: data});
+            const response = await axiosInstance.delete(`/api/user/favorite/loc/undo`, { data: data });
             return response;
         } catch {
             alert("로그인 후 사용해주세요.");
         }
     }, {
-        onSuccess: () => {
-            setLocationFavState(false);
-            alert(`${post.locName}을(를) 즐겨찾기에서 삭제했습니다.`);
+        onSuccess: (response) => {
+            if (response.status === 200) {
+                setLocationFavState(false);
+                alert(`${post.locName}을(를) 즐겨찾기에서 삭제했습니다.`);
+            }
         }
     });
 
@@ -191,9 +199,11 @@ const PostUI = ({ post, onClick }) => {
             alert("로그인 후 사용해주세요.");
         }
     }, {
-        onSuccess: () => {
-            setSubState(true);
-            alert(`${post.name}님을 팔로우 합니다.`);
+        onSuccess: (response) => {
+            if (response.status === 200) {
+                setSubState(true);
+                alert(`${post.name}님을 팔로우 합니다.`);
+            }
         }
     });
 
@@ -202,15 +212,17 @@ const PostUI = ({ post, onClick }) => {
             "elementId": post.userSubId
         }
         try {
-            const response = await axiosInstance.delete(`/api/user/subscribe/unSub`, {data: data});
+            const response = await axiosInstance.delete(`/api/user/subscribe/unSub`, { data: data });
             return response;
         } catch {
             alert("로그인 후 사용해주세요.");
         }
     }, {
-        onSuccess: () => {
-            setSubState(false);
-            alert(`${post.name}님을 언팔로우 했습니다.`);
+        onSuccess: (response) => {
+            if (response.status === 200) {
+                setSubState(false);
+                alert(`${post.name}님을 언팔로우 했습니다.`);
+            }
         }
     });
 

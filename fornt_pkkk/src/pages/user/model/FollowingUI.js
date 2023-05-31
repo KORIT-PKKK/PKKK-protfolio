@@ -21,17 +21,21 @@ const FollowingUI = () => {
         }
     });
 
+    if (searchFollowingList.isLoading) {
+        <div>불러오는 중...</div>
+    }
+
     return (
         <>
             <div css={S.container}>
                 <h1 css={S.title}>나의 팔로우</h1>
                 {followingList.map(following => (
-                        <div css={S.userBox}>
-                            <div css={S.photoBox}></div>
-                            <div css={S.username}>{following.name}</div>
-                            <button css={S.stateButton}>X 팔로우 취소</button>
-                        </div>
-                    )
+                    <div css={S.userBox}>
+                        <div css={S.photoBox}></div>
+                        <div css={S.username}>{following.name}</div>
+                        <button css={S.stateButton}>X 팔로우 취소</button>
+                    </div>
+                )
                 )}
             </div>
         </>

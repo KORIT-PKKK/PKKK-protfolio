@@ -66,14 +66,19 @@ const UserUpdateView = () => {
             alert("업데이트 실패하였습니다.");
         }
     }, {
-        onSuccess: () => {
-            alert("업데이트 성공하였습니다.")
-
+        onSuccess: (response) => {
+            if (response.status === 200) {
+                alert("업데이트 성공하였습니다.")
+            }
         }
     });
 
     const updateUserInfoClick = () => {
         updateUserInfo.mutate()
+    }
+
+    if (searchUserInfo.isLoading) {
+        <div>불러오는 중...</div>
     }
 
     console.log(userUpdate)

@@ -10,7 +10,7 @@ const PlaceUI = ({ locDetail }) => {
     const rtk = Cookies.get("refreshToken");
     const authState = rtk !== undefined;
     const [locationFavState, setLocationFavState] = useState(false);
-    
+
     useEffect(() => {
         const userLocFavId = locDetail.userLocFavId;
 
@@ -33,9 +33,11 @@ const PlaceUI = ({ locDetail }) => {
             alert("로그인 후 사용해주세요.");
         }
     }, {
-        onSuccess: () => {
-            setLocationFavState(true);
-            alert(`${locDetail.locName}을(를) 즐겨찾기에 저장했습니다.`);
+        onSuccess: (response) => {
+            if (response.status === 200) {
+                setLocationFavState(true);
+                alert(`${locDetail.locName}을(를) 즐겨찾기에 저장했습니다.`);
+            }
         }
     });
 
@@ -44,15 +46,17 @@ const PlaceUI = ({ locDetail }) => {
             "elementId": locDetail.userLocFavId
         }
         try {
-            const response = await axiosInstance.delete(`/api/user/favorite/loc/undo`, {data: data});
+            const response = await axiosInstance.delete(`/api/user/favorite/loc/undo`, { data: data });
             return response;
         } catch {
             alert("로그인 후 사용해주세요.");
         }
     }, {
-        onSuccess: () => {
-            setLocationFavState(false);
-            alert(`${locDetail.locName}을(를) 즐겨찾기에서 삭제했습니다.`);
+        onSuccess: (response) => {
+            if (response.status === 200) {
+                setLocationFavState(false);
+                alert(`${locDetail.locName}을(를) 즐겨찾기에서 삭제했습니다.`);
+            }
         }
     });
 
@@ -82,16 +86,16 @@ const PlaceUI = ({ locDetail }) => {
                                 <div css={S.save}>저장</div>
                             </button>
                         )
-                    ): <></>}
-                    
+                    ) : <></>}
+
                 </div>
                 {(locDetail.evalScore === null) ?
                     <>
                         <div css={S.locationDetailContainer}>
                             <div css={S.score}>아직 평점이 없어요.</div>
                         </div>
-                    </> 
-                : 
+                    </>
+                    :
                     <>
                         <div css={S.locationDetailContainer}>
                             <div css={S.score}>평점: {locDetail.evalScore}</div>

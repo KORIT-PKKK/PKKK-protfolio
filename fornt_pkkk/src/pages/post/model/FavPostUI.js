@@ -116,15 +116,17 @@ const FavPostUI = ({ favPost }) => {
             "elementId": favPost.userPostFavId
         }
         try {
-            const response = await axiosInstance.delete(`/api/user/favorite/post/undo`, { data: data});
+            const response = await axiosInstance.delete(`/api/user/favorite/post/undo`, { data: data });
             return response;
         } catch {
             alert("로그인 후 사용해주세요.");
         }
     }, {
-        onSuccess: () => {
-            setPostFavState(false);
-            alert(`즐겨찾기에서 삭제했습니다.`);
+        onSuccess: (response) => {
+            if (response.status === 200) {
+                setPostFavState(false);
+                alert(`즐겨찾기에서 삭제했습니다.`);
+            }
         }
     });
 
@@ -140,9 +142,11 @@ const FavPostUI = ({ favPost }) => {
             alert("로그인 후 사용해주세요.");
         }
     }, {
-        onSuccess: () => {
-            setLocationFavState(true);
-            alert(`${favPost.locName}을(를) 즐겨찾기에 저장했습니다.`);
+        onSuccess: (response) => {
+            if (response.status === 200) {
+                setLocationFavState(true);
+                alert(`${favPost.locName}을(를) 즐겨찾기에 저장했습니다.`);
+            }
         }
     });
 
@@ -157,9 +161,11 @@ const FavPostUI = ({ favPost }) => {
             alert("로그인 후 사용해주세요.");
         }
     }, {
-        onSuccess: () => {
-            setLocationFavState(false);
-            alert(`${favPost.locName}을(를) 즐겨찾기에서 삭제했습니다.`);
+        onSuccess: (response) => {
+            if (response.status === 200) {
+                setLocationFavState(false);
+                alert(`${favPost.locName}을(를) 즐겨찾기에서 삭제했습니다.`);
+            }
         }
     });
 
@@ -175,9 +181,11 @@ const FavPostUI = ({ favPost }) => {
             alert("로그인 후 사용해주세요.");
         }
     }, {
-        onSuccess: () => {
-            setSubState(true);
-            alert(`${favPost.name}님을 팔로우 합니다.`);
+        onSuccess: (response) => {
+            if (response.status === 200) {
+                setSubState(true);
+                alert(`${favPost.name}님을 팔로우 합니다.`);
+            }
         }
     });
 
@@ -194,9 +202,11 @@ const FavPostUI = ({ favPost }) => {
             alert("로그인 후 사용해주세요!");
         }
     }, {
-        onSuccess: () => {
-            setSubState(false);
-            alert(`${favPost.name}님을 언팔로우 했습니다.`);
+        onSuccess: (response) => {
+            if (response.status === 200) {
+                setSubState(false);
+                alert(`${favPost.name}님을 언팔로우 했습니다.`);
+            }
         }
     });
 

@@ -23,6 +23,10 @@ const FavPostView = () => {
 
     console.log(favPostList)
 
+    if (searchFavPostList.isLoading) {
+        <div>불러오는 중...</div>
+    }
+
     return (
         <>
             {favPostList.map(favPost => (<FavPostUI favPost={favPost} key={favPost.postId} />))}

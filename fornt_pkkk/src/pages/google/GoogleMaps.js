@@ -58,10 +58,6 @@ const GoogleMaps = () => {
     navigate('/postAddView', { state: { locId: selectedMarker.locId } });
   }
 
-  const backClickHandle = () => {
-    navigate("/");
-  }
-
   const searchLocationList = useQuery(["searchLocationList"], async () => {
 
     const userId = Cookies.get("userId");
@@ -75,36 +71,40 @@ const GoogleMaps = () => {
 
   const addLocationFav = useMutation(async () => {
     const data = {
-        "username": Cookies.get("username"),
-        "elementId": selectedMarker.locId
+      "username": Cookies.get("username"),
+      "elementId": selectedMarker.locId
     }
     try {
-        const response = await axiosInstance.post(`/api/user/favorite/loc/add`, data);
-        return response;
+      const response = await axiosInstance.post(`/api/user/favorite/loc/add`, data);
+      return response;
     } catch {
-        alert("로그인 후 사용해주세요.");
+      alert("로그인 후 사용해주세요.");
     }
   }, {
-    onSuccess: () => {
+    onSuccess: (response) => {
+      if (response.status === 200) {
         setLocationFavState(true);
         alert(`${selectedMarker.locName}을(를) 즐겨찾기에 저장했습니다.`);
+      }
     }
   });
 
   const undoLocationFav = useMutation(async () => {
     const data = {
-        "elementId": selectedMarker.userLocFavId
+      "elementId": selectedMarker.userLocFavId
     }
     try {
-        const response = await axiosInstance.delete(`/api/user/favorite/loc/undo`, {data: data});
-        return response;
+      const response = await axiosInstance.delete(`/api/user/favorite/loc/undo`, { data: data });
+      return response;
     } catch {
-        alert("로그인 후 사용해주세요.");
+      alert("로그인 후 사용해주세요.");
     }
   }, {
-    onSuccess: () => {
+    onSuccess: (response) => {
+      if (response === 200) {
         setLocationFavState(false);
         alert(`${selectedMarker.locName}을(를) 즐겨찾기에서 삭제했습니다.`);
+      }
     }
   });
 
@@ -129,7 +129,7 @@ const GoogleMaps = () => {
             key={location.locId}
             position={{ lat: location.lat, lng: location.lng }}
             icon={{
-              url:`http://maps.google.com/mapfiles/ms/icons/red-dot.png`,
+              url: `http://maps.google.com/mapfiles/ms/icons/red-dot.png`,
               scaledSize: new window.google.maps.Size(32, 32)
             }}
             onClick={(e) => {
@@ -142,11 +142,11 @@ const GoogleMaps = () => {
                 evalScore: location.evalScore
               });
               const userLocFavId = location.userLocFavId;
-                if (userLocFavId === null) {
-                  setLocationFavState(false);
-                } else {
-                  setLocationFavState(true);
-                }
+              if (userLocFavId === null) {
+                setLocationFavState(false);
+              } else {
+                setLocationFavState(true);
+              }
             }}
             title={location.locName} />
         ))}
@@ -161,8 +161,8 @@ const GoogleMaps = () => {
             <div css={S.placeInfo}>
               <h1 css={S.title}>{selectedMarker.title}</h1>
               {(selectedMarker.evalScore === null)
-              ? <h1>평점: {selectedMarker.evalScore}</h1>
-              : <h1>아직 평점이 없어요.</h1>}
+                ? <h1>아직 평점이 없어요.</h1>
+                : <h1>평점: {selectedMarker.evalScore}</h1>}
               {authState ? (
                 locationFavState ? (
                   <div onClick={() => undoLocationFav.mutate()} css={S.unSave}>

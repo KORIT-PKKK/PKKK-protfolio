@@ -20,7 +20,11 @@ const FollowerUI = () => {
             setFollowerList(response.data)
         }
     });
-    
+
+    if (searchFollowerList.isLoading) {
+        <div>불러오는 중...</div>
+    }
+
     return (
         <>
             <div css={S.container}>
@@ -29,7 +33,7 @@ const FollowerUI = () => {
                     <div css={S.userBox}>
                         <div css={S.photoBox}></div>
                         <div css={S.username}>{follower.name}</div>
-                        <button css={S.stateButton}><BiUser/>팔로우</button>
+                        <button css={S.stateButton}><BiUser />팔로우</button>
                     </div>
                 ))}
             </div>

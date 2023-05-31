@@ -84,7 +84,6 @@ const PostAddView = () => {
         setImageUrls(urlList);
     };
 
-
     const handleRatingChange = (score) => {
         if (score < 0) {
             setEvalScore(0);

@@ -20,7 +20,7 @@ const OtherUserView = () => {
 
 
     const userPostOverView = useQuery(["userPostOverView"], async () => {
-        
+
         if (rtk === undefined) {
             const params = {
                 params: {
@@ -41,7 +41,7 @@ const OtherUserView = () => {
         const response = await axios.get(`${localURL}/api/post/user`, params)
         return response;
 
-        
+
     }, {
         onSuccess: (response) => {
             setUserPosts(response.data);
@@ -52,6 +52,10 @@ const OtherUserView = () => {
 
     const menuClickHandle = (path) => {
         navigate(path);
+    }
+
+    if (userPostOverView.isLoading) {
+        <div>불러오는 중...</div>
     }
 
     return (

@@ -66,10 +66,14 @@ const LocationOverView = () => {
         <div>불러오는 중...</div>
     }
 
+    if (searchLocDetail.isLoading) {
+        <div>불러오는 중...</div>
+    }
+
     return (
         <>
             <HeaderUI onClick={menuClickHandle} />
-            <PlaceUI locDetail={locDetail}/>
+            <PlaceUI locDetail={locDetail} />
             {locationPosts.map((locationPost, index) => (
                 <PostDetailUI key={index} locationPost={locationPost} />
             ))}

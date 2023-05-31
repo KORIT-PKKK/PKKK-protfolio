@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 
 const RatingUI = ({ onRatingChange }) => {
   const [starCount, setStarCount] = useState(0);
-  
   const [isHalfOver, setIsHalfOver] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
 

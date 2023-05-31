@@ -14,6 +14,7 @@ import OtherUserView from './pages/otherUser/OtherUserView';
 import PostDetailView from './pages/postDetail/PostDetailView';
 import LocationOverView from './pages/location/LocationOverView';
 import ChangePasswordView from './pages/auths/ChangePasswordView';
+import PostUpdateView from './pages/post/PostUpdateView';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path='/userUpdate' element={<SignInRoute path='/userUpdate' element={<UserUpdateView />} />} />
         <Route path='/follow/*' element={<FollowView />} />
         <Route path='/postAddView' element={<SignInRoute path='/postAddView' element={<PostAddView />} />} />
+        <Route path='/postUpdateView' element={<SignInRoute path='/postUpdateView' element={<PostUpdateView />} />} />
         <Route path='/otherUser' element={<OtherUserView />} />
         <Route path='/postDetail' element={<PostDetailView />} />
         <Route path='/locationDetail' element={<LocationOverView />} />

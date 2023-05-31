@@ -21,7 +21,7 @@ import GoogleMaps from './google/GoogleMaps';
 
 const MainView = () => {
     const navigate = useNavigate();
-    const authRequiredPath = ["/userSetting", "/userUpdate", "/postAddView"];
+    const authRequiredPath = ["/userSetting", "/userUpdate", "/postAddView", "/postUpdateView"];
     const authPath = "/auth";
     const rtk = Cookies.get("refreshToken");
     const [selectPath, setSelectPath] = useRecoilState(pathState);
@@ -117,15 +117,15 @@ const MainView = () => {
                     ) : authState ? (
                         <>
                             <UserOutLineUI currentUserId={userId} onClick={selectClickHandle} />
-                            <ButtonUI onClick={selectClickHandle}/>
+                            <ButtonUI onClick={selectClickHandle} />
                         </>
                     ) : (
                         <>
                             <RequestLoginUI onClick={menuClickHandle} />
-                            <ButtonUI onClick={moveLogin}/>
+                            <ButtonUI onClick={moveLogin} />
                         </>
                     )}
-                    
+
                     <TabsUI onClick={selectClickHandle} selectPath={selectPath} />
                 </div>
             </header >

@@ -95,9 +95,11 @@ const TimelineUI = ({ timeLine }) => {
             alert("로그인 후 사용해주세요.");
         }
     }, {
-        onSuccess: () => {
-            setLocationFavState(true);
-            alert(`${timeLine.locName}을(를) 즐겨찾기에 저장했습니다.`);
+        onSuccess: (response) => {
+            if (response.status === 200) {
+                setLocationFavState(true);
+                alert(`${timeLine.locName}을(를) 즐겨찾기에 저장했습니다.`);
+            }
         }
     });
 
@@ -112,9 +114,11 @@ const TimelineUI = ({ timeLine }) => {
             alert("로그인 후 사용해주세요.");
         }
     }, {
-        onSuccess: () => {
-            setLocationFavState(false);
-            alert(`${timeLine.locName}을(를) 즐겨찾기에서 삭제했습니다.`);
+        onSuccess: (response) => {
+            if (response.status === 200) {
+                setLocationFavState(false);
+                alert(`${timeLine.locName}을(를) 즐겨찾기에서 삭제했습니다.`);
+            }
         }
     });
 
@@ -130,9 +134,11 @@ const TimelineUI = ({ timeLine }) => {
             alert("로그인 후 사용해주세요.");
         }
     }, {
-        onSuccess: () => {
-            deleteFiles();
-            alert(`게시글이 삭제되었습니다!`)
+        onSuccess: (response) => {
+            if (response.status === 200) {
+                deleteFiles();
+                alert(`게시글이 삭제되었습니다!`)
+            }
         }
     })
 
@@ -140,7 +146,7 @@ const TimelineUI = ({ timeLine }) => {
         for (const url of imageUrls) {
             // URL에서 파일의 경로 추출
             const path = decodeURIComponent(url.split("?")[0].split("/o/")[1]);
-        
+
             // 파일 삭제
             const fileRef = ref(storage, path);
             try {
@@ -164,14 +170,18 @@ const TimelineUI = ({ timeLine }) => {
         deletePost.mutate();
     }
 
+    const modifyButtonHandle = () => {
+        navigate('/postUpdateView', { state: { postId: timeLine.postId } });
+    }
+
     return (
         <>
             <div css={S.feed}>
                 <header css={S.header}>
                     <div css={S.date}>{formattedDate}</div>
                     <div css={S.iconContainer}>
-                        <BsPencilSquare css={S.icon} />
-                        <BsFillTrashFill css={S.icon} onClick={deleteSubmitHandle}/>
+                        <BsPencilSquare css={S.icon} onClick={modifyButtonHandle} />
+                        <BsFillTrashFill css={S.icon} onClick={deleteSubmitHandle} />
                     </div>
                 </header >
                 <main css={mainSetting(imageUrls.length)} onClick={showPostDetail}>
