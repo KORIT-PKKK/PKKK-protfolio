@@ -24,7 +24,7 @@ const PhotoCardUI = ({ url, onClick }) => {
       <img src={url} alt="" css={S.photo} />
       {hovered && (
         <div css={S.overlay} >
-          <BiXCircle size="75" color="red" css={S.removeBtn} onClick={onClick} />
+          <BiXCircle size="75" color="red" css={S.removeBtn} onClick={onClick}/>
         </div>
       )}
       {/* <div css={S.photoBox}>
